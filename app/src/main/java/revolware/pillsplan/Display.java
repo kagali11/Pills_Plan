@@ -2,6 +2,7 @@ package revolware.pillsplan;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 
@@ -10,15 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -29,11 +26,13 @@ import java.io.InputStreamReader;
  * Created by Jakub on 25.02.2016.
  */
 public class Display extends Activity {
-    public EditText editText;
+    public EditText editText,editText2,editText3,editText4,editText5;
+    TextView tw1;
     public TextView textView;
     public Button save, load;
-
     public String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/ aTutorial";
+    public final static String MESSAGE_KEY = "revolware.pillsplan.message_key";
+    public final static String MESSAGE_KEYS = "revolware.pillsplans.message_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,114 +41,51 @@ public class Display extends Activity {
 
         TextView text = (TextView) findViewById(R.id.tView1);
         editText = (EditText) findViewById(R.id.editText);
-        textView = (TextView) findViewById(R.id.textView);
-        save = (Button) findViewById(R.id.Save);
-        load = (Button) findViewById(R.id.load);
+        editText2 = (EditText) findViewById(R.id.editText2);
+        editText3 = (EditText) findViewById(R.id.editText3);
+        editText4 = (EditText) findViewById(R.id.editText4);
+        editText5 = (EditText) findViewById(R.id.editText5);
+        tw1 = (TextView) findViewById(R.id.textView);
 
-        File dir = new File(path);
-        try {
-            dir.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        dir.mkdirs();
 
     }
 
-    public void buttonSave(View view,Context context) {
-        File file = new File(path + "/savedFile.txt");
-        String[] saveText = String.valueOf(editText.getText()).split(System.getProperty("line.separator"));
+        public void buttonAdd(View v)
+        {
+            String message ="Medicine: \t\t\t" + editText.getText().toString() + "\n" +
+                    "Number of Pills: \t" + editText2.getText().toString()+ "Pill/s" + "\n" +
+                    "Beginning Date: \t" + editText3.getText().toString() + "\n" +
+                    "Frequency: \t\t\t"+ editText4.getText().toString() + "hours" + "\n" +
+                    "Doctors Name: \t\t" +"Dr. " + editText5.getText().toString() + "\n" ;
 
-        editText.setText("");
+            String info = editText.getText().toString();
+            String info2 = editText2.getText().toString();
+            String info3 = editText.getText().toString();
+            String info4 = editText2.getText().toString();
+            String info5 = editText.getText().toString();
 
-        Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
 
-        Save(file, saveText);
-    }
-
-    public void buttonLoad(View view, Context context) {
-        File file = new File(path + "/savedFile.txt");
-        String[] loadText = Load(file);
-
-        String finalString = "";
-
-        for (int i = 0; i < loadText.length; i++) {
-            finalString += loadText[i] + System.getProperty("line.separator");
-        }
-
-        textView.setText(finalString);
-
-    }
-
-    public static void Save(File file, String[] data) {
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            try {
-                for (int i = 0; i < data.length; i++) {
-                    fos.write(data[i].getBytes());
-                    if (i < data.length - 1) {
-                        fos.write("\n".getBytes());
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            if((editText.getText().toString()).equals("")  ||
+                    (editText2.getText().toString()).equals("") ||
+                    (editText3.getText().toString()).equals("") ||
+                    (editText4.getText().toString()).equals("") ||
+                    (editText5.getText().toString()).equals(""))
+            {
+                Toast.makeText(getApplicationContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
             }
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            else{
+                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(Display.this, MainActivity.class);
+                i.putExtra("data", message);
+                i.putExtra("info", info);
+                i.putExtra("info2", info2);
+                i.putExtra("info3", info3);
+                i.putExtra("info4", info4);
+                i.putExtra("info5", info5);
+                startActivity(i);
+                finish();
             }
         }
-    }
-
-
-    public static String[] Load(File file) {
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        InputStreamReader isr = new InputStreamReader(fis);
-        BufferedReader br = new BufferedReader(isr);
-
-        String test;
-        int anzahl = 0;
-        try {
-            while ((test = br.readLine()) != null) {
-                anzahl++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            fis.getChannel().position(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String[] array = new String[anzahl];
-
-        String line;
-        int i = 0;
-        try {
-            while ((line = br.readLine()) != null) {
-                array[i] = line;
-                i++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return array;
-    }
-
 
 }
 

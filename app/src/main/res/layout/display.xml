@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#d5e3f7">
 
     <EditText
         android:layout_width="fill_parent"
@@ -24,37 +25,75 @@
         android:layout_gravity="top"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:elegantTextHeight="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add"
+        android:id="@+id/buttonAdd"
+        android:onClick="buttonAdd"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="53dp"
+        android:layout_marginEnd="53dp"
+        android:background="#19afef" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
         android:id="@+id/textView"
-        android:layout_below="@+id/Save"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="101dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LOAD"
-        android:id="@+id/Load"
-        android:layout_alignTop="@+id/Save"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="buttonLoad" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SAVE"
-        android:id="@+id/Save"
-        android:layout_marginTop="45dp"
-        android:layout_below="@+id/editText"
+        android:layout_marginTop="99dp"
+        android:layout_below="@+id/editText5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="buttonSave" />
+        android:layout_marginLeft="53dp"
+        android:layout_marginStart="53dp" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:hint="Number of pills in package"
+        android:inputType="number"
+        android:layout_gravity="top"
+        android:editable="true"
+        android:layout_below="@+id/editText"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText3"
+        android:hint="Beginning date"
+        android:inputType="date"
+        android:layout_gravity="top"
+        android:editable="true"
+        android:layout_below="@+id/editText2"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText4"
+        android:hint="Frequency(hours)"
+        android:inputType="number"
+        android:layout_gravity="top"
+        android:editable="true"
+        android:layout_below="@+id/editText3"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText5"
+        android:hint="Doctors&apos;s name"
+        android:layout_gravity="top"
+        android:editable="true"
+        android:layout_below="@+id/editText4"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

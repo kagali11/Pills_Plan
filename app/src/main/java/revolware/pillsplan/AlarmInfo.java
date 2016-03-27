@@ -50,6 +50,6 @@ public class AlarmInfo {
     //overrides toString() method so it will display itemCode and shelfLife
     public String toString()
     {
-        return medicine + " " + nPills + " " + date + " " + frequency + " " + name + " ";
+        return medicine + "\n" + nPills + "\n" + date + "\n" + frequency + "\n" + name + "\n";
     }
 }
