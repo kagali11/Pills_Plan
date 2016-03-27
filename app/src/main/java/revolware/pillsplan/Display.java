@@ -52,10 +52,10 @@ public class Display extends Activity {
 
         public void buttonAdd(View v)
         {
-            String message ="Medicine: \t\t\t" + editText.getText().toString() + "\n" +
+            String message ="Medicine: \t\t\t\t\t" + editText.getText().toString() + "\n" +
                     "Number of Pills: \t" + editText2.getText().toString()+ "Pill/s" + "\n" +
                     "Beginning Date: \t" + editText3.getText().toString() + "\n" +
-                    "Frequency: \t\t\t"+ editText4.getText().toString() + "hours" + "\n" +
+                    "Frequency: \t\t\t\t"+ editText4.getText().toString() + "hours" + "\n" +
                     "Doctors Name: \t\t" +"Dr. " + editText5.getText().toString() + "\n" ;
 
             String info = editText.getText().toString();
