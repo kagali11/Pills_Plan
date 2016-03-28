@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 
+    /*MARTIN SKUSKA*/
     TextView tw1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
