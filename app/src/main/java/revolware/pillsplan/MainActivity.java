@@ -3,6 +3,7 @@ package revolware.pillsplan;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 
-    /*MARTIN SKUSKA*/
     TextView tw1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity{
 
             objDonateTextView.setText(list.get(i));
             objDonateTextView.setId(i);
-            objDonateTextView.setTypeface(null, Typeface.BOLD);
+            objDonateTextView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
             objDonateTextView.setTextColor(0xFF000000);
 
             lL.addView(objDonateTextView);
@@ -155,7 +155,6 @@ public class MainActivity extends AppCompatActivity{
         return file.exists();
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -163,19 +162,14 @@ public class MainActivity extends AppCompatActivity{
         return true;
     }
 
-
-    public void onButtonClick(View v) {
+    /*public void onButtonClick(View v) {
         if(v.getId() == R.id.Bdisplay)
         {
             Intent i = new Intent(MainActivity.this, Display.class);
             startActivity(i);
 
         }
-
-        }
-
-
-
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -184,11 +178,29 @@ public class MainActivity extends AppCompatActivity{
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if (id == R.id.Bdisplay) {
+            Intent i = new Intent(MainActivity.this, Display.class);
+            startActivity(i);
+        }
+
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.revolware.com"));
+            startActivity(browserIntent);
             return true;
         }
 
+        if (id == R.id.action_feedback) {
+            String mailto = "info@revolware.com";
+            String subject = "PillsPlan feedback";
+
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.putExtra(Intent.EXTRA_EMAIL, new String[]{ mailto});
+            email.putExtra(Intent.EXTRA_SUBJECT, subject);
+            email.setType("message/rfc822");
+            startActivity(Intent.createChooser(email, "Choose an Email client"));
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

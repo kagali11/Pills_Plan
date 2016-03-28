@@ -7,7 +7,6 @@
         android:icon="@drawable/ic_action_add"
         android:title="@string/action_add"
         app:showAsAction="ifRoom"
-        android:onClick="onButtonClick"
         android:orderInCategory="1"
         android:menuCategory="secondary"
         android:clickable="true"/>
@@ -22,3 +21,6 @@
         android:title="@string/action_about"
         app:showAsAction="never" />
 </menu>
+<!--
+ android:onClick="onButtonClick"
+-->
