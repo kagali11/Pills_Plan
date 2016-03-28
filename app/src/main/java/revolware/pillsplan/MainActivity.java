@@ -1,6 +1,8 @@
 package revolware.pillsplan;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity{
 
     TextView tw1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,10 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        TextView textViewTutorHeader = (TextView)findViewById(R.id.textViewTutorHeader);
+        textViewTutorHeader.setVisibility(View.INVISIBLE);
+        TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);
+        textViewTutorText.setVisibility(View.INVISIBLE);
 
     }
 
@@ -112,6 +118,29 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
 
+            else {
+                TextView textViewTutorHeader = (TextView)findViewById(R.id.textViewTutorHeader);
+                textViewTutorHeader.setVisibility(View.VISIBLE);
+                TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);
+                textViewTutorText.setVisibility(View.VISIBLE);
+
+               /* new AlertDialog.Builder(MainActivity.this) /* KEBY SME POTREBOVALI ALERT *
+                .setTitle("Tutorial")
+                .setMessage("relly?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                     // continue with delete
+                }
+            })
+            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // do nothing
+                }
+            })
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .show(); */
+
+            }
 
             try {
                  FileOutputStream fos = openFileOutput("file.txt", MODE_PRIVATE);
