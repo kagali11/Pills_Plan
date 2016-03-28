@@ -12,9 +12,9 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="revolware.pillsplan.MainActivity"
     tools:showIn="@layout/activity_main"
-    android:background="#d5e3f7">
+    android:background="#fff">
 
-    <Button
+    <!--<Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+"
@@ -24,17 +24,14 @@
         android:layout_alignParentEnd="true"
         android:onClick="onButtonClick"
         android:clickable="true"
-        android:background="#19afef" />
+        android:background="#19afef" />-->
 
     <LinearLayout
         android:id="@+id/AlarmView"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_toStartOf="@+id/Bdisplay"
-        android:layout_toLeftOf="@+id/Bdisplay"
-        android:layout_alignRight="@+id/Bdisplay"
-        android:layout_alignEnd="@+id/Bdisplay"
-        android:layout_below="@+id/Bdisplay"></LinearLayout>
+        android:layout_height="match_parent">
+
+    </LinearLayout>
 
 </RelativeLayout>
