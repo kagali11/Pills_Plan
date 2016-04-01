@@ -4,6 +4,16 @@
     <string name="action_about">About</string>
     <string name="action_feedback">Feedback</string>
     <string name="action_add">Add</string>
+    <string name="textViewTutorText">Click on the plus button to add your pills.</string>
+    <string name="textViewTutorHeader">LET&apos;S START!</string>
+    <string name="tView1">Please add alarm</string>
+    <string name="textView2">Select Start Time</string>
+    <string name="tView1Hint">Medicine</string>
+    <string name="buttonAdd">Add</string>
+    <string name="editText2">Number of pills in package</string>
+    <string name="editText3">Beginning date</string>
+    <string name="editText4">Frequency(hours)</string>
+    <string name="editText5">Doctors&apos;s name</string>
 
 
     <string-array name="hours">
