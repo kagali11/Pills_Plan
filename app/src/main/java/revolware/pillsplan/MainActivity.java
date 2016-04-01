@@ -45,36 +45,38 @@ public class MainActivity extends AppCompatActivity{
         TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);
         textViewTutorText.setVisibility(View.INVISIBLE);
 
-    }
 
-
-    @Override
-     protected void onStart(){
-        super.onStart();
         Intent intent = getIntent();
         String message = "";
         String info,info2,info3,info4,info5;
 
+        if(intent.getStringExtra("key") == null)
+            {intent.putExtra("key", "true");}
+
+
         ArrayList<String> list = new ArrayList<String>();
         ArrayList<AlarmInfo> map = new ArrayList<AlarmInfo>();
 
-        if(intent.getStringExtra("info") != null)
-        {       // getting Input from second Activity
-            info = intent.getStringExtra("info");
-            info2 = intent.getStringExtra("info2");
-            info3 = intent.getStringExtra("info3");
-            info4 = intent.getStringExtra("info4");
-            info5 = intent.getStringExtra("info5");
-            AlarmInfo inf = new AlarmInfo(info,info2,info3,info4,info5);
+        if(intent.getStringExtra("key").equals("false") )
+        {
+            if(intent.getStringExtra("info") != null)
+            {       // getting Input from second Activity
+                info = intent.getStringExtra("info");
+                info2 = intent.getStringExtra("info2");
+                info3 = intent.getStringExtra("info3");
+                info4 = intent.getStringExtra("info4");
+                info5 = intent.getStringExtra("info5");
+                AlarmInfo inf = new AlarmInfo(info,info2,info3,info4,info5);
 
-            map.add(inf);
-        }
+                map.add(inf);
+            }
 
-        if(intent.getStringExtra("data") != null)
-        {       // getting Input from second Activity
-           message = intent.getStringExtra("data");
-           list.add(message);
-        }
+            if(intent.getStringExtra("data") != null)
+            {       // getting Input from second Activity
+                message = intent.getStringExtra("data");
+                list.add(message);
+
+            }
 
             if( fileExistance("file.txt") )
             {
@@ -104,9 +106,9 @@ public class MainActivity extends AppCompatActivity{
                     {
 
                         data2 =        bufferedReader1.readLine();
-                         data3 =        bufferedReader1.readLine();
-                         data4 =       bufferedReader1.readLine();
-                         data5 =        bufferedReader1.readLine();
+                        data3 =        bufferedReader1.readLine();
+                        data4 =       bufferedReader1.readLine();
+                        data5 =        bufferedReader1.readLine();
 
                         map.add(new AlarmInfo(data,data2,data3,data4,data5));
                     }
@@ -119,9 +121,9 @@ public class MainActivity extends AppCompatActivity{
             }
 
             else {
-                TextView textViewTutorHeader = (TextView)findViewById(R.id.textViewTutorHeader);
+            //    TextView textViewTutorHeader = (TextView)findViewById(R.id.textViewTutorHeader);
                 textViewTutorHeader.setVisibility(View.VISIBLE);
-                TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);
+              //  TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);
                 textViewTutorText.setVisibility(View.VISIBLE);
 
                /* new AlertDialog.Builder(MainActivity.this) /* KEBY SME POTREBOVALI ALERT *
@@ -143,39 +145,152 @@ public class MainActivity extends AppCompatActivity{
             }
 
             try {
-                 FileOutputStream fos = openFileOutput("file.txt", MODE_PRIVATE);
+                FileOutputStream fos = openFileOutput("file.txt", MODE_PRIVATE);
                 FileOutputStream fos1 = openFileOutput("data.txt", MODE_PRIVATE);
 
-                 for(int i = 0; i < list.size(); i++)
+                for(int i = 0; i < list.size(); i++)
                     fos.write(list.get(i).getBytes());
                 for(int i = 0; i < map.size(); i++)
                     fos1.write(map.get(i).toString().getBytes());
 
-                 fos.close();
+                fos.close();
             } catch (IOException e) {
-                 e.printStackTrace();
+                e.printStackTrace();
+            }
+
+            // Create a linear layout to add new object as vertical
+            LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
+            lL.setOrientation(LinearLayout.VERTICAL);
+
+            for (int i=0;i < list.size();i++){
+
+                // Every time create new object of text view
+                TextView objDonateTextView = new TextView(this);
+
+                objDonateTextView.setText(list.get(i));
+                objDonateTextView.setId(i);
+                objDonateTextView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+                objDonateTextView.setTextColor(0xFF000000);
+
+                lL.addView(objDonateTextView);
+            }
+
+        }else{
+
+        intent.putExtra("key", "false");
+            if( fileExistance("file.txt") )
+            {
+                try {
+                    FileInputStream fis = openFileInput ("file.txt");
+                    InputStreamReader isr = new InputStreamReader(fis);
+                    BufferedReader bufferedReader = new BufferedReader(isr);
+                    String dt;
+
+                    FileInputStream fis1 = openFileInput ("data.txt");
+                    InputStreamReader isr1 = new InputStreamReader(fis1);
+                    BufferedReader bufferedReader1 = new BufferedReader(isr1);
+                    String data,data2,data3,data4,data5;
+
+
+                    while((dt = bufferedReader.readLine()) != null)     //Initializing String Objects for TextViews
+                    {
+                        dt =    dt + "\n" +
+                                bufferedReader.readLine()   + "\n" +
+                                bufferedReader.readLine()   + "\n" +
+                                bufferedReader.readLine()  + "\n" +
+                                bufferedReader.readLine()  + "\n";
+                        list.add(dt);
+                    }
+
+                    while((data = bufferedReader1.readLine()) != null)     //Initializing String Objects for data - AlarmInfo
+                    {
+
+                        data2 =        bufferedReader1.readLine();
+                        data3 =        bufferedReader1.readLine();
+                        data4 =       bufferedReader1.readLine();
+                        data5 =        bufferedReader1.readLine();
+
+                        map.add(new AlarmInfo(data,data2,data3,data4,data5));
+                    }
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            else {
+              //  TextView textViewTutorHeader = (TextView)findViewById(R.id.textViewTutorHeader);
+                textViewTutorHeader.setVisibility(View.VISIBLE);
+             //   TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);
+                textViewTutorText.setVisibility(View.VISIBLE);
+
+               /* new AlertDialog.Builder(MainActivity.this) /* KEBY SME POTREBOVALI ALERT *
+                .setTitle("Tutorial")
+                .setMessage("relly?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                     // continue with delete
+                }
+            })
+            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // do nothing
+                }
+            })
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .show(); */
+
+            }
+
+            try {
+                FileOutputStream fos = openFileOutput("file.txt", MODE_PRIVATE);
+                FileOutputStream fos1 = openFileOutput("data.txt", MODE_PRIVATE);
+
+                for(int i = 0; i < list.size(); i++)
+                    fos.write(list.get(i).getBytes());
+                for(int i = 0; i < map.size(); i++)
+                    fos1.write(map.get(i).toString().getBytes());
+
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
 
 
 
 
-        // Create a linear layout to add new object as vertical
-        LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
-        lL.setOrientation(LinearLayout.VERTICAL);
+            // Create a linear layout to add new object as vertical
+            LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
+            lL.setOrientation(LinearLayout.VERTICAL);
 
-        for (int i=0;i < list.size();i++){
+            for (int i=0;i < list.size();i++){
 
-            // Every time create new object of text view
-            TextView objDonateTextView = new TextView(this);
+                // Every time create new object of text view
+                TextView objDonateTextView = new TextView(this);
 
-            objDonateTextView.setText(list.get(i));
-            objDonateTextView.setId(i);
-            objDonateTextView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-            objDonateTextView.setTextColor(0xFF000000);
+                objDonateTextView.setText(list.get(i));
+                objDonateTextView.setId(i);
+                objDonateTextView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+                objDonateTextView.setTextColor(0xFF000000);
 
-            lL.addView(objDonateTextView);
+                lL.addView(objDonateTextView);
+            }
+
         }
+
+    } //ending oncreate
+
+
+    public void onBackPressed(){
+
+        finish();
+    }
+    @Override
+     protected void onStart(){
+        super.onStart();
 
     }
 
@@ -210,6 +325,7 @@ public class MainActivity extends AppCompatActivity{
         if (id == R.id.Bdisplay) {
             Intent i = new Intent(MainActivity.this, Display.class);
             startActivity(i);
+            finish();
         }
 
         //noinspection SimplifiableIfStatement
