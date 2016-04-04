@@ -14,6 +14,8 @@
     <string name="editText3">Beginning date</string>
     <string name="editText4">Frequency(hours)</string>
     <string name="editText5">Doctors&apos;s name</string>
+    <string name="OkButton">OK</string>
+    <string name="SnoozeButton">Snooze</string>
 
 
     <string-array name="hours">

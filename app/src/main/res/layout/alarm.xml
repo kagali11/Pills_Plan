@@ -3,4 +3,59 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ASPIRIN"
+        android:id="@+id/textView4"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80pt"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:textStyle="bold"
+        android:textSize="35dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="info info info info info info info info info inf info info info info info info info info info inf"
+        android:id="@+id/textView5"
+        android:layout_marginTop="0pt"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:textSize="15dp"
+        android:layout_gravity="center" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:layout_marginTop="100dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/OkButton"
+            android:id="@+id/OkButton"
+
+            android:weight="1"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="0.5"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/SnoozeButton"
+            android:id="@+id/SnoozeButton"
+            android:background="@color/silver"
+            android:textColor="@color/white"
+            android:weight="1"
+            android:layout_marginRight="50dp"
+            android:layout_weight="0.5" />
+
+    </LinearLayout>
 </LinearLayout>
