@@ -31,7 +31,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1"
+
         android:layout_marginTop="100dp">
 
         <Button
@@ -40,7 +40,7 @@
             android:text="@string/OkButton"
             android:id="@+id/OkButton"
 
-            android:weight="1"
+
             android:layout_marginLeft="50dp"
             android:layout_weight="0.5"
             android:background="@color/colorPrimary"
@@ -49,11 +49,10 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/SnoozeButton"
-            android:id="@+id/SnoozeButton"
+            android:text="@string/CancelButton"
+            android:id="@+id/CancelButton"
             android:background="@color/silver"
             android:textColor="@color/white"
-            android:weight="1"
             android:layout_marginRight="50dp"
             android:layout_weight="0.5" />
 

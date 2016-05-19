@@ -5,7 +5,7 @@
     <string name="action_feedback">Feedback</string>
     <string name="action_add">Add</string>
     <string name="textViewTutorText">Click on the plus button to add your pills.</string>
-    <string name="textViewTutorHeader">LET&apos;S START!</string>
+    <string name="textViewTutorHeader">LET\'S START!</string>
     <string name="tView1">Please add alarm</string>
     <string name="textView2">Select Start Time</string>
     <string name="tView1Hint">Medicine</string>
@@ -13,9 +13,14 @@
     <string name="editText2">Number of pills in package</string>
     <string name="editText3">Beginning date</string>
     <string name="editText4">Frequency(hours)</string>
-    <string name="editText5">Doctors&apos;s name</string>
+
+    <string name="editText5">Doctors\'s name</string>
     <string name="OkButton">OK</string>
-    <string name="SnoozeButton">Snooze</string>
+    <string name="CancelButton">Cancel all</string>
+
+
+    <string name="numValue">0</string>
+
 
 
     <string-array name="hours">
@@ -107,5 +112,6 @@
         <item>58</item>
         <item>59</item>
     </string-array>
+    <string name="title_activity_alarm">AlarmActivity</string>
 
 </resources>

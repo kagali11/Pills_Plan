@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 
@@ -42,7 +43,7 @@ public class Display extends Activity  {
     Context context;
     int hour,minute;
     String sMinute;
-    PendingIntent pending_Intent;
+
 
     public TextView textView;
     public Button save, load;
@@ -102,8 +103,7 @@ public class Display extends Activity  {
                 //intent.putExtra("timeHour",parent.getItemIdAtPosition(position));
                 calendar.set(calendar.HOUR_OF_DAY,(int) parent.getItemIdAtPosition(position));
                 hour = (int) parent.getItemIdAtPosition(position);
-                if(parent.getItemIdAtPosition(position) != 0)
-                    Toast.makeText(getBaseContext(),parent.getItemIdAtPosition(position)  + " is selected", Toast.LENGTH_SHORT).show();
+
 
             }
 
@@ -129,8 +129,7 @@ public class Display extends Activity  {
                 {
                     sMinute = "0" + minute;
                 }
-                if(parent.getItemIdAtPosition(position) != 0)
-                    Toast.makeText(getBaseContext(),parent.getItemIdAtPosition(position) + " is selected", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -155,9 +154,9 @@ public class Display extends Activity  {
 
             String info = editText.getText().toString();
             String info2 = editText2.getText().toString();
-            String info3 = editText.getText().toString();
-            String info4 = editText2.getText().toString();
-            String info5 = editText.getText().toString();
+            String info3 = editText3.getText().toString();
+            String info4 = editText4.getText().toString();
+            String info5 = editText5.getText().toString();
 
 
             if((editText.getText().toString()).equals("")  ||
@@ -182,11 +181,43 @@ public class Display extends Activity  {
 
                 alarm_manager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
 
-                pending_Intent = PendingIntent.getBroadcast(Display.this,0, my_Intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+                PendingIntent pending_Intent;
+                // Restore preferences
+                SharedPreferences settings = getSharedPreferences("numOfAlarms", 0);
+                int num = settings.getInt("value", 0);
+
+
+                my_Intent.putExtra("medName",info);
+                my_Intent.putExtra("numPills",info2);
+                my_Intent.putExtra("freq",info4);
+                my_Intent.putExtra("docName",info5);
+                my_Intent.putExtra("alarmNum",num);
+                my_Intent.putExtra("alarmHour", calendar.getInstance().getTime().getHours());
+                my_Intent.putExtra("alarmMinutes", calendar.getInstance().getTime().getMinutes());
+
+
+                pending_Intent = PendingIntent.getBroadcast(Display.this, num, my_Intent, 0);
+
+                // We need an Editor object to make preference changes.
+                // All objects are from android.context.Context
+                settings = getSharedPreferences("numOfAlarms", 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putInt("value", num + 1);
+
+                // Commit the edits!
+                editor.commit();
+
+
+
+
+
 
                 //set the alarm manager
                 calendar.set(Calendar.SECOND, 0);
-                alarm_manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending_Intent);
+                alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*3600 * Integer.parseInt(editText4.getText().toString()), pending_Intent);
+
 
 
                 startActivity(i);
