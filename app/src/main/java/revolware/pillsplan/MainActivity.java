@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -368,11 +369,34 @@ public class MainActivity extends AppCompatActivity{
                 holdLayouts.addView(linLay2);
 
                 lL.addView(holdLayouts);
+
+                final int removeInd = i;
+                final int removeCounter = iCounter;
+
+                //-------------------------------------------------------------------------------------------------------------------------------
+                // !Switch action1
+                //-------------------------------------------------------------------------------------------------------------------------------
+                //set the switch to ON
+                mySwitch.setChecked(true);
+                //attach a listener to check for changes in state
+                mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView,
+                                                 boolean isChecked) {
+
+                        if(isChecked){
+
+                        }else{
+
+                        }
+
+                    }
+                });
                 //-------------------------------------------------------------------------------------------------------------------------------
                 // !Button x action!
                 //-------------------------------------------------------------------------------------------------------------------------------
-                final int removeInd = i;
-                final int removeCounter = iCounter;
+
                 myButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
