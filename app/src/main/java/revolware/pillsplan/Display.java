@@ -170,7 +170,7 @@ public class Display extends Activity  {
             else{
                 Toast.makeText(getApplicationContext(), "alarm is set to : " + hour + ":" + sMinute, Toast.LENGTH_LONG).show();
                 Intent i = new Intent(Display.this, MainActivity.class);
-                i.putExtra("data", message);
+              //  i.putExtra("data", message);
                 i.putExtra("info", info);
                 i.putExtra("info2", info2);
                 i.putExtra("info3", info3);

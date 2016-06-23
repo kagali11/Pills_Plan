@@ -1,7 +1,10 @@
 package revolware.pillsplan;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,9 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import java.io.BufferedReader;
@@ -23,13 +29,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.TreeMap;
 
 
 public class MainActivity extends AppCompatActivity{
-
+    int hour,minute;
+    String sMinute;
     TextView tw1;
     Intent intent;
+    Intent my_Intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,37 +48,43 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TextView textViewTutorHeader = (TextView)findViewById(R.id.textViewTutorHeader); // HEADER FILE
+        TextView textViewTutorHeader = (TextView) findViewById(R.id.textViewTutorHeader); // HEADER FILE
         textViewTutorHeader.setVisibility(View.INVISIBLE);
-        TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);  //TUTOR TEXT
+        TextView textViewTutorText = (TextView) findViewById(R.id.textViewTutorText);  //TUTOR TEXT
         textViewTutorText.setVisibility(View.INVISIBLE);
 
 
         intent = getIntent();  // APP INTENT
         String message = "";
-        String info,info2,info3,info4,info5;
+        String info, info2, info3, info4, info5;
 
-        if(intent.getStringExtra("key") == null)
-            {intent.putExtra("key", "true");}
+        if (intent.getStringExtra("key") == null) {
+            intent.putExtra("key", "true");
+        }
 
 
-        final TreeMap <Integer,String> list = new TreeMap <Integer,String>();
-        ArrayList<AlarmInfo> map = new ArrayList<AlarmInfo>();
+        final TreeMap<Integer, String> list = new TreeMap<Integer, String>();
+        final TreeMap<Integer, AlarmInfo> map = new TreeMap<Integer, AlarmInfo>();
+
         int iCounter = 0;
-        if(intent.getStringExtra("key").equals("false") )
-        {
-            if(intent.getStringExtra("info") != null) // This signals if there is a mssg if Intent,
+
+        if (intent.getStringExtra("key").equals("false")) {
+            if (intent.getStringExtra("info") != null) // This signals if there is a mssg if Intent,
             {       // getting Input from second Activity
                 info = intent.getStringExtra("info");
                 info2 = intent.getStringExtra("info2");
                 info3 = intent.getStringExtra("info3");
                 info4 = intent.getStringExtra("info4");
                 info5 = intent.getStringExtra("info5");
-                AlarmInfo inf = new AlarmInfo(info,info2,info3,info4,info5);
+                map.put(iCounter, new AlarmInfo(info, info2, info3, info4, info5)); //adds info into alarm object to map List
 
-                map.add(inf); //adds info into alarm object to map List
+                iCounter++;
+                String s = null;
+                intent.putExtra("info", s);//-----------------------------------------------////////////////
+
             }
-
+        }
+/* }
             if(intent.getStringExtra("data") != null) //signals if theres a msg in intent from second activity
             {       // getting Input from second Activity
                 message = intent.getStringExtra("data");
@@ -78,25 +93,26 @@ public class MainActivity extends AppCompatActivity{
                 intent.putExtra("data", "" );
 
             }
-
-            //-------------------------------------------------------------------------------------------------------------------------------
-            //!Reading Text File!
-            //-------------------------------------------------------------------------------------------------------------------------------
-            if( fileExistance("dfile.txt") )
-            {
-                try {
-                    FileInputStream fis = openFileInput ("dfile.txt");  //opens file
+*/
+        //-------------------------------------------------------------------------------------------------------------------------------
+        //!Reading Text File!
+        //-------------------------------------------------------------------------------------------------------------------------------
+        // if( fileExistance("dfile.txt") )
+        if (fileExistance("data1.txt"))//----------------------------------------------------////////////////
+        {
+            try {
+/*                    FileInputStream fis = openFileInput ("dfile.txt");  //opens file
                     InputStreamReader isr = new InputStreamReader(fis);
                     BufferedReader bufferedReader = new BufferedReader(isr);
                     String dt;
+*/
+                FileInputStream fis1 = openFileInput("data1.txt"); //opens file
+                InputStreamReader isr1 = new InputStreamReader(fis1);
+                BufferedReader bufferedReader1 = new BufferedReader(isr1);
+                String data, data2, data3, data4, data5;
 
-                    FileInputStream fis1 = openFileInput ("data.txt"); //opens file
-                    InputStreamReader isr1 = new InputStreamReader(fis1);
-                    BufferedReader bufferedReader1 = new BufferedReader(isr1);
-                    String data,data2,data3,data4,data5;
 
-
-                    while((dt = bufferedReader.readLine()) != null)     //Initializing String Objects for TextViews
+  /*                  while((dt = bufferedReader.readLine()) != null)     //Initializing String Objects for TextViews
                     {
                         dt =    dt + "\n" +
                                 bufferedReader.readLine()   + "\n" +
@@ -106,30 +122,29 @@ public class MainActivity extends AppCompatActivity{
                         list.put(iCounter,dt);
                         iCounter++;
                     }
+*/
+                while ((data = bufferedReader1.readLine()) != null)     //Initializing String Objects for data - AlarmInfo
+                {
 
-                    while((data = bufferedReader1.readLine()) != null)     //Initializing String Objects for data - AlarmInfo
-                    {
+                    data2 = bufferedReader1.readLine();
+                    data3 = bufferedReader1.readLine();
+                    data4 = bufferedReader1.readLine();
+                    data5 = bufferedReader1.readLine();
 
-                        data2 =        bufferedReader1.readLine();
-                        data3 =        bufferedReader1.readLine();
-                        data4 =       bufferedReader1.readLine();
-                        data5 =        bufferedReader1.readLine();
-
-                        map.add(new AlarmInfo(data,data2,data3,data4,data5));
-                    }
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    map.put(iCounter, new AlarmInfo(data, data2, data3, data4, data5));//-----------------------------------------/////////
+                    iCounter++;
                 }
-            }
 
-            else {
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
             //    TextView textViewTutorHeader = (TextView)findViewById(R.id.textViewTutorHeader);
-                textViewTutorHeader.setVisibility(View.VISIBLE);
-              //  TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);
-                textViewTutorText.setVisibility(View.VISIBLE);
+            textViewTutorHeader.setVisibility(View.VISIBLE);
+            //  TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);
+            textViewTutorText.setVisibility(View.VISIBLE);
 
                /* new AlertDialog.Builder(MainActivity.this) /* KEBY SME POTREBOVALI ALERT *
                 .setTitle("Tutorial")
@@ -147,280 +162,321 @@ public class MainActivity extends AppCompatActivity{
             .setIcon(android.R.drawable.ic_dialog_alert)
             .show(); */
 
-            }
+        }
 
-            //-------------------------------------------------------------------------------------------------------------------------------
-            // !Writing into File!
-            //-------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------
+        // !Writing into File!
+        //-------------------------------------------------------------------------------------------------------------------------------
+        try {
+//                FileOutputStream fos = openFileOutput("dfile.txt", MODE_PRIVATE);
+            FileOutputStream fos1 = openFileOutput("data1.txt", MODE_PRIVATE);
+
+//                for(int i = 0; i < list.size(); i++)
+//                   fos.write(list.get(i).getBytes());
+//                for(int i = 0; i < map.size(); i++)
+            //                   fos1.write(map.get(i).toString().getBytes());
             try {
-                FileOutputStream fos = openFileOutput("dfile.txt", MODE_PRIVATE);
-                FileOutputStream fos1 = openFileOutput("data.txt", MODE_PRIVATE);
+                FileOutputStream fos = openFileOutput("data1.txt", MODE_PRIVATE);
 
-                for(int i = 0; i < list.size(); i++)
-                    fos.write(list.get(i).getBytes());
-                for(int i = 0; i < map.size(); i++)
-                    fos1.write(map.get(i).toString().getBytes());
-
+                for (int i = 0; i < iCounter; i++) {
+                    if (map.get(i) != null)
+                        fos.write(map.get(i).toString().getBytes());
+                }
                 fos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+//                fos.close();
+            fos1.close(); //--------------------------------------------------------------///////////
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //-------------------------------------------------------------------------------------------------------------------------------
+        // !Createing Layout for actual Pills!
+        //-------------------------------------------------------------------------------------------------------------------------------
+        // Create a linear layout to add new object as vertical
+        final LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
+        lL.setOrientation(LinearLayout.VERTICAL);
+
+        for (int i = 0; i < map.size(); i++) {
+
+            final LinearLayout holdLayouts = new LinearLayout(this); //holds horizontally 2 vertical layouts
+            holdLayouts.setOrientation(LinearLayout.HORIZONTAL);
+
+            LinearLayout linLay = new LinearLayout(this); // layout for text fields
+            linLay.setOrientation(LinearLayout.VERTICAL);
+
+            LinearLayout linLay1 = new LinearLayout(this); //layout for textFields
+            linLay1.setOrientation(LinearLayout.VERTICAL);
+
+            LinearLayout linLay2 = new LinearLayout(this); //layout for buttons next to textFields
+            linLay2.setOrientation(LinearLayout.VERTICAL);
+
+            LinearLayout linLay3 = new LinearLayout(this); //layout for switch
+            linLay3.setOrientation(LinearLayout.VERTICAL);
+
+            Switch mySwitch;
+            Button myButton;
+            myButton = new Button(this);
+            myButton.setText("X");
+
+            mySwitch = new Switch(this);
+            mySwitch.setChecked(false);
 
             //-------------------------------------------------------------------------------------------------------------------------------
             // !Createing Layout for actual Pills!
             //-------------------------------------------------------------------------------------------------------------------------------
-            // Create a linear layout to add new object as vertical
-            final LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
-            lL.setOrientation(LinearLayout.VERTICAL);
 
-            for (int i=0;i < list.size();i++){
+            // Every time create new object of text view
+            TextView medicineView = new TextView(this);
+            medicineView.setText("\t" + map.get(i).getMedicine());
+            medicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            medicineView.setTextColor(0xFF000000);
 
-                final LinearLayout holdLayouts = new LinearLayout(this); //holds horizontally 2 vertical layouts
-                holdLayouts.setOrientation(LinearLayout.HORIZONTAL);
 
-                LinearLayout linLay = new LinearLayout(this); // layout for text fields
-                linLay.setOrientation(LinearLayout.VERTICAL);
+            TextView numPillsView = new TextView(this);
+            numPillsView.setText("\t" + map.get(i).getNPills());
+            numPillsView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            numPillsView.setTextColor(0xFF000000);
 
-                LinearLayout linLay2 = new LinearLayout(this); //layout for buttons next to textFields
-                linLay2.setOrientation(LinearLayout.VERTICAL);
+            TextView dateView = new TextView(this);
+            dateView.setText("\t" + map.get(i).getDate());
+            dateView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            dateView.setTextColor(0xFF000000);
 
-                Switch mySwitch;
-                Button myButton;
-                myButton = new Button(this);
-                myButton.setText("X");
+            TextView freqView = new TextView(this);
+            freqView.setText("\t" + map.get(i).getFrequency());
+            freqView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            freqView.setTextColor(0xFF000000);
 
-                mySwitch = new Switch(this);
-                mySwitch.setChecked(false);
+            TextView docNameView = new TextView(this);
+            docNameView.setText("\t" + map.get(i).getName());
+            docNameView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            docNameView.setTextColor(0xFF000000);
 
-                // Every time create new object of text view
-                TextView objDonateTextView = new TextView(this);
 
-                objDonateTextView.setText(list.get(i));
-                objDonateTextView.setId(i);
-                objDonateTextView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-                objDonateTextView.setTextColor(0xFF000000);
 
-                linLay.addView(objDonateTextView);
-                linLay2.addView(myButton);
-                linLay2.addView(mySwitch);
 
-                holdLayouts.addView(linLay);
-                holdLayouts.addView(linLay2);
 
-                lL.addView(holdLayouts);
-                //-------------------------------------------------------------------------------------------------------------------------------
-                // !Button X Activity!
-                //-------------------------------------------------------------------------------------------------------------------------------
-                final int removeInd = i;
-                final int removeCounter = iCounter;
-                myButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        lL.removeView(holdLayouts);
-                        list.remove(removeInd);
 
-                        try {
-                            FileOutputStream fos = openFileOutput("dfile.txt", MODE_PRIVATE);
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // !Createing Layout for actual Pills!
+            //-------------------------------------------------------------------------------------------------------------------------------
 
-                            for(int i = 0; i < removeCounter; i++)
-                            {
-                                if(list.get(i) != null)
-                                    fos.write(list.get(i).getBytes());
-                            }
-                            fos.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+            // Every time create new object of text view
+            TextView sMedicineView = new TextView(this);
+            sMedicineView.setText("Medicine: ");
+            sMedicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            sMedicineView.setTextColor(0xFF000000);
+
+
+            TextView sNumPillsView = new TextView(this);
+            sNumPillsView.setText("Pills : ");
+            sNumPillsView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            sNumPillsView.setTextColor(0xFF000000);
+
+            TextView sDateView = new TextView(this);
+            sDateView.setText("Date: ");
+            sDateView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            sDateView.setTextColor(0xFF000000);
+
+            TextView sFreqView = new TextView(this);
+            sFreqView.setText("Frequency: ");
+            sFreqView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            sFreqView.setTextColor(0xFF000000);
+
+            TextView sDocNameView = new TextView(this);
+            sDocNameView.setText("DocName: ");
+            sDocNameView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            sDocNameView.setTextColor(0xFF000000);
+
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // Spinners Actions
+            //-------------------------------------------------------------------------------------------------------------------------------
+
+
+            AlarmManager alarm_manager;
+            final Calendar calendar;
+
+            calendar = Calendar.getInstance();
+
+
+            Spinner spinner = new Spinner(this);
+            Spinner spinner1 = new Spinner(this);
+
+            // Create an ArrayAdapter using the string array and a default spinner layout
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.hours, android.R.layout.simple_spinner_item);
+            ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
+                    R.array.minutes, android.R.layout.simple_spinner_item);
+
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            // Apply the adapter to the spinner
+            spinner.setAdapter(adapter);
+            spinner1.setAdapter(adapter1);
+
+            //hour spinner
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    //intent.putExtra("timeHour",parent.getItemIdAtPosition(position));
+                    calendar.set(calendar.HOUR_OF_DAY, (int) parent.getItemIdAtPosition(position));
+                    hour = (int) parent.getItemIdAtPosition(position);
+
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                    //intent.putExtra("timeHour","0");
+                    calendar.set(calendar.HOUR_OF_DAY, 0);
+                    hour = 0;
+                }
+            });
+
+            //Minute spinner
+            spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    //intent.putExtra("timeMinute", parent.getItemIdAtPosition(position));
+                    calendar.set(calendar.MINUTE, (int) parent.getItemIdAtPosition(position));
+                    minute = (int) parent.getItemIdAtPosition(position);
+                    sMinute = String.valueOf(minute);
+                    if (minute < 10) {
+                        sMinute = "0" + minute;
                     }
-                });
-            }
 
-        }else{
+                }
 
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                    //intent.putExtra("timeMinute", "0");
+                    calendar.set(calendar.MINUTE, 0);
+                    minute = 0;
+                }
+            });
+
+
+  /*        //-------------------------------------------------------------------------------------------------------------------------------
+            //
             //-------------------------------------------------------------------------------------------------------------------------------
-            // !Reading from File! if there istn a msg int Intent!
-            //-------------------------------------------------------------------------------------------------------------------------------
-        intent.putExtra("key", "false");
-            if( fileExistance("dfile.txt") )
-            {
-                try {
-                    FileInputStream fis = openFileInput ("dfile.txt");
-                    InputStreamReader isr = new InputStreamReader(fis);
-                    BufferedReader bufferedReader = new BufferedReader(isr);
-                    String dt;
 
-                    FileInputStream fis1 = openFileInput ("data.txt");
-                    InputStreamReader isr1 = new InputStreamReader(fis1);
-                    BufferedReader bufferedReader1 = new BufferedReader(isr1);
-                    String data,data2,data3,data4,data5;
-
-
-                    while((dt = bufferedReader.readLine()) != null)     //Initializing String Objects for TextViews
+            mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked)
                     {
-                        dt =    dt + "\n" +
-                                bufferedReader.readLine()   + "\n" +
-                                bufferedReader.readLine()   + "\n" +
-                                bufferedReader.readLine()  + "\n" +
-                                bufferedReader.readLine()  + "\n";
-                        list.put(iCounter,dt);
-                        iCounter++;
+
+
+                    AlarmManager alarm_manager;
+                    alarm_manager= (AlarmManager) this.getSystemService(ALARM_SERVICE);
+
+
+
+                    PendingIntent pending_Intent;
+                    // Restore preferences
+                    SharedPreferences settings = getSharedPreferences("numOfAlarms", 0);
+                    int num = settings.getInt("value", 0);
+
+                    my_Intent.putExtra("medName",info);
+                    my_Intent.putExtra("numPills",info2);
+                    my_Intent.putExtra("freq",info4);
+                    my_Intent.putExtra("docName",info5);
+                    my_Intent.putExtra("alarmNum",num);
+                    my_Intent.putExtra("alarmHour", calendar.getInstance().getTime().getHours());
+                    my_Intent.putExtra("alarmMinutes", calendar.getInstance().getTime().getMinutes());
+
+
+                    pending_Intent = PendingIntent.getBroadcast(Display.this, num, my_Intent, 0);
+
+                    // We need an Editor object to make preference changes.
+                    // All objects are from android.context.Context
+                    settings = getSharedPreferences("numOfAlarms", 0);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putInt("value", num + 1);
+
+                    // Commit the edits!
+                    editor.commit();
+
+
+
+
+
+
+                    //set the alarm manager
+                    calendar.set(Calendar.SECOND, 0);
+                    alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*3600 * Integer.parseInt(editText4.getText().toString()), pending_Intent);
                     }
-
-                    while((data = bufferedReader1.readLine()) != null)     //Initializing String Objects for data - AlarmInfo
-                    {
-
-                        data2 =        bufferedReader1.readLine();
-                        data3 =        bufferedReader1.readLine();
-                        data4 =       bufferedReader1.readLine();
-                        data5 =        bufferedReader1.readLine();
-
-                        map.add(new AlarmInfo(data,data2,data3,data4,data5));
-                    }
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-            }
-
-            else {
-              //  TextView textViewTutorHeader = (TextView)findViewById(R.id.textViewTutorHeader);
-                textViewTutorHeader.setVisibility(View.VISIBLE);
-             //   TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);
-                textViewTutorText.setVisibility(View.VISIBLE);
-
-               /* new AlertDialog.Builder(MainActivity.this) /* KEBY SME POTREBOVALI ALERT *
-                .setTitle("Tutorial")
-                .setMessage("relly?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                     // continue with delete
-                }
-            })
-            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // do nothing
-                }
-            })
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .show(); */
-
-            }
+            });
 
             //-------------------------------------------------------------------------------------------------------------------------------
-            // !Writing to File!
+            //
             //-------------------------------------------------------------------------------------------------------------------------------
-            try {
-                FileOutputStream fos = openFileOutput("dfile.txt", MODE_PRIVATE);
-                FileOutputStream fos1 = openFileOutput("data.txt", MODE_PRIVATE);
+*/
+            linLay.addView(medicineView); //right layout
+            linLay.addView(numPillsView);
+            linLay.addView(dateView);
+            linLay.addView(freqView);
+            linLay.addView(docNameView);
+            linLay.addView(spinner1);
 
-                for(int i = 0; i < list.size(); i++)
-                    fos.write(list.get(i).getBytes());
-                for(int i = 0; i < map.size(); i++)
-                    fos1.write(map.get(i).toString().getBytes());
-
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            linLay1.addView(sMedicineView); //left layout
+            linLay1.addView(sNumPillsView);
+            linLay1.addView(sDateView);
+            linLay1.addView(sFreqView);
+            linLay1.addView(sDocNameView);
+            linLay1.addView(spinner);
 
 
+            linLay2.addView(myButton);
+            linLay3.addView(mySwitch);
+
+            holdLayouts.addView(linLay1);
+            holdLayouts.addView(linLay);
+            holdLayouts.addView(linLay2);
+            holdLayouts.addView(linLay3);
 
 
+            lL.addView(holdLayouts);
+            TextView blank = new TextView(this);
+            blank.setText("");
+            lL.addView(blank);
             //-------------------------------------------------------------------------------------------------------------------------------
-            // Creating  layouts for actual Pills
+            // !Button X Activity!
             //-------------------------------------------------------------------------------------------------------------------------------
-            // Create a linear layout to add new object as vertical
-            final LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
-            lL.setOrientation(LinearLayout.VERTICAL);
-            for (int i=0;i < list.size();i++){
+            final int removeInd = i;
+            final int removeCounter = iCounter;
+            myButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    lL.removeView(holdLayouts);
+                    map.remove(removeInd);
 
-                final LinearLayout holdLayouts = new LinearLayout(this); //holds horizontally 2 vertical layouts
-                holdLayouts.setOrientation(LinearLayout.HORIZONTAL);
+                    try {
+                        FileOutputStream fos = openFileOutput("data1.txt", MODE_PRIVATE);
 
-                LinearLayout linLay = new LinearLayout(this); // layout for text fields
-                linLay.setOrientation(LinearLayout.VERTICAL);
-
-                LinearLayout linLay2 = new LinearLayout(this); //layout for buttons next to textFields
-                linLay2.setOrientation(LinearLayout.VERTICAL);
-
-                Switch mySwitch;
-                Button myButton;
-                myButton = new Button(this);
-                myButton.setText("X");
-
-                mySwitch = new Switch(this);
-                mySwitch.setChecked(false);
-
-                // Every time create new object of text view
-                TextView objDonateTextView = new TextView(this);
-
-                objDonateTextView.setText(list.get(i));
-                objDonateTextView.setId(i);
-                objDonateTextView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-                objDonateTextView.setTextColor(0xFF000000);
-
-                linLay.addView(objDonateTextView);
-                linLay2.addView(myButton);
-                linLay2.addView(mySwitch);
-
-                holdLayouts.addView(linLay);
-                holdLayouts.addView(linLay2);
-
-                lL.addView(holdLayouts);
-
-                final int removeInd = i;
-                final int removeCounter = iCounter;
-
-                //-------------------------------------------------------------------------------------------------------------------------------
-                // !Switch action1
-                //-------------------------------------------------------------------------------------------------------------------------------
-                //set the switch to ON
-                mySwitch.setChecked(true);
-                //attach a listener to check for changes in state
-                mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView,
-                                                 boolean isChecked) {
-
-                        if(isChecked){
-
-                        }else{
-
+                        for (int i = 0; i < removeCounter; i++) {
+                            if (map.get(i) != null)
+                                fos.write(map.get(i).toString().getBytes());
                         }
-
+                        fos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                });
-                //-------------------------------------------------------------------------------------------------------------------------------
-                // !Button x action!
-                //-------------------------------------------------------------------------------------------------------------------------------
-
-                myButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        lL.removeView(holdLayouts);
-                        list.remove(removeInd);
-
-                        try {
-                            FileOutputStream fos = openFileOutput("dfile.txt", MODE_PRIVATE);
-
-
-                            for(int i = 0; i < removeCounter; i++)
-                            {
-                                if(list.get(i) != null)
-                                    fos.write(list.get(i).getBytes());
-                            }
-                            fos.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
-
+                }
+            });
         }
+
+
 
     } //ending oncreate
 
