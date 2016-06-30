@@ -234,26 +234,27 @@ public class MainActivity extends AppCompatActivity{
             medicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
             medicineView.setTextColor(0xFF000000);
 
+            /*TODO*/
 
-            TextView numPillsView = new TextView(this);
-            numPillsView.setText("\t" + map.get(i).getNPills());
-            numPillsView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-            numPillsView.setTextColor(0xFF000000);
-
-            TextView dateView = new TextView(this);
-            dateView.setText("\t" + map.get(i).getDate());
-            dateView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-            dateView.setTextColor(0xFF000000);
-
-            TextView freqView = new TextView(this);
-            freqView.setText("\t" + map.get(i).getFrequency());
-            freqView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-            freqView.setTextColor(0xFF000000);
-
-            TextView docNameView = new TextView(this);
-            docNameView.setText("\t" + map.get(i).getName());
-            docNameView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-            docNameView.setTextColor(0xFF000000);
+//            TextView numPillsView = new TextView(this);
+//            numPillsView.setText("\t" + map.get(i).getNPills());
+//            numPillsView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+//            numPillsView.setTextColor(0xFF000000);
+//
+//            TextView dateView = new TextView(this);
+//            dateView.setText("\t" + map.get(i).getDate());
+//            dateView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+//            dateView.setTextColor(0xFF000000);
+//
+//            TextView freqView = new TextView(this);
+//            freqView.setText("\t" + map.get(i).getFrequency());
+//            freqView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+//            freqView.setTextColor(0xFF000000);
+//
+//            TextView docNameView = new TextView(this);
+//            docNameView.setText("\t" + map.get(i).getName());
+//            docNameView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+//            docNameView.setTextColor(0xFF000000);
 
 
 
@@ -261,7 +262,7 @@ public class MainActivity extends AppCompatActivity{
 
 
             //-------------------------------------------------------------------------------------------------------------------------------
-            // !Createing Layout for actual Pills!
+            // !Creating Layout for actual Pills!
             //-------------------------------------------------------------------------------------------------------------------------------
 
             // Every time create new object of text view
@@ -270,26 +271,27 @@ public class MainActivity extends AppCompatActivity{
             sMedicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
             sMedicineView.setTextColor(0xFF000000);
 
+            /*TODO*/
 
-            TextView sNumPillsView = new TextView(this);
-            sNumPillsView.setText("Pills : ");
-            sNumPillsView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-            sNumPillsView.setTextColor(0xFF000000);
-
-            TextView sDateView = new TextView(this);
-            sDateView.setText("Date: ");
-            sDateView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-            sDateView.setTextColor(0xFF000000);
-
-            TextView sFreqView = new TextView(this);
-            sFreqView.setText("Frequency: ");
-            sFreqView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-            sFreqView.setTextColor(0xFF000000);
-
-            TextView sDocNameView = new TextView(this);
-            sDocNameView.setText("DocName: ");
-            sDocNameView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-            sDocNameView.setTextColor(0xFF000000);
+//            TextView sNumPillsView = new TextView(this);
+//            sNumPillsView.setText("Pills : ");
+//            sNumPillsView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+//            sNumPillsView.setTextColor(0xFF000000);
+//
+//            TextView sDateView = new TextView(this);
+//            sDateView.setText("Date: ");
+//            sDateView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+//            sDateView.setTextColor(0xFF000000);
+//
+//            TextView sFreqView = new TextView(this);
+//            sFreqView.setText("Frequency: ");
+//            sFreqView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+//            sFreqView.setTextColor(0xFF000000);
+//
+//            TextView sDocNameView = new TextView(this);
+//            sDocNameView.setText("DocName: ");
+//            sDocNameView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+//            sDocNameView.setTextColor(0xFF000000);
 
             //-------------------------------------------------------------------------------------------------------------------------------
             // Spinners Actions
@@ -422,18 +424,19 @@ public class MainActivity extends AppCompatActivity{
             //
             //-------------------------------------------------------------------------------------------------------------------------------
 */
+            /*TODO*/
             linLay.addView(medicineView); //right layout
-            linLay.addView(numPillsView);
-            linLay.addView(dateView);
-            linLay.addView(freqView);
-            linLay.addView(docNameView);
+//            linLay.addView(numPillsView);
+//            linLay.addView(dateView);
+//            linLay.addView(freqView);
+//            linLay.addView(docNameView);
             linLay.addView(spinner1);
 
             linLay1.addView(sMedicineView); //left layout
-            linLay1.addView(sNumPillsView);
-            linLay1.addView(sDateView);
-            linLay1.addView(sFreqView);
-            linLay1.addView(sDocNameView);
+//            linLay1.addView(sNumPillsView);
+//            linLay1.addView(sDateView);
+//            linLay1.addView(sFreqView);
+//            linLay1.addView(sDocNameView);
             linLay1.addView(spinner);
 
 
@@ -445,11 +448,17 @@ public class MainActivity extends AppCompatActivity{
             holdLayouts.addView(linLay2);
             holdLayouts.addView(linLay3);
 
-
-            lL.addView(holdLayouts);
+            lL.addView(holdLayouts); //TENTO CHCEM ABY BOL KLIKATELNY
             TextView blank = new TextView(this);
             blank.setText("");
             lL.addView(blank);
+
+            /*TODO TU SPRAVIT INTENT*/
+
+            //ked kliknem na text medicine, tak ma to hodi z mainActivity na pills_info
+
+
+
             //-------------------------------------------------------------------------------------------------------------------------------
             // !Button X Activity!
             //-------------------------------------------------------------------------------------------------------------------------------
@@ -531,6 +540,7 @@ public class MainActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
+
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.revolware.com"));
             startActivity(browserIntent);
             return true;
