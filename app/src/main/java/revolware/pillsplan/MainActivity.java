@@ -379,7 +379,7 @@ public class MainActivity extends AppCompatActivity{
 
 
                     AlarmManager alarm_manager;
-                    alarm_manager= (AlarmManager) this.getSystemService(ALARM_SERVICE);
+                    alarm_manager= (AlarmManager) this.getSystemService(ALARM_SERVICE);0
 
 
 
@@ -452,10 +452,22 @@ public class MainActivity extends AppCompatActivity{
             TextView blank = new TextView(this);
             blank.setText("");
             lL.addView(blank);
+            lL.setClickable(true); //clickable layout
 
-            /*TODO TU SPRAVIT INTENT*/
+            /*TODO CLICKABLE LAYOUT*/
 
-            //ked kliknem na text medicine, tak ma to hodi z mainActivity na pills_info
+            /**
+             * Pridane Danom 5.7.2016, skontrolovat!!
+             */
+
+            //ked kliknem na text medicine, co je lL layout, tak ma to hodi z mainActivity na pills_info
+            lL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent toy = new Intent(MainActivity.this, Pills_info.class);
+                    startActivity(toy);
+                }
+            });
 
 
 

@@ -30,7 +30,8 @@
     android:layout_height="match_parent"
     android:layout_alignParentBottom="true"
     android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true">
+    android:layout_alignParentEnd="true"
+    android:id="@+id/scrollView">
     <LinearLayout
         android:id="@+id/AlarmView"
         android:orientation="vertical"
