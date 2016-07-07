@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -453,6 +454,7 @@ public class MainActivity extends AppCompatActivity{
             blank.setText("");
             lL.addView(blank);
             lL.setClickable(true); //clickable layout
+            lL.setBackgroundColor(Color.LTGRAY);
 
             /*TODO CLICKABLE LAYOUT*/
 

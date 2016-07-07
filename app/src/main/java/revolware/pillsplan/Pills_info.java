@@ -13,10 +13,26 @@ import java.util.TreeMap;
 
 public class Pills_info extends AppCompatActivity {
 
+    public Button back;
+
+    public void BackPressed(){
+        back = (Button)findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                Intent toy = new Intent(Pills_info.this, MainActivity.class);
+                startActivity(toy);
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pills_info);
+        BackPressed();
 
         TextView MedName;
         TextView NumOfPills;
