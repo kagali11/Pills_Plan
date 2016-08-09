@@ -234,6 +234,12 @@ public class MainActivity extends AppCompatActivity{
             medicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
             medicineView.setTextColor(0xFF000000);
 
+            final String data_1 = map.get(i).getMedicine();
+            final String data_2 = map.get(i).getNPills();
+            final String data_3 = map.get(i).getDate();
+            final String data_4 = map.get(i).getFrequency();
+            final String data_5 = map.get(i).getName();
+
             /*TODO*/
 
 //            TextView numPillsView = new TextView(this);
@@ -465,7 +471,13 @@ public class MainActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v) {
                     Intent toy = new Intent(MainActivity.this, Pills_info.class);
+                    toy.putExtra("pills_info_data1",data_1);
+                    toy.putExtra("pills_info_data2",data_2);
+                    toy.putExtra("pills_info_data3",data_3);
+                    toy.putExtra("pills_info_data4",data_4);
+                    toy.putExtra("pills_info_data5",data_5);
                     startActivity(toy);
+
                 }
             });
 

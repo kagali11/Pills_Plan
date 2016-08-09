@@ -18,6 +18,8 @@ public class Pills_info extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pills_info);
 
+        Intent getInfo = getIntent();
+
         TextView MedName;
         TextView NumOfPills;
         TextView BegDate;
@@ -35,6 +37,20 @@ public class Pills_info extends AppCompatActivity {
         String sBegDate;
         String sFreq;
         String sDocName;
+
+        sMedName = getInfo.getStringExtra("pills_info_data1");
+        sNumOfPills =  getInfo.getStringExtra("pills_info_data2");
+        sBegDate =  getInfo.getStringExtra("pills_info_data3");
+        sFreq =  getInfo.getStringExtra("pills_info_data4");
+        sDocName =  getInfo.getStringExtra("pills_info_data5");
+
+        MedName.setText(sMedName);
+        NumOfPills.setText(sNumOfPills);
+        BegDate.setText(sBegDate);
+        Freq.setText(sFreq);
+        DocName.setText(sDocName);
+
+
 
     }
 }
