@@ -62,11 +62,11 @@ public class Display extends Activity  {
         //intialize our alarmManager
 
         //create an instance of calendar
-        calendar = Calendar.getInstance();
+      //  calendar = Calendar.getInstance();
 
 
         //creating intent for alarm receiver class
-         my_Intent = new Intent(Display.this,Alarm_Receiver.class);
+         //my_Intent = new Intent(Display.this,Alarm_Receiver.class);
 
 
 
@@ -77,7 +77,7 @@ public class Display extends Activity  {
         editText4 = (EditText) findViewById(R.id.editText4);
         editText5 = (EditText) findViewById(R.id.editText5);
         tw1 = (TextView) findViewById(R.id.textView);
-
+/*
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
 
@@ -140,9 +140,10 @@ public class Display extends Activity  {
                 minute = 0;
             }
         });
-
+  */
 
     }
+
 
         public void buttonAdd(View v)
         {
@@ -178,7 +179,7 @@ public class Display extends Activity  {
                 i.putExtra("info5", info5);
                 i.putExtra("key", "false");
 
-
+/*
                 alarm_manager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
 
 
@@ -218,7 +219,7 @@ public class Display extends Activity  {
                 calendar.set(Calendar.SECOND, 0);
                 alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*3600 * Integer.parseInt(editText4.getText().toString()), pending_Intent);
 
-
+*/
 
                 startActivity(i);
                 finish();
