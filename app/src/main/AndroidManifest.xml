@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Display" />
         <activity android:name=".AlarmActivity" />
 
         <receiver android:process=":remote" android:name=".Alarm_Receiver" />
@@ -33,7 +32,14 @@
             android:name=".RingtonePlayingService"
             android:enabled="true" />
 
-        <activity android:name=".Pills_info"></activity>
+        <activity android:name=".Pills_info" />
+        <activity
+            android:name=".Display"
+            android:label="Add alarm" />
+        <activity
+            android:name=".Tutorial"
+            android:label="@string/title_activity_tutorial"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

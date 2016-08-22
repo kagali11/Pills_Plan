@@ -40,10 +40,15 @@ public class MainActivity extends AppCompatActivity{
     TextView tw1;
     Intent intent;
     Intent my_Intent;
+
+    SharedPreferences prefs = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // tw1 = (TextView) findViewById(R.id.textView2);
+
+        prefs = getSharedPreferences("com.revolware.pillsplan", MODE_PRIVATE);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -481,7 +486,7 @@ public class MainActivity extends AppCompatActivity{
             /*TODO CLICKABLE LAYOUT*/
 
             /**
-             * Pridane Danom 5.7.2016, skontrolovat!!
+             * Pridane Danom 5.7.2016!!
              */
 
             //ked kliknem na text medicine, co je lL layout, tak ma to hodi z mainActivity na pills_info
@@ -601,4 +606,21 @@ public class MainActivity extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * onResume spusti tutorial ked sa aplikacia prvy krat zapne, inak nie
+     * Dano 22.8.2016
+     */
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (prefs.getBoolean("firstrun", true)) {
+            Intent in = new Intent(MainActivity.this, Tutorial.class);
+            startActivity(in);
+            prefs.edit().putBoolean("firstrun", true).commit();
+        }
+    }
+
 }

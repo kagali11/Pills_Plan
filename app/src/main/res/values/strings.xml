@@ -112,5 +112,7 @@
         <item>59</item>
     </string-array>
     <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="title_activity_tutorial">Tutorial</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

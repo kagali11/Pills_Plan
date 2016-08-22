@@ -11,6 +11,11 @@ import android.widget.TextView;
 
 import java.util.TreeMap;
 
+
+/**
+ * Created By Dano on 25.6.2016
+ */
+
 public class Pills_info extends AppCompatActivity {
 
     public Button back;
@@ -18,7 +23,6 @@ public class Pills_info extends AppCompatActivity {
     public void BackPressed(){
         back = (Button)findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
-
 
             @Override
             public void onClick(View v) {

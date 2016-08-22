@@ -29,13 +29,12 @@ import java.util.Calendar;
 
 import android.widget.AdapterView.OnItemSelectedListener;
 
-
-
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by Jakub on 25.02.2016.
  */
-public class Display extends Activity  {
+public class Display extends AppCompatActivity  {
     public EditText editText,editText2,editText3,editText4,editText5;
     TextView tw1;
     AlarmManager alarm_manager;
@@ -69,8 +68,6 @@ public class Display extends Activity  {
          //my_Intent = new Intent(Display.this,Alarm_Receiver.class);
 
 
-
-        TextView text = (TextView) findViewById(R.id.tView1);
         editText = (EditText) findViewById(R.id.editText);
         editText2 = (EditText) findViewById(R.id.editText2);
         editText3 = (EditText) findViewById(R.id.editText3);
