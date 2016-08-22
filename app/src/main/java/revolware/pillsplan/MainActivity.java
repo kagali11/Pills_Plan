@@ -235,6 +235,12 @@ public class MainActivity extends AppCompatActivity{
             medicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
             medicineView.setTextColor(0xFF000000);
 
+            final String data_1 = map.get(i).getMedicine();
+            final String data_2 = map.get(i).getNPills();
+            final String data_3 = map.get(i).getDate();
+            final String data_4 = map.get(i).getFrequency();
+            final String data_5 = map.get(i).getName();
+
             /*TODO*/
 
 //            TextView numPillsView = new TextView(this);
@@ -368,7 +374,17 @@ public class MainActivity extends AppCompatActivity{
             });
 
 
-  /*        //-------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+          //-------------------------------------------------------------------------------------------------------------------------------
             //
             //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -380,25 +396,24 @@ public class MainActivity extends AppCompatActivity{
 
 
                     AlarmManager alarm_manager;
-                    alarm_manager= (AlarmManager) this.getSystemService(ALARM_SERVICE);0
-
-
+                    alarm_manager= (AlarmManager) getSystemService(ALARM_SERVICE);
+                    my_Intent = new Intent(MainActivity.this,Alarm_Receiver.class);
 
                     PendingIntent pending_Intent;
                     // Restore preferences
                     SharedPreferences settings = getSharedPreferences("numOfAlarms", 0);
                     int num = settings.getInt("value", 0);
 
-                    my_Intent.putExtra("medName",info);
-                    my_Intent.putExtra("numPills",info2);
-                    my_Intent.putExtra("freq",info4);
-                    my_Intent.putExtra("docName",info5);
+                    my_Intent.putExtra("medName",data_1);
+                    my_Intent.putExtra("numPills",data_2);
+                    my_Intent.putExtra("freq",data_4);
+                    my_Intent.putExtra("docName",data_5);
                     my_Intent.putExtra("alarmNum",num);
                     my_Intent.putExtra("alarmHour", calendar.getInstance().getTime().getHours());
                     my_Intent.putExtra("alarmMinutes", calendar.getInstance().getTime().getMinutes());
 
 
-                    pending_Intent = PendingIntent.getBroadcast(Display.this, num, my_Intent, 0);
+                    pending_Intent = PendingIntent.getBroadcast(MainActivity.this, num, my_Intent, 0);
 
                     // We need an Editor object to make preference changes.
                     // All objects are from android.context.Context
@@ -416,7 +431,7 @@ public class MainActivity extends AppCompatActivity{
 
                     //set the alarm manager
                     calendar.set(Calendar.SECOND, 0);
-                    alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*3600 * Integer.parseInt(editText4.getText().toString()), pending_Intent);
+                    alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), calendar.getInstance().getTime().getHours()*1000*60*60 + calendar.getInstance().getTime().getMinutes()*1000*60 , pending_Intent);
                     }
                 }
             });
@@ -424,7 +439,14 @@ public class MainActivity extends AppCompatActivity{
             //-------------------------------------------------------------------------------------------------------------------------------
             //
             //-------------------------------------------------------------------------------------------------------------------------------
-*/
+
+
+
+
+
+
+
+
             /*TODO*/
             linLay.addView(medicineView); //right layout
 //            linLay.addView(numPillsView);
@@ -467,7 +489,13 @@ public class MainActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v) {
                     Intent toy = new Intent(MainActivity.this, Pills_info.class);
+                    toy.putExtra("pills_info_data1",data_1);
+                    toy.putExtra("pills_info_data2",data_2);
+                    toy.putExtra("pills_info_data3",data_3);
+                    toy.putExtra("pills_info_data4",data_4);
+                    toy.putExtra("pills_info_data5",data_5);
                     startActivity(toy);
+
                 }
             });
 
