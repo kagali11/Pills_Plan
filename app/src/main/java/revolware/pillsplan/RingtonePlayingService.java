@@ -34,7 +34,7 @@ public class RingtonePlayingService extends Service {
 
 
         if(intent.getStringExtra("play").equals("1")){
-            media_song = MediaPlayer.create(this,R.raw.dear_god); /*TODO: TOTO SOM ZAKOMENTOVAL KOLI MEDIAM...*/
+            media_song = MediaPlayer.create(this,R.raw.dear_god);
 
             media_song.start();}
         else if(intent.getStringExtra("play").equals("0")){

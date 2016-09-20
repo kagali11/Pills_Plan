@@ -1,16 +1,11 @@
 package revolware.pillsplan;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.TreeMap;
-
 
 /**
  * Created By Dano on 25.6.2016
@@ -19,6 +14,7 @@ import java.util.TreeMap;
 public class Pills_info extends AppCompatActivity {
 
     public Button back;
+    public Button print;
 
     public void BackPressed(){
         back = (Button)findViewById(R.id.back);
@@ -32,11 +28,24 @@ public class Pills_info extends AppCompatActivity {
         });
     }
 
+    public void init2(){
+        print = (Button)findViewById(R.id.print);
+        print.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent toy2 = new Intent(Pills_info.this, WriteDatabase.class);
+                startActivity(toy2);
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pills_info);
         BackPressed();
+        init2();
 
         Intent getInfo = getIntent();
 
@@ -69,8 +78,6 @@ public class Pills_info extends AppCompatActivity {
         BegDate.setText(sBegDate);
         Freq.setText(sFreq);
         DocName.setText(sDocName);
-
-
 
     }
 }

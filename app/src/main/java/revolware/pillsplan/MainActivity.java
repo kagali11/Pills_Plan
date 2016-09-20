@@ -22,6 +22,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,17 +37,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.TreeMap;
 
 
-public class MainActivity extends AppCompatActivity{
-    int hour,minute;
+public class MainActivity extends AppCompatActivity {
+    int hour, minute;
     String sMinute;
     TextView tw1;
     Intent intent;
     Intent my_Intent;
 
     SharedPreferences prefs = null;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -269,10 +281,6 @@ public class MainActivity extends AppCompatActivity{
 //            docNameView.setTextColor(0xFF000000);
 
 
-
-
-
-
             //-------------------------------------------------------------------------------------------------------------------------------
             // !Creating Layout for actual Pills!
             //-------------------------------------------------------------------------------------------------------------------------------
@@ -379,64 +387,49 @@ public class MainActivity extends AppCompatActivity{
             });
 
 
-
-
-
-
-
-
-
-
-
-
-          //-------------------------------------------------------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------------------------------------------------------
             //
             //-------------------------------------------------------------------------------------------------------------------------------
 
             mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked)
-                    {
+                    if (isChecked) {
 
 
-                    AlarmManager alarm_manager;
-                    alarm_manager= (AlarmManager) getSystemService(ALARM_SERVICE);
-                    my_Intent = new Intent(MainActivity.this,Alarm_Receiver.class);
+                        AlarmManager alarm_manager;
+                        alarm_manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                        my_Intent = new Intent(MainActivity.this, Alarm_Receiver.class);
 
-                    PendingIntent pending_Intent;
-                    // Restore preferences
-                    SharedPreferences settings = getSharedPreferences("numOfAlarms", 0);
-                    int num = settings.getInt("value", 0);
+                        PendingIntent pending_Intent;
+                        // Restore preferences
+                        SharedPreferences settings = getSharedPreferences("numOfAlarms", 0);
+                        int num = settings.getInt("value", 0);
 
-                    my_Intent.putExtra("medName",data_1);
-                    my_Intent.putExtra("numPills",data_2);
-                    my_Intent.putExtra("freq",data_4);
-                    my_Intent.putExtra("docName",data_5);
-                    my_Intent.putExtra("alarmNum",num);
-                    my_Intent.putExtra("alarmHour", calendar.getInstance().getTime().getHours());
-                    my_Intent.putExtra("alarmMinutes", calendar.getInstance().getTime().getMinutes());
-
-
-                    pending_Intent = PendingIntent.getBroadcast(MainActivity.this, num, my_Intent, 0);
-
-                    // We need an Editor object to make preference changes.
-                    // All objects are from android.context.Context
-                    settings = getSharedPreferences("numOfAlarms", 0);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putInt("value", num + 1);
-
-                    // Commit the edits!
-                    editor.commit();
+                        my_Intent.putExtra("medName", data_1);
+                        my_Intent.putExtra("numPills", data_2);
+                        my_Intent.putExtra("freq", data_4);
+                        my_Intent.putExtra("docName", data_5);
+                        my_Intent.putExtra("alarmNum", num);
+                        my_Intent.putExtra("alarmHour", calendar.getInstance().getTime().getHours());
+                        my_Intent.putExtra("alarmMinutes", calendar.getInstance().getTime().getMinutes());
 
 
+                        pending_Intent = PendingIntent.getBroadcast(MainActivity.this, num, my_Intent, 0);
+
+                        // We need an Editor object to make preference changes.
+                        // All objects are from android.context.Context
+                        settings = getSharedPreferences("numOfAlarms", 0);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putInt("value", num + 1);
+
+                        // Commit the edits!
+                        editor.commit();
 
 
-
-
-                    //set the alarm manager
-                    calendar.set(Calendar.SECOND, 0);
-                    alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), calendar.getInstance().getTime().getHours()*1000*60*60 + calendar.getInstance().getTime().getMinutes()*1000*60 , pending_Intent);
+                        //set the alarm manager
+                        calendar.set(Calendar.SECOND, 0);
+                        alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), calendar.getInstance().getTime().getHours() * 1000 * 60 * 60 + calendar.getInstance().getTime().getMinutes() * 1000 * 60, pending_Intent);
                     }
                 }
             });
@@ -444,12 +437,6 @@ public class MainActivity extends AppCompatActivity{
             //-------------------------------------------------------------------------------------------------------------------------------
             //
             //-------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
 
 
             /*TODO*/
@@ -483,27 +470,35 @@ public class MainActivity extends AppCompatActivity{
             lL.setClickable(true); //clickable layout
             lL.setBackgroundColor(Color.LTGRAY);
 
-            /*TODO CLICKABLE LAYOUT*/
 
             /**
-             * Pridane Danom 5.7.2016!!
+             * Pridane Danom 23.8.2016
              */
 
+            /*TODO: treba spravit to, aby sa pouzivatel napriklad 5 krat po sebe dostal na pills_info a raz na Popup!*/
+
             //ked kliknem na text medicine, co je lL layout, tak ma to hodi z mainActivity na pills_info
-            lL.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        lL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random rand = new Random();
+                int num = rand.nextInt(6);
+                if (v == lL && num == 5) {
+                    Intent toy2 = new Intent(MainActivity.this, Popup.class);
+                    startActivity(toy2);
+                }else{
                     Intent toy = new Intent(MainActivity.this, Pills_info.class);
-                    toy.putExtra("pills_info_data1",data_1);
-                    toy.putExtra("pills_info_data2",data_2);
-                    toy.putExtra("pills_info_data3",data_3);
-                    toy.putExtra("pills_info_data4",data_4);
-                    toy.putExtra("pills_info_data5",data_5);
+                    toy.putExtra("pills_info_data1", data_1);
+                    toy.putExtra("pills_info_data2", data_2);
+                    toy.putExtra("pills_info_data3", data_3);
+                    toy.putExtra("pills_info_data4", data_4);
+                    toy.putExtra("pills_info_data5", data_5);
                     startActivity(toy);
-
                 }
-            });
+            }
+        });
 
+            //TU KONCI TEN KOD
 
 
             //-------------------------------------------------------------------------------------------------------------------------------
@@ -533,15 +528,16 @@ public class MainActivity extends AppCompatActivity{
         }
 
 
-
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     } //ending oncreate
 
 
     //-------------------------------------------------------------------------------------------------------------------------------
     // Finishes this Activity when Back is pressed
     //-------------------------------------------------------------------------------------------------------------------------------
-    public void onBackPressed(){
-
+    public void onBackPressed() {
         finish();
     }
 
@@ -549,7 +545,7 @@ public class MainActivity extends AppCompatActivity{
     //-------------------------------------------------------------------------------------------------------------------------------
     // Finds out whether file with "fname" exist, and if exist returns true
     //-------------------------------------------------------------------------------------------------------------------------------
-    public boolean fileExistance(String fname){
+    public boolean fileExistance(String fname) {
         File file = getBaseContext().getFileStreamPath(fname);
         return file.exists();
     }
@@ -598,7 +594,7 @@ public class MainActivity extends AppCompatActivity{
             String subject = "PillsPlan feedback";
 
             Intent email = new Intent(Intent.ACTION_SEND);
-            email.putExtra(Intent.EXTRA_EMAIL, new String[]{ mailto});
+            email.putExtra(Intent.EXTRA_EMAIL, new String[]{mailto});
             email.putExtra(Intent.EXTRA_SUBJECT, subject);
             email.setType("message/rfc822");
             startActivity(Intent.createChooser(email, "Choose an Email client"));
@@ -619,8 +615,47 @@ public class MainActivity extends AppCompatActivity{
         if (prefs.getBoolean("firstrun", true)) {
             Intent in = new Intent(MainActivity.this, Tutorial.class);
             startActivity(in);
-            prefs.edit().putBoolean("firstrun", true).commit();
+            prefs.edit().putBoolean("firstrun", false).commit();
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://revolware.pillsplan/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://revolware.pillsplan/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
 }

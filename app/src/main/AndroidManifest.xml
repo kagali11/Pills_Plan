@@ -4,9 +4,9 @@
     android:versionCode="2"
     android:versionName="1.2">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
-    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +26,9 @@
         </activity>
         <activity android:name=".AlarmActivity" />
 
-        <receiver android:process=":remote" android:name=".Alarm_Receiver" />
+        <receiver
+            android:name=".Alarm_Receiver"
+            android:process=":remote" />
 
         <service
             android:name=".RingtonePlayingService"
@@ -39,6 +41,21 @@
         <activity
             android:name=".Tutorial"
             android:label="@string/title_activity_tutorial"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Popup"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".WriteDatabase"
+            android:label="@string/title_activity_write_database"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
