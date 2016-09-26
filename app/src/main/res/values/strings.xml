@@ -204,5 +204,13 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="title_activity_main_test">MainActivity_test</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="title_activity_show_database">ShowDatabase</string>
+    <string name="title_activity_main_database">MainDatabase</string>
+    <string name="title_activity_write__database">Write_Database</string>
 
 </resources>
