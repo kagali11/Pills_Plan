@@ -5,17 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="revolware.pillsplan.WriteDatabase">
-
-    <TextView
-        android:id="@+id/tv1"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
-
-    <TextView
-        android:id="@+id/tv2"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+    tools:context="revolware.pillsplan.Write_Database">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -42,15 +32,14 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_write_database" />
+    <include layout="@layout/content_write__database" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <Button
+        android:text="Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end" />
+        android:id="@+id/button"
+        app:layout_anchorGravity="center_vertical|right"
+        android:layout_gravity="center_vertical|center_horizontal" />
 
 </android.support.design.widget.CoordinatorLayout>
