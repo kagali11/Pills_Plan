@@ -34,7 +34,7 @@ public class Pills_info extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent toy2 = new Intent(Pills_info.this, WriteDatabase.class);
+                Intent toy2 = new Intent(Pills_info.this, Write_Database.class);
                 startActivity(toy2);
             }
         });

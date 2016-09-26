@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         TextView textViewTutorText = (TextView) findViewById(R.id.textViewTutorText);  //TUTOR TEXT
         textViewTutorText.setVisibility(View.INVISIBLE);
 
-
         intent = getIntent();  // APP INTENT
         String message = "";
         String info, info2, info3, info4, info5;
@@ -350,7 +349,6 @@ public class MainActivity extends AppCompatActivity {
                     calendar.set(calendar.HOUR_OF_DAY, (int) parent.getItemIdAtPosition(position));
                     hour = (int) parent.getItemIdAtPosition(position);
 
-
                 }
 
                 @Override
@@ -613,7 +611,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         if (prefs.getBoolean("firstrun", true)) {
-            Intent in = new Intent(MainActivity.this, Tutorial.class);
+            Intent in = new Intent(MainActivity.this, SplashScreen.class);
             startActivity(in);
             prefs.edit().putBoolean("firstrun", false).commit();
         }
