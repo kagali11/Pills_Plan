@@ -15,6 +15,7 @@ public class Pills_info extends AppCompatActivity {
 
     public Button back;
     public Button print;
+    public String sMedName;
 
     public void BackPressed(){
         back = (Button)findViewById(R.id.back);
@@ -29,12 +30,14 @@ public class Pills_info extends AppCompatActivity {
     }
 
     public void init2(){
+
         print = (Button)findViewById(R.id.print);
         print.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent toy2 = new Intent(Pills_info.this, Write_Database.class);
+                toy2.putExtra("medicine", sMedName);
                 startActivity(toy2);
             }
         });
@@ -45,9 +48,11 @@ public class Pills_info extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pills_info);
         BackPressed();
-        init2();
 
         Intent getInfo = getIntent();
+        sMedName = getInfo.getStringExtra("pills_info_data1");
+
+        init2();
 
         TextView MedName;
         TextView NumOfPills;
@@ -61,23 +66,21 @@ public class Pills_info extends AppCompatActivity {
         Freq = (TextView) findViewById(R.id.Freq);
         DocName = (TextView) findViewById(R.id.DocName);
 
-        String sMedName;
+
         String sNumOfPills;
         String sBegDate;
         String sFreq;
         String sDocName;
 
-        sMedName = getInfo.getStringExtra("pills_info_data1");
         sNumOfPills =  getInfo.getStringExtra("pills_info_data2");
         sBegDate =  getInfo.getStringExtra("pills_info_data3");
         sFreq =  getInfo.getStringExtra("pills_info_data4");
         sDocName =  getInfo.getStringExtra("pills_info_data5");
 
         MedName.setText(sMedName);
-        NumOfPills.setText(sNumOfPills);
-        BegDate.setText(sBegDate);
-        Freq.setText(sFreq);
+        NumOfPills.setText("Remaining pills: " + sNumOfPills);
+        BegDate.setText("Beginning date: " + sBegDate);
+        Freq.setText("Frequency: " + sFreq);
         DocName.setText(sDocName);
-
     }
 }

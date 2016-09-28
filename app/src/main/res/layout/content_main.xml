@@ -25,23 +25,6 @@
         android:onClick="onButtonClick"
         android:clickable="true"
         android:background="#19afef" />-->
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
-    android:id="@+id/scrollView">
-    <LinearLayout
-        android:id="@+id/AlarmView"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </LinearLayout>
-
-</ScrollView>
     <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -65,5 +48,23 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:textSize="15dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:id="@+id/AlarmView"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

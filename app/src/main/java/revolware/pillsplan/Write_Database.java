@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -27,7 +28,6 @@ import java.util.HashMap;
 public class Write_Database extends AppCompatActivity {
 
     TextView text_name;
-
 
     public Button button;
 
@@ -56,18 +56,26 @@ public class Write_Database extends AppCompatActivity {
 
         text_name = (TextView) findViewById(R.id.textViewDefault);
 
+        Intent get = getIntent();
+
         DatabaseHandler db = new DatabaseHandler(Write_Database.this);
         SQLiteDatabase database = db.getWritableDatabase();
 
-        Medicine medicine = db.getMedicine("Frovatriptan");
-        text_name.setText("Name: " + medicine.getNAME() + "\n"
-                + "\nDescription: " + medicine.getDESCRIPTION() + "\n"
-                + "\nState: " + medicine.getSTATE() + "\n"
-                + "\nIndication: " + medicine.getINDICATION() + "\n"
-                + "\nLife: " + medicine.getLIFE() + "\n"
-                + "\nDistribution: " + medicine.getDISTRIBUTION() + "\n"
-                + "\nAbsorption: " + medicine.getABSORPTION() + "\n"
-                + "\nClearence: " + medicine.getCLEARENCE() + "\n" + "\n" + "\n" + "\n" + "\n" );
+        if(db.getMedicine(get.getStringExtra("medicine")) == null){
+            TextView t1 = new TextView(this);
+            t1.setText("Your pill is not in database...");
+        }else{
+            Medicine medicine = db.getMedicine(get.getStringExtra("medicine"));
+            text_name.setText("Name: " + medicine.getNAME() + "\n"
+                    + "\nDescription: " + medicine.getDESCRIPTION() + "\n"
+                    + "\nState: " + medicine.getSTATE() + "\n"
+                    + "\nIndication: " + medicine.getINDICATION() + "\n"
+                    + "\nLife: " + medicine.getLIFE() + "\n"
+                    + "\nDistribution: " + medicine.getDISTRIBUTION() + "\n"
+                    + "\nAbsorption: " + medicine.getABSORPTION() + "\n"
+                    + "\nClearence: " + medicine.getCLEARENCE() + "\n" + "\n" + "\n" + "\n" + "\n" );
+        }
+
 
     }
 }

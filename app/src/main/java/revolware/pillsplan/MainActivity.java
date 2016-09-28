@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
@@ -215,50 +218,54 @@ public class MainActivity extends AppCompatActivity {
         // Create a linear layout to add new object as vertical
         final LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
         lL.setOrientation(LinearLayout.VERTICAL);
-
+        TextView heading = new TextView(this);
+        heading.setText("Medicine");
+        heading.setTextSize(40);
+        heading.setTypeface(null, Typeface.BOLD);
+        heading.setTextColor(0xFF0BC273);
+        heading.setPadding(0,0,0,64);
+        lL.addView(heading);
         for (int i = 0; i < map.size(); i++) {
-
             final LinearLayout holdLayouts = new LinearLayout(this); //holds horizontally 2 vertical layouts
             holdLayouts.setOrientation(LinearLayout.HORIZONTAL);
-
+            holdLayouts.setBackgroundColor(0xFFEEEEEE);
+            holdLayouts.setPadding(16,16,16,16);
+            holdLayouts.setGravity(Gravity.CENTER_VERTICAL);
             LinearLayout linLay = new LinearLayout(this); // layout for text fields
             linLay.setOrientation(LinearLayout.VERTICAL);
-
             LinearLayout linLay1 = new LinearLayout(this); //layout for textFields
             linLay1.setOrientation(LinearLayout.VERTICAL);
-
-            LinearLayout linLay2 = new LinearLayout(this); //layout for buttons next to textFields
+            LinearLayout linLay2 = new LinearLayout(this);  //layout for switch
             linLay2.setOrientation(LinearLayout.VERTICAL);
-
-            LinearLayout linLay3 = new LinearLayout(this); //layout for switch
+            LinearLayout linLay3 = new LinearLayout(this); //layout for buttons
             linLay3.setOrientation(LinearLayout.VERTICAL);
-
             Switch mySwitch;
             Button myButton;
             myButton = new Button(this);
-            myButton.setText("X");
-
+            myButton.setText("\u274C");
+            myButton.setTextColor(0xFFDD0000);
+            myButton.setTextSize(16);
+            myButton.setBackgroundColor(Color.TRANSPARENT);
+            myButton.setGravity(Gravity.RIGHT);
             mySwitch = new Switch(this);
             mySwitch.setChecked(false);
-
             //-------------------------------------------------------------------------------------------------------------------------------
             // !Createing Layout for actual Pills!
             //-------------------------------------------------------------------------------------------------------------------------------
-
             // Every time create new object of text view
             TextView medicineView = new TextView(this);
             medicineView.setText("\t" + map.get(i).getMedicine());
             medicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
             medicineView.setTextColor(0xFF000000);
-
+            medicineView.setTextSize(25);
+            medicineView.setTextColor(0xFF0BC273);
+            medicineView.setPadding(0,0,0,8);
             final String data_1 = map.get(i).getMedicine();
             final String data_2 = map.get(i).getNPills();
             final String data_3 = map.get(i).getDate();
             final String data_4 = map.get(i).getFrequency();
             final String data_5 = map.get(i).getName();
-
             /*TODO*/
-
 //            TextView numPillsView = new TextView(this);
 //            numPillsView.setText("\t" + map.get(i).getNPills());
 //            numPillsView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
@@ -278,20 +285,16 @@ public class MainActivity extends AppCompatActivity {
 //            docNameView.setText("\t" + map.get(i).getName());
 //            docNameView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
 //            docNameView.setTextColor(0xFF000000);
-
-
             //-------------------------------------------------------------------------------------------------------------------------------
             // !Creating Layout for actual Pills!
             //-------------------------------------------------------------------------------------------------------------------------------
-
             // Every time create new object of text view
-            TextView sMedicineView = new TextView(this);
-            sMedicineView.setText("Medicine: ");
-            sMedicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-            sMedicineView.setTextColor(0xFF000000);
-
+            //TextView sMedicineView = new TextView(this);
+            //sMedicineView.setText("Medicine: ");
+            //sMedicineView.setTextSize(16);
+            //sMedicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            //sMedicineView.setTextColor(0xFF000000);
             /*TODO*/
-
 //            TextView sNumPillsView = new TextView(this);
 //            sNumPillsView.setText("Pills : ");
 //            sNumPillsView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
@@ -311,60 +314,54 @@ public class MainActivity extends AppCompatActivity {
 //            sDocNameView.setText("DocName: ");
 //            sDocNameView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
 //            sDocNameView.setTextColor(0xFF000000);
-
             //-------------------------------------------------------------------------------------------------------------------------------
             // Spinners Actions
             //-------------------------------------------------------------------------------------------------------------------------------
-
-
             AlarmManager alarm_manager;
             final Calendar calendar;
-
             calendar = Calendar.getInstance();
-
-
             Spinner spinner = new Spinner(this);
             Spinner spinner1 = new Spinner(this);
-
+            //Limits height of drop down list
+            try {
+                Field popup = Spinner.class.getDeclaredField("mPopup");
+                popup.setAccessible(true);
+                android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinner);
+                popupWindow.setHeight(500);
+                popupWindow = (android.widget.ListPopupWindow) popup.get(spinner1);
+                popupWindow.setHeight(500);
+            }
+            catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e){}
             // Create an ArrayAdapter using the string array and a default spinner layout
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                     R.array.hours, android.R.layout.simple_spinner_item);
             ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
                     R.array.minutes, android.R.layout.simple_spinner_item);
-
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
             // Apply the adapter to the spinner
             spinner.setAdapter(adapter);
             spinner1.setAdapter(adapter1);
-
             //hour spinner
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                     //intent.putExtra("timeHour",parent.getItemIdAtPosition(position));
                     calendar.set(calendar.HOUR_OF_DAY, (int) parent.getItemIdAtPosition(position));
                     hour = (int) parent.getItemIdAtPosition(position);
-
                 }
-
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-
                     //intent.putExtra("timeHour","0");
                     calendar.set(calendar.HOUR_OF_DAY, 0);
                     hour = 0;
                 }
             });
-
             //Minute spinner
             spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                     //intent.putExtra("timeMinute", parent.getItemIdAtPosition(position));
                     calendar.set(calendar.MINUTE, (int) parent.getItemIdAtPosition(position));
                     minute = (int) parent.getItemIdAtPosition(position);
@@ -372,38 +369,28 @@ public class MainActivity extends AppCompatActivity {
                     if (minute < 10) {
                         sMinute = "0" + minute;
                     }
-
                 }
-
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-
                     //intent.putExtra("timeMinute", "0");
                     calendar.set(calendar.MINUTE, 0);
                     minute = 0;
                 }
             });
-
-
             //-------------------------------------------------------------------------------------------------------------------------------
             //
             //-------------------------------------------------------------------------------------------------------------------------------
-
             mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-
-
                         AlarmManager alarm_manager;
                         alarm_manager = (AlarmManager) getSystemService(ALARM_SERVICE);
                         my_Intent = new Intent(MainActivity.this, Alarm_Receiver.class);
-
                         PendingIntent pending_Intent;
                         // Restore preferences
                         SharedPreferences settings = getSharedPreferences("numOfAlarms", 0);
                         int num = settings.getInt("value", 0);
-
                         my_Intent.putExtra("medName", data_1);
                         my_Intent.putExtra("numPills", data_2);
                         my_Intent.putExtra("freq", data_4);
@@ -411,20 +398,14 @@ public class MainActivity extends AppCompatActivity {
                         my_Intent.putExtra("alarmNum", num);
                         my_Intent.putExtra("alarmHour", calendar.getInstance().getTime().getHours());
                         my_Intent.putExtra("alarmMinutes", calendar.getInstance().getTime().getMinutes());
-
-
                         pending_Intent = PendingIntent.getBroadcast(MainActivity.this, num, my_Intent, 0);
-
                         // We need an Editor object to make preference changes.
                         // All objects are from android.context.Context
                         settings = getSharedPreferences("numOfAlarms", 0);
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putInt("value", num + 1);
-
                         // Commit the edits!
                         editor.commit();
-
-
                         //set the alarm manager
                         calendar.set(Calendar.SECOND, 0);
                         alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), calendar.getInstance().getTime().getHours() * 1000 * 60 * 60 + calendar.getInstance().getTime().getMinutes() * 1000 * 60, pending_Intent);
@@ -432,20 +413,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            //-------------------------------------------------------------------------------------------------------------------------------
-            //
-            //-------------------------------------------------------------------------------------------------------------------------------
-
 
             /*TODO*/
-            linLay.addView(medicineView); //right layout
+            lL.addView(medicineView); //right layout
 //            linLay.addView(numPillsView);
 //            linLay.addView(dateView);
 //            linLay.addView(freqView);
 //            linLay.addView(docNameView);
             linLay.addView(spinner1);
 
-            linLay1.addView(sMedicineView); //left layout
+            //linLay1.addView(sMedicineView); //left layout
 //            linLay1.addView(sNumPillsView);
 //            linLay1.addView(sDateView);
 //            linLay1.addView(sFreqView);
@@ -466,7 +443,6 @@ public class MainActivity extends AppCompatActivity {
             blank.setText("");
             lL.addView(blank);
             lL.setClickable(true); //clickable layout
-            lL.setBackgroundColor(Color.LTGRAY);
 
 
             /**

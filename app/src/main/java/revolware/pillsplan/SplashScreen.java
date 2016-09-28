@@ -180,7 +180,6 @@ public class SplashScreen extends AppCompatActivity {
         Log.i("progress", "part 8 done");
         getAllDrugsFromFile("part09.xml");
         Log.i("progress", "part 9 done");
-
         getAllDrugsFromFile("part10.xml");
         Log.i("progress", "part 10 done");
         getAllDrugsFromFile("part11.xml");
