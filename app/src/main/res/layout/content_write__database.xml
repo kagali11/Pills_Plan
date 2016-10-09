@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="revolware.pillsplan.Write_Database"
+    tools:context="revolware.pillsplan.database.Write_Database"
     tools:showIn="@layout/activity_write__database">
 
     <TextView

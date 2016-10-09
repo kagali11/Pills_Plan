@@ -1,4 +1,4 @@
-package revolware.pillsplan;
+package revolware.pillsplan.activities.Popup;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+
+import revolware.pillsplan.R;
+import revolware.pillsplan.activities.MainActivity.MainActivity;
 
 /**
  * Created by Daniel on 23.08.2016.

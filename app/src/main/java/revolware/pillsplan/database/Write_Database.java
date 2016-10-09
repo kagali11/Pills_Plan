@@ -1,29 +1,17 @@
-package revolware.pillsplan;
+package revolware.pillsplan.database;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
+import revolware.pillsplan.R;
+import revolware.pillsplan.activities.PillsInfo.PillsInfo;
+import revolware.pillsplan.models.Medicine;
 
 public class Write_Database extends AppCompatActivity {
 
@@ -39,7 +27,7 @@ public class Write_Database extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent toy = new Intent(Write_Database.this, Pills_info.class);
+                Intent toy = new Intent(Write_Database.this, PillsInfo.class);
                 startActivity(toy);
             }
         });

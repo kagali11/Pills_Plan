@@ -1,4 +1,4 @@
-package revolware.pillsplan;
+package revolware.pillsplan.services.alarm;
 
 import android.app.Service;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package revolware.pillsplan;
+package revolware.pillsplan.activities.MainActivity;
 
 
 import android.app.AlarmManager;
@@ -20,11 +20,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -38,10 +36,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.TreeMap;
+
+import revolware.pillsplan.activities.Display.Display;
+import revolware.pillsplan.activities.PillsInfo.PillsInfo;
+import revolware.pillsplan.activities.Popup.Popup;
+import revolware.pillsplan.R;
+import revolware.pillsplan.activities.SplashScreen.SplashScreen;
+import revolware.pillsplan.models.AlarmInfo;
+import revolware.pillsplan.services.alarm.Alarm_Receiver;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -61,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // tw1 = (TextView) findViewById(R.id.textView2);
 
         prefs = getSharedPreferences("com.revolware.pillsplan", MODE_PRIVATE);
 
@@ -100,49 +104,22 @@ public class MainActivity extends AppCompatActivity {
 
                 iCounter++;
                 String s = null;
-                intent.putExtra("info", s);//-----------------------------------------------////////////////
+                intent.putExtra("info", s);
 
             }
         }
-/* }
-            if(intent.getStringExtra("data") != null) //signals if theres a msg in intent from second activity
-            {       // getting Input from second Activity
-                message = intent.getStringExtra("data");
-                list.put(iCounter,message); // adds String to list object
-                iCounter ++;
-                intent.putExtra("data", "" );
-
-            }
-*/
-        //-------------------------------------------------------------------------------------------------------------------------------
+        //-------------------
         //!Reading Text File!
-        //-------------------------------------------------------------------------------------------------------------------------------
+        //-------------------
         // if( fileExistance("dfile.txt") )
-        if (fileExistance("data1.txt"))//----------------------------------------------------////////////////
+        if (fileExistance("data1.txt"))
         {
             try {
-/*                    FileInputStream fis = openFileInput ("dfile.txt");  //opens file
-                    InputStreamReader isr = new InputStreamReader(fis);
-                    BufferedReader bufferedReader = new BufferedReader(isr);
-                    String dt;
-*/
                 FileInputStream fis1 = openFileInput("data1.txt"); //opens file
                 InputStreamReader isr1 = new InputStreamReader(fis1);
                 BufferedReader bufferedReader1 = new BufferedReader(isr1);
                 String data, data2, data3, data4, data5;
 
-
-  /*                  while((dt = bufferedReader.readLine()) != null)     //Initializing String Objects for TextViews
-                    {
-                        dt =    dt + "\n" +
-                                bufferedReader.readLine()   + "\n" +
-                                bufferedReader.readLine()   + "\n" +
-                                bufferedReader.readLine()  + "\n" +
-                                bufferedReader.readLine()  + "\n";
-                        list.put(iCounter,dt);
-                        iCounter++;
-                    }
-*/
                 while ((data = bufferedReader1.readLine()) != null)     //Initializing String Objects for data - AlarmInfo
                 {
 
@@ -151,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     data4 = bufferedReader1.readLine();
                     data5 = bufferedReader1.readLine();
 
-                    map.put(iCounter, new AlarmInfo(data, data2, data3, data4, data5));//-----------------------------------------/////////
+                    map.put(iCounter, new AlarmInfo(data, data2, data3, data4, data5));
                     iCounter++;
                 }
 
@@ -161,40 +138,23 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else {
-            //    TextView textViewTutorHeader = (TextView)findViewById(R.id.textViewTutorHeader);
+            // TextView textViewTutorHeader = (TextView)findViewById(R.id.textViewTutorHeader);
             textViewTutorHeader.setVisibility(View.VISIBLE);
-            //  TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);
+            // TextView textViewTutorText = (TextView)findViewById(R.id.textViewTutorText);
             textViewTutorText.setVisibility(View.VISIBLE);
-
-               /* new AlertDialog.Builder(MainActivity.this) /* KEBY SME POTREBOVALI ALERT *
-                .setTitle("Tutorial")
-                .setMessage("relly?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                     // continue with delete
-                }
-            })
-            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // do nothing
-                }
-            })
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .show(); */
-
         }
 
-        //-------------------------------------------------------------------------------------------------------------------------------
+        //--------------------
         // !Writing into File!
-        //-------------------------------------------------------------------------------------------------------------------------------
+        //--------------------
         try {
-//                FileOutputStream fos = openFileOutput("dfile.txt", MODE_PRIVATE);
+            //FileOutputStream fos = openFileOutput("dfile.txt", MODE_PRIVATE);
             FileOutputStream fos1 = openFileOutput("data1.txt", MODE_PRIVATE);
 
-//                for(int i = 0; i < list.size(); i++)
-//                   fos.write(list.get(i).getBytes());
-//                for(int i = 0; i < map.size(); i++)
-            //                   fos1.write(map.get(i).toString().getBytes());
+            //for(int i = 0; i < list.size(); i++)
+            //fos.write(list.get(i).getBytes());
+            //for(int i = 0; i < map.size(); i++)
+            //fos1.write(map.get(i).toString().getBytes());
             try {
                 FileOutputStream fos = openFileOutput("data1.txt", MODE_PRIVATE);
 
@@ -207,14 +167,14 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 //                fos.close();
-            fos1.close(); //--------------------------------------------------------------///////////
+            fos1.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        //-------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------
         // !Createing Layout for actual Pills!
-        //-------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------
         // Create a linear layout to add new object as vertical
         final LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
         lL.setOrientation(LinearLayout.VERTICAL);
@@ -249,9 +209,9 @@ public class MainActivity extends AppCompatActivity {
             myButton.setGravity(Gravity.RIGHT);
             mySwitch = new Switch(this);
             mySwitch.setChecked(false);
-            //-------------------------------------------------------------------------------------------------------------------------------
+            //-------------------------------------
             // !Createing Layout for actual Pills!
-            //-------------------------------------------------------------------------------------------------------------------------------
+            //-------------------------------------
             // Every time create new object of text view
             TextView medicineView = new TextView(this);
             medicineView.setText("\t" + map.get(i).getMedicine());
@@ -265,58 +225,9 @@ public class MainActivity extends AppCompatActivity {
             final String data_3 = map.get(i).getDate();
             final String data_4 = map.get(i).getFrequency();
             final String data_5 = map.get(i).getName();
-            /*TODO*/
-//            TextView numPillsView = new TextView(this);
-//            numPillsView.setText("\t" + map.get(i).getNPills());
-//            numPillsView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-//            numPillsView.setTextColor(0xFF000000);
-//
-//            TextView dateView = new TextView(this);
-//            dateView.setText("\t" + map.get(i).getDate());
-//            dateView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-//            dateView.setTextColor(0xFF000000);
-//
-//            TextView freqView = new TextView(this);
-//            freqView.setText("\t" + map.get(i).getFrequency());
-//            freqView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-//            freqView.setTextColor(0xFF000000);
-//
-//            TextView docNameView = new TextView(this);
-//            docNameView.setText("\t" + map.get(i).getName());
-//            docNameView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-//            docNameView.setTextColor(0xFF000000);
-            //-------------------------------------------------------------------------------------------------------------------------------
-            // !Creating Layout for actual Pills!
-            //-------------------------------------------------------------------------------------------------------------------------------
-            // Every time create new object of text view
-            //TextView sMedicineView = new TextView(this);
-            //sMedicineView.setText("Medicine: ");
-            //sMedicineView.setTextSize(16);
-            //sMedicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-            //sMedicineView.setTextColor(0xFF000000);
-            /*TODO*/
-//            TextView sNumPillsView = new TextView(this);
-//            sNumPillsView.setText("Pills : ");
-//            sNumPillsView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-//            sNumPillsView.setTextColor(0xFF000000);
-//
-//            TextView sDateView = new TextView(this);
-//            sDateView.setText("Date: ");
-//            sDateView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-//            sDateView.setTextColor(0xFF000000);
-//
-//            TextView sFreqView = new TextView(this);
-//            sFreqView.setText("Frequency: ");
-//            sFreqView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-//            sFreqView.setTextColor(0xFF000000);
-//
-//            TextView sDocNameView = new TextView(this);
-//            sDocNameView.setText("DocName: ");
-//            sDocNameView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
-//            sDocNameView.setTextColor(0xFF000000);
-            //-------------------------------------------------------------------------------------------------------------------------------
+            //------------------
             // Spinners Actions
-            //-------------------------------------------------------------------------------------------------------------------------------
+            //-----------------
             AlarmManager alarm_manager;
             final Calendar calendar;
             calendar = Calendar.getInstance();
@@ -377,9 +288,7 @@ public class MainActivity extends AppCompatActivity {
                     minute = 0;
                 }
             });
-            //-------------------------------------------------------------------------------------------------------------------------------
-            //
-            //-------------------------------------------------------------------------------------------------------------------------------
+
             mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -414,21 +323,9 @@ public class MainActivity extends AppCompatActivity {
             });
 
 
-            /*TODO*/
-            lL.addView(medicineView); //right layout
-//            linLay.addView(numPillsView);
-//            linLay.addView(dateView);
-//            linLay.addView(freqView);
-//            linLay.addView(docNameView);
+            lL.addView(medicineView);
             linLay.addView(spinner1);
-
-            //linLay1.addView(sMedicineView); //left layout
-//            linLay1.addView(sNumPillsView);
-//            linLay1.addView(sDateView);
-//            linLay1.addView(sFreqView);
-//            linLay1.addView(sDocNameView);
             linLay1.addView(spinner);
-
 
             linLay2.addView(myButton);
             linLay3.addView(mySwitch);
@@ -452,32 +349,32 @@ public class MainActivity extends AppCompatActivity {
             /*TODO: treba spravit to, aby sa pouzivatel napriklad 5 krat po sebe dostal na pills_info a raz na Popup!*/
 
             //ked kliknem na text medicine, co je lL layout, tak ma to hodi z mainActivity na pills_info
-        lL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Random rand = new Random();
-                int num = rand.nextInt(6);
-                if (v == lL && num == 5) {
-                    Intent toy2 = new Intent(MainActivity.this, Popup.class);
-                    startActivity(toy2);
-                }else{
-                    Intent toy = new Intent(MainActivity.this, Pills_info.class);
-                    toy.putExtra("pills_info_data1", data_1);
-                    toy.putExtra("pills_info_data2", data_2);
-                    toy.putExtra("pills_info_data3", data_3);
-                    toy.putExtra("pills_info_data4", data_4);
-                    toy.putExtra("pills_info_data5", data_5);
-                    startActivity(toy);
+            lL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Random rand = new Random();
+                    int num = rand.nextInt(6);
+                    if (v == lL && num == 5) {
+                        Intent toy2 = new Intent(MainActivity.this, Popup.class);
+                        startActivity(toy2);
+                    }else{
+                        Intent toy = new Intent(MainActivity.this, PillsInfo.class);
+                        toy.putExtra("pills_info_data1", data_1);
+                        toy.putExtra("pills_info_data2", data_2);
+                        toy.putExtra("pills_info_data3", data_3);
+                        toy.putExtra("pills_info_data4", data_4);
+                        toy.putExtra("pills_info_data5", data_5);
+                        startActivity(toy);
+                    }
                 }
-            }
-        });
+            });
 
             //TU KONCI TEN KOD
 
 
-            //-------------------------------------------------------------------------------------------------------------------------------
+            //---------------------
             // !Button X Activity!
-            //-------------------------------------------------------------------------------------------------------------------------------
+            //---------------------
             final int removeInd = i;
             final int removeCounter = iCounter;
             myButton.setOnClickListener(new View.OnClickListener() {
@@ -508,17 +405,17 @@ public class MainActivity extends AppCompatActivity {
     } //ending oncreate
 
 
-    //-------------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------
     // Finishes this Activity when Back is pressed
-    //-------------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------
     public void onBackPressed() {
         finish();
     }
 
 
-    //-------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------
     // Finds out whether file with "fname" exist, and if exist returns true
-    //-------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------
     public boolean fileExistance(String fname) {
         File file = getBaseContext().getFileStreamPath(fname);
         return file.exists();
@@ -530,15 +427,6 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-    /*public void onButtonClick(View v) {
-        if(v.getId() == R.id.Bdisplay)
-        {
-            Intent i = new Intent(MainActivity.this, Display.class);
-            startActivity(i);
-
-        }
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -1,4 +1,4 @@
-package revolware.pillsplan;
+package revolware.pillsplan.activities.PillsInfo;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import revolware.pillsplan.R;
+import revolware.pillsplan.activities.MainActivity.MainActivity;
+import revolware.pillsplan.database.Write_Database;
+
 /**
  * Created By Dano on 25.6.2016
  */
 
-public class Pills_info extends AppCompatActivity {
+public class PillsInfo extends AppCompatActivity {
 
     public Button back;
     public Button print;
@@ -23,7 +27,7 @@ public class Pills_info extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent toy = new Intent(Pills_info.this, MainActivity.class);
+                Intent toy = new Intent(PillsInfo.this, MainActivity.class);
                 startActivity(toy);
             }
         });
@@ -36,7 +40,7 @@ public class Pills_info extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent toy2 = new Intent(Pills_info.this, Write_Database.class);
+                Intent toy2 = new Intent(PillsInfo.this, Write_Database.class);
                 toy2.putExtra("medicine", sMedName);
                 startActivity(toy2);
             }

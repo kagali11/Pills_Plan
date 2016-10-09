@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="revolware.pillsplan.Write_Database">
+    tools:context="revolware.pillsplan.database.Write_Database">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"

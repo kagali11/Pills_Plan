@@ -1,4 +1,4 @@
-package revolware.pillsplan;
+package revolware.pillsplan.activities.SplashScreen;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -21,6 +21,11 @@ import java.io.InputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import revolware.pillsplan.R;
+import revolware.pillsplan.activities.Tutorial.Tutorial;
+import revolware.pillsplan.database.DatabaseHandler;
+import revolware.pillsplan.models.Medicine;
 
 public class SplashScreen extends AppCompatActivity {
 

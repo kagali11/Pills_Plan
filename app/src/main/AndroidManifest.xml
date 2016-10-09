@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,26 +25,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AlarmActivity" />
+        <activity android:name=".activities.AlarmActivity.AlarmActivity" />
 
         <receiver
-            android:name=".Alarm_Receiver"
+            android:name=".services.alarm.Alarm_Receiver"
             android:process=":remote" />
 
         <service
-            android:name=".RingtonePlayingService"
+            android:name=".services.alarm.RingtonePlayingService"
             android:enabled="true" />
 
         <activity android:name=".Pills_info" />
         <activity
-            android:name=".Display"
+            android:name=".activities.Display.Display"
             android:label="Add alarm" />
         <activity
-            android:name=".Tutorial"
+            android:name=".activities.Tutorial.Tutorial"
             android:label="@string/title_activity_tutorial"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".Popup"
+            android:name=".activities.Popup.Popup"
             android:theme="@style/AppTheme.CustomTheme" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -54,9 +54,9 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".SplashScreen" />
+        <activity android:name=".activities.SplashScreen.SplashScreen" />
         <activity
-            android:name=".Write_Database"
+            android:name=".database.Write_Database"
             android:label="Your medicine"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
