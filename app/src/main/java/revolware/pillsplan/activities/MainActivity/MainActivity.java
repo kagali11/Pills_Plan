@@ -12,9 +12,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,11 +40,10 @@ import java.util.Calendar;
 import java.util.Random;
 import java.util.TreeMap;
 
+import revolware.pillsplan.R;
 import revolware.pillsplan.activities.Display.Display;
-import revolware.pillsplan.activities.PillsInfo.PillsHistory;
 import revolware.pillsplan.activities.PillsInfo.PillsInfo;
 import revolware.pillsplan.activities.Popup.Popup;
-import revolware.pillsplan.R;
 import revolware.pillsplan.activities.SplashScreen.SplashScreen;
 import revolware.pillsplan.models.AlarmInfo;
 import revolware.pillsplan.services.alarm.Alarm_Receiver;
@@ -177,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
         // !Createing Layout for actual Pills!
         //------------------------------------
         // Create a linear layout to add new object as vertical
-        for (int i = 0; i < map.size(); i++) {
         final LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
         lL.setOrientation(LinearLayout.VERTICAL);
         TextView heading = new TextView(this);
@@ -187,6 +185,9 @@ public class MainActivity extends AppCompatActivity {
         heading.setTextColor(0xFF0BC273);
         heading.setPadding(0,0,0,64);
         lL.addView(heading);
+
+        for (int i = 0; i < map.size(); i++) {
+
 
             final LinearLayout holdLayouts = new LinearLayout(this); //holds horizontally 2 vertical layouts
             holdLayouts.setOrientation(LinearLayout.HORIZONTAL);
@@ -215,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
             // !Createing Layout for actual Pills!
             //-------------------------------------
             // Every time create new object of text view
-            TextView medicineView = new TextView(this);
+            final TextView medicineView = new TextView(this);
             medicineView.setText("\t" + map.get(i).getMedicine());
             medicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
             medicineView.setTextColor(0xFF000000);
@@ -351,12 +352,12 @@ public class MainActivity extends AppCompatActivity {
             /*TODO: treba spravit to, aby sa pouzivatel napriklad 5 krat po sebe dostal na pills_info a raz na Popup!*/
 
             //ked kliknem na text medicine, co je lL layout, tak ma to hodi z mainActivity na pills_info
-            lL.setOnClickListener(new View.OnClickListener() {
+            medicineView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Random rand = new Random();
                     int num = rand.nextInt(10);
-                    if (v == lL && num == 5) {
+                    if (v == medicineView && num == 5) {
                         Intent toy2 = new Intent(MainActivity.this, Popup.class);
                         startActivity(toy2);
                     }else{
