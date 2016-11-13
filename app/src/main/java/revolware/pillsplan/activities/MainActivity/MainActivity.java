@@ -176,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
         // !Createing Layout for actual Pills!
         //------------------------------------
         // Create a linear layout to add new object as vertical
+        for (int i = 0; i < map.size(); i++) {
         final LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
         lL.setOrientation(LinearLayout.VERTICAL);
         TextView heading = new TextView(this);
@@ -185,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         heading.setTextColor(0xFF0BC273);
         heading.setPadding(0,0,0,64);
         lL.addView(heading);
-        for (int i = 0; i < map.size(); i++) {
+
             final LinearLayout holdLayouts = new LinearLayout(this); //holds horizontally 2 vertical layouts
             holdLayouts.setOrientation(LinearLayout.HORIZONTAL);
             holdLayouts.setBackgroundColor(0xFFEEEEEE);
