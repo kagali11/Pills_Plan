@@ -42,6 +42,7 @@ import java.util.TreeMap;
 
 import revolware.pillsplan.R;
 import revolware.pillsplan.activities.Display.Display;
+import revolware.pillsplan.activities.PillsInfo.PillsHistory;
 import revolware.pillsplan.activities.PillsInfo.PillsInfo;
 import revolware.pillsplan.activities.Popup.Popup;
 import revolware.pillsplan.activities.SplashScreen.SplashScreen;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tw1;
     Intent intent;
     Intent my_Intent;
+    String getMedicineHistory;
 
     SharedPreferences prefs = null;
     /**
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getMedicineHistory = "";
         prefs = getSharedPreferences("com.revolware.pillsplan", MODE_PRIVATE);
 
         setContentView(R.layout.activity_main);
@@ -186,6 +188,8 @@ public class MainActivity extends AppCompatActivity {
         heading.setPadding(0,0,0,64);
         lL.addView(heading);
 
+
+
         for (int i = 0; i < map.size(); i++) {
 
 
@@ -228,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
             final String data_3 = map.get(i).getDate();
             final String data_4 = map.get(i).getFrequency();
             final String data_5 = map.get(i).getName();
+            getMedicineHistory = getMedicineHistory + data_1 + "#" ;
             //------------------
             // Spinners Actions
             //-----------------
@@ -369,24 +374,27 @@ public class MainActivity extends AppCompatActivity {
                         toy.putExtra("pills_info_data5", data_5);
                         startActivity(toy);
                     }
+
+
+
                 }
+
+
+
             });
-/*
-            Button history;
-            history = (Button)findViewById(R.id.history);
-            history.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    Intent toy2 = new Intent(MainActivity.this, PillsHistory.class);
-                    toy2.putExtra("pills_info_data1", data_1);
-                    startActivity(toy2);
-                }
-            });
-*/
 
             //TU KONCI TEN KOD
 
-
+            Button history;
+            history = (Button)findViewById(R.id.history);
+            history.setOnClickListener(new View.OnClickListener(){
+                                           @Override
+                                           public void onClick(View v) {
+                                               Intent toy2 = new Intent(MainActivity.this, PillsHistory.class);
+                                               toy2.putExtra("getMedicineNamehistory", getMedicineHistory);
+                                               startActivity(toy2);
+                                           }
+            });
             //---------------------
             // !Button X Activity!
             //---------------------
