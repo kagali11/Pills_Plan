@@ -21,6 +21,14 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <Button
+        android:text="History"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/history"
+        app:layout_anchorGravity="center_vertical|center_horizontal"
+        android:layout_gravity="bottom|right" />
+
     <include layout="@layout/content_main" />
 
 </android.support.design.widget.CoordinatorLayout>
