@@ -18,8 +18,9 @@ public class PillsHistory extends AppCompatActivity {
         setContentView(R.layout.activity_pills_history);
 
         Intent getInfo = getIntent();
-
-        String [] sMedName = getInfo.getStringExtra("getMedicineNamehistory").split("#"); //// TODO: 11/13/16 do tohto pola Stringov by mali ist data zo servera
+        //String GetMedicineHistory zachytava mena recent liekov
+        //// TODO: 11/13/16 vytvorit subor pilpHistory ktory bude ukladat nazvy liekov 
+        String [] sMedName = getInfo.getStringExtra("getMedicineNamehistory").split("#"); //// TODO: 11/13/16 do tohto pola Stringov by mali ist data zo subora(ktory som este nestihol nakodit :P)
 
 
         LinearLayout lL = (LinearLayout) findViewById(R.id.activity_pills_history);
