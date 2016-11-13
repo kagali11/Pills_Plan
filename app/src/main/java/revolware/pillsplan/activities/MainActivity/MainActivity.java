@@ -41,6 +41,7 @@ import java.util.Random;
 import java.util.TreeMap;
 
 import revolware.pillsplan.activities.Display.Display;
+import revolware.pillsplan.activities.PillsInfo.PillsHistory;
 import revolware.pillsplan.activities.PillsInfo.PillsInfo;
 import revolware.pillsplan.activities.Popup.Popup;
 import revolware.pillsplan.R;
@@ -354,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Random rand = new Random();
-                    int num = rand.nextInt(6);
+                    int num = rand.nextInt(10);
                     if (v == lL && num == 5) {
                         Intent toy2 = new Intent(MainActivity.this, Popup.class);
                         startActivity(toy2);
@@ -369,6 +370,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+/*
+            Button history;
+            history = (Button)findViewById(R.id.history);
+            history.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Intent toy2 = new Intent(MainActivity.this, PillsHistory.class);
+                    toy2.putExtra("pills_info_data1", data_1);
+                    startActivity(toy2);
+                }
+            });
+*/
 
             //TU KONCI TEN KOD
 

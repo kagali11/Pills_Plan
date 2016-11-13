@@ -212,5 +212,7 @@
     <string name="title_activity_show_database">ShowDatabase</string>
     <string name="title_activity_main_database">MainDatabase</string>
     <string name="title_activity_write__database">Write_Database</string>
+    <string name="title_activity_pills_history">PillsHistory</string>
+    <string name="title_activity_pharmacy_search">Map</string>
 
 </resources>

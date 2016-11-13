@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import revolware.pillsplan.R;
 import revolware.pillsplan.activities.MainActivity.MainActivity;
+import revolware.pillsplan.activities.Tutorial.Tutorial;
 import revolware.pillsplan.database.Write_Database;
 
 /**
