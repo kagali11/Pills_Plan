@@ -465,7 +465,7 @@ public class MainActivity extends AppCompatActivity {
 
                 while ((data = bufferedReader1.readLine()) != null)     //Initializing String Objects for data - AlarmInfo
                 {
-                    getNames = getNames + "@" + data;
+                    getNames = getNames + data + "@";
                 }
 
             } catch (FileNotFoundException e) {
@@ -490,6 +490,7 @@ public class MainActivity extends AppCompatActivity {
 
                 for (int i = 0; i < s.length; i++) {
                         fos.write(s[i].toString().getBytes());
+                        fos.write('\n');
                 }
                 fos.close();
             } catch (IOException e) {
@@ -504,10 +505,10 @@ public class MainActivity extends AppCompatActivity {
 
     public String[] ArrayFusion(String[] volunteerToBeFused1, String[] volunteerToBeFused2)
     {
-        String Fusion[];
+
         int counter = 0;
 
-        Set<String> set = new HashSet<>();
+        Set<String> set = new HashSet<String>();
         List<String> list = Arrays.asList(volunteerToBeFused1);
         List<String> list2 = Arrays.asList(volunteerToBeFused2);
 
@@ -516,9 +517,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Call addAll as many times as you like
 
+        String Fusion[] = set.toArray(new String[set.size()]);
 
-
-        return Fusion = set.toArray(new String[set.size()]);
+        return Fusion;
     }
 
 

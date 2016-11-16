@@ -30,16 +30,13 @@ public class PillsHistory extends AppCompatActivity {
         lL.setOrientation(LinearLayout.VERTICAL);
 
         for (int i = 0; i < sMedName.length; i++) {
-            LinearLayout lay = new LinearLayout(this);
-            lay.setOrientation(LinearLayout.VERTICAL);
 
             TextView MedName = new TextView(this);
-
             MedName.setText(sMedName[i]);
 
 
-            lay.addView(MedName);
-            lL.addView(lay);
+
+            lL.addView(MedName);
         }
     }
 
@@ -62,7 +59,7 @@ public class PillsHistory extends AppCompatActivity {
 
                 while ((data = bufferedReader1.readLine()) != null)     //Initializing String Objects for data - AlarmInfo
                 {
-                    getNames = getNames + "@" + data;
+                    getNames = getNames + data + "@";
                 }
 
             } catch (FileNotFoundException e) {
