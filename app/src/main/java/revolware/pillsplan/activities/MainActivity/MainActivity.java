@@ -110,9 +110,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-        //-------------------
+        //-----------------------------------------------------------------------------------------------------------------------
         //!Reading Text File!
-        //-------------------
+        //-----------------------------------------------------------------------------------------------------------------------
+
+
         // if( fileExistance("dfile.txt") )
         if (fileExistance("data1.txt"))
         {
@@ -146,9 +148,9 @@ public class MainActivity extends AppCompatActivity {
             textViewTutorText.setVisibility(View.VISIBLE);
         }
 
-        //--------------------
+        //------------------------------------------------------------------------------------------------------------------------
         // !Writing into File!
-        //--------------------
+        //------------------------------------------------------------------------------------------------------------------------
         try {
             //FileOutputStream fos = openFileOutput("dfile.txt", MODE_PRIVATE);
             FileOutputStream fos1 = openFileOutput("data1.txt", MODE_PRIVATE);
@@ -174,9 +176,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //------------------------------------
+        //--------------------------------------------------------------------------------------------------------------------
         // !Createing Layout for actual Pills!
-        //------------------------------------
+        //--------------------------------------------------------------------------------------------------------------------
         // Create a linear layout to add new object as vertical
         final LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
         lL.setOrientation(LinearLayout.VERTICAL);
@@ -216,9 +218,9 @@ public class MainActivity extends AppCompatActivity {
             myButton.setGravity(Gravity.RIGHT);
             mySwitch = new Switch(this);
             mySwitch.setChecked(false);
-            //-------------------------------------
+            //---------------------------------------------------------------------------------------------------------------------
             // !Createing Layout for actual Pills!
-            //-------------------------------------
+            //---------------------------------------------------------------------------------------------------------------------
             // Every time create new object of text view
             final TextView medicineView = new TextView(this);
             medicineView.setText("\t" + map.get(i).getMedicine());
@@ -395,9 +397,9 @@ public class MainActivity extends AppCompatActivity {
                                                startActivity(toy2);
                                            }
             });
-            //---------------------
+            //-------------------------------------------------------------------------------------------------------------------------
             // !Button X Activity!
-            //---------------------
+            //-------------------------------------------------------------------------------------------------------------------------
             final int removeInd = i;
             final int removeCounter = iCounter;
             myButton.setOnClickListener(new View.OnClickListener() {
@@ -428,17 +430,17 @@ public class MainActivity extends AppCompatActivity {
     } //ending oncreate
 
 
-    //---------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------
     // Finishes this Activity when Back is pressed
-    //---------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------
     public void onBackPressed() {
         finish();
     }
 
 
-    //----------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------
     // Finds out whether file with "fname" exist, and if exist returns true
-    //----------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------
     public boolean fileExistance(String fname) {
         File file = getBaseContext().getFileStreamPath(fname);
         return file.exists();
