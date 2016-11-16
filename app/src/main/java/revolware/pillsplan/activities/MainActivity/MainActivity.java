@@ -36,8 +36,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.TreeMap;
 
 import revolware.pillsplan.R;
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     Intent intent;
     Intent my_Intent;
     String getMedicineHistory;
+    String getHistory[];
 
     SharedPreferences prefs = null;
     /**
@@ -110,6 +115,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+        //-----------------------------------------------------------------------------------------------------------------------
+        //!Reading Text File! /// PilpHistory
+        //-----------------------------------------------------------------------------------------------------------------------
+
+
+        getHistory = readTextFileToStringArray("Pilphistory.txt").split("@");
+
+
         //-----------------------------------------------------------------------------------------------------------------------
         //!Reading Text File!
         //-----------------------------------------------------------------------------------------------------------------------
@@ -234,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
             final String data_3 = map.get(i).getDate();
             final String data_4 = map.get(i).getFrequency();
             final String data_5 = map.get(i).getName();
-            getMedicineHistory = getMedicineHistory + data_1 + "#" ;
+            getMedicineHistory = getMedicineHistory + data_1 + "@" ;
             //------------------
             // Spinners Actions
             //-----------------
@@ -392,6 +405,7 @@ public class MainActivity extends AppCompatActivity {
             history.setOnClickListener(new View.OnClickListener(){
                                            @Override
                                            public void onClick(View v) {
+                                               writeStringArrayToTextFile(ArrayFusion(getHistory,getMedicineHistory.split("@")),"PilpHistory.txt");
                                                Intent toy2 = new Intent(MainActivity.this, PillsHistory.class);
                                                toy2.putExtra("getMedicineNamehistory", getMedicineHistory);
                                                startActivity(toy2);
@@ -436,6 +450,78 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
     }
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    // Reads data from TextFile into one string array
+    //-------------------------------------------------------------------------------------------------------------------------
+    public String readTextFileToStringArray(String s) {
+        String getNames = "";
+        if (fileExistance(s)) {
+            try {
+                FileInputStream fis1 = openFileInput(s); //opens file
+                InputStreamReader isr1 = new InputStreamReader(fis1);
+                BufferedReader bufferedReader1 = new BufferedReader(isr1);
+                String data;
+
+                while ((data = bufferedReader1.readLine()) != null)     //Initializing String Objects for data - AlarmInfo
+                {
+                    getNames = getNames + "@" + data;
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return getNames;
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    // writes data to TextFile, one line each
+    //-------------------------------------------------------------------------------------------------------------------------
+    public void writeStringArrayToTextFile(String[] s,String FileName)
+    {
+
+            try {
+                        FileOutputStream fos = openFileOutput(FileName, MODE_PRIVATE);
+
+                for (int i = 0; i < s.length; i++) {
+                        fos.write(s[i].toString().getBytes());
+                }
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    // compares 2 arrays and returns the fusion of them
+    //-------------------------------------------------------------------------------------------------------------------------
+
+    public String[] ArrayFusion(String[] volunteerToBeFused1, String[] volunteerToBeFused2)
+    {
+        String Fusion[];
+        int counter = 0;
+
+        Set<String> set = new HashSet<>();
+        List<String> list = Arrays.asList(volunteerToBeFused1);
+        List<String> list2 = Arrays.asList(volunteerToBeFused2);
+
+        set.addAll(list);
+        set.addAll(list2);
+
+        // Call addAll as many times as you like
+
+
+
+        return Fusion = set.toArray(new String[set.size()]);
+    }
+
+
 
 
     //-------------------------------------------------------------------------------------------------------------------------
