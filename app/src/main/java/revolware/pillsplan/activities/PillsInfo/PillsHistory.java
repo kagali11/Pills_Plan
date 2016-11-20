@@ -1,9 +1,14 @@
 package revolware.pillsplan.activities.PillsInfo;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,28 +22,66 @@ import revolware.pillsplan.R;
 public class PillsHistory extends AppCompatActivity {
 
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pills_history);
 
 
-        String[] sMedName = readTextFileToStringArray("PilpHistory.txt").split("@");
+        final String[] sMedName = readTextFileToStringArray("PilpHistory.txt").split("@");
 
 
         LinearLayout lL = (LinearLayout) findViewById(R.id.activity_pills_history);
         lL.setOrientation(LinearLayout.VERTICAL);
 
-        for (int i = 0; i < sMedName.length; i++) {
 
-            TextView MedName = new TextView(this);
-            MedName.setText(sMedName[i]);
+        for (int i = 0; i < sMedName.length; i++)
+        {
 
+            LinearLayout linlay = new LinearLayout(this);
+            linlay.setOrientation(LinearLayout.VERTICAL);
 
+            linlay.addView(createTextview(sMedName[i], this));
 
-            lL.addView(MedName);
+            final String name = sMedName[i];
+
+           linlay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent startAct = new Intent(PillsHistory.this, PillHistorySpecific.class);
+                    startAct.putExtra("medName", name);
+                    startActivity(startAct);
+                }
+            });
+            lL.addView(linlay);
         }
+
     }
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    // creating textViews
+    //-------------------------------------------------------------------------------------------------------------------------
+
+    public TextView createTextview(String text, Context c) {
+        TextView MedName = new TextView(c);
+        MedName.setText(text);
+        //---------------------------------------------------------------------------------------------------------------------
+        // Place for FE
+
+
+        //---------------------------------------------------------------------------------------------------------------------
+        return MedName;
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    // File existance
+    //-------------------------------------------------------------------------------------------------------------------------
 
     public boolean fileExistance(String fname) {
         File file = getBaseContext().getFileStreamPath(fname);
@@ -72,4 +115,6 @@ public class PillsHistory extends AppCompatActivity {
 
         return getNames;
     }
+
+
 }
