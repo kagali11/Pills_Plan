@@ -34,7 +34,7 @@ public class PillsHistory extends AppCompatActivity {
         setContentView(R.layout.activity_pills_history);
 
 
-        final String[] sMedName = readTextFileToStringArray("PilpHistory.txt").split("@");
+        final String[] sMedName = readTextFileToString("PilpHistory.txt").split("@FuckThis@");
 
 
         LinearLayout lL = (LinearLayout) findViewById(R.id.activity_pills_history);
@@ -47,9 +47,11 @@ public class PillsHistory extends AppCompatActivity {
             LinearLayout linlay = new LinearLayout(this);
             linlay.setOrientation(LinearLayout.VERTICAL);
 
-            linlay.addView(createTextview(sMedName[i], this));
 
-            final String name = sMedName[i];
+            String [] getString = sMedName[i].split("@rofl@");
+            final String name =  getString[0];
+
+            linlay.addView(createTextview(name, this));
 
            linlay.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,7 +93,7 @@ public class PillsHistory extends AppCompatActivity {
     //-------------------------------------------------------------------------------------------------------------------------
     // Reads data from TextFile into one string array
     //-------------------------------------------------------------------------------------------------------------------------
-    public String readTextFileToStringArray(String s) {
+    public String readTextFileToString(String s) {
         String getNames = "";
         if (fileExistance(s)) {
             try {
@@ -102,7 +104,7 @@ public class PillsHistory extends AppCompatActivity {
 
                 while ((data = bufferedReader1.readLine()) != null)     //Initializing String Objects for data - AlarmInfo
                 {
-                    getNames = getNames + data + "@";
+                    getNames = getNames + data + "@FuckThis@";
                 }
 
             } catch (FileNotFoundException e) {

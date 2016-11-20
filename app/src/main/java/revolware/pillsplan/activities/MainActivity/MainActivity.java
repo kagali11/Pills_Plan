@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         //-----------------------------------------------------------------------------------------------------------------------
 
 
-        getHistory = readTextFileToStringArray("Pilphistory.txt").split("@");
+        getHistory = readTextFileToString("Pilphistory.txt").split("@FuckThis@");
 
 
         //-----------------------------------------------------------------------------------------------------------------------
@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
             final String data_3 = map.get(i).getDate();
             final String data_4 = map.get(i).getFrequency();
             final String data_5 = map.get(i).getName();
-            getMedicineHistory = getMedicineHistory + data_1 + "@" ;
+            getMedicineHistory = getMedicineHistory + data_1 + "@rofl@" + data_3 + "@FuckThis@" ;
             //------------------
             // Spinners Actions
             //-----------------
@@ -403,7 +403,8 @@ public class MainActivity extends AppCompatActivity {
             history.setOnClickListener(new View.OnClickListener(){
                                            @Override
                                            public void onClick(View v) {
-                                               writeStringArrayToTextFile(ArrayFusion(getHistory,getMedicineHistory.split("@")),"PilpHistory.txt");
+                                               writeStringArrayToTextFile(ArrayFusion(getHistory,
+                                                       getMedicineHistory.split("@FuckThis@")),"PilpHistory.txt");
                                                Intent toy2 = new Intent(MainActivity.this, PillsHistory.class);
                                                toy2.putExtra("getMedicineNamehistory", getMedicineHistory);
                                                startActivity(toy2);
@@ -452,7 +453,7 @@ public class MainActivity extends AppCompatActivity {
     //-------------------------------------------------------------------------------------------------------------------------
     // Reads data from TextFile into one string array
     //-------------------------------------------------------------------------------------------------------------------------
-    public String readTextFileToStringArray(String s) {
+    public String readTextFileToString(String s) {
         String getNames = "";
         if (fileExistance(s)) {
             try {
@@ -463,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
 
                 while ((data = bufferedReader1.readLine()) != null)     //Initializing String Objects for data - AlarmInfo
                 {
-                    getNames = getNames + data + "@";
+                    getNames = getNames + data + "@FuckThis@";
                 }
 
             } catch (FileNotFoundException e) {
