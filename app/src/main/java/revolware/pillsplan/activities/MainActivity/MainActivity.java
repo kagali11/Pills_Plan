@@ -390,8 +390,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(toy);
                     }
 
-
-
                 }
 
 

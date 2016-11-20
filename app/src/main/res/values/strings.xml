@@ -215,4 +215,7 @@
     <string name="title_activity_pills_history">PillsHistory</string>
     <string name="title_activity_pharmacy_search">Map</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
