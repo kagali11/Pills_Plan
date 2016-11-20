@@ -2,6 +2,7 @@ package revolware.pillsplan.activities.PillsInfo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -88,7 +89,9 @@ public class PillsHistory extends AppCompatActivity {
         MedName.setText(text);
         //---------------------------------------------------------------------------------------------------------------
         // Place for FE
-
+        MedName.setTextSize(40);
+        MedName.setTypeface(null, Typeface.BOLD);
+        MedName.setTextColor(0xFF0BC273);
 
         //---------------------------------------------------------------------------------------------------------------
         return MedName;

@@ -2,6 +2,7 @@ package revolware.pillsplan.activities.PillsInfo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
@@ -58,7 +59,9 @@ public class PillHistorySpecific extends AppCompatActivity {
         MedName.setText(text);
         //---------------------------------------------------------------------------------------------------------------
         // Place for FE //// TODO: 11/20/16 FrontEnd na texTViewu nazvu lieku 
-
+        MedName.setTextSize(70);
+        MedName.setTypeface(null, Typeface.BOLD);
+        MedName.setTextColor(0xFF0BC273);
 
         //---------------------------------------------------------------------------------------------------------------
         return MedName;
@@ -73,7 +76,9 @@ public class PillHistorySpecific extends AppCompatActivity {
         MedName.setText(text);
         //---------------------------------------------------------------------------------------------------------------
         // Place for FE//// TODO: 11/20/16 FrontEnd na texTViewy datumov 
-
+        MedName.setTextSize(40);
+        MedName.setTypeface(null, Typeface.BOLD);
+        MedName.setTextColor(0xFF0BC273);
 
         //---------------------------------------------------------------------------------------------------------------
         return MedName;
