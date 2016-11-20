@@ -16,6 +16,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import revolware.pillsplan.R;
 
@@ -34,8 +38,17 @@ public class PillsHistory extends AppCompatActivity {
         setContentView(R.layout.activity_pills_history);
 
 
-        final String[] sMedName = readTextFileToString("PilpHistory.txt").split("@FuckThis@");
+        String[] getsMedName = readTextFileToString("PilpHistory.txt").split("@FuckThis@");
+        String MedName = "";
+        String []help;
 
+        for(int i = 0; i<getsMedName.length;i++)
+        {
+            help = getsMedName[i].split("@rofl@");
+            MedName = MedName + help[0] + "@rozdel@";
+        }
+        String[] sMedName = MedName.split("@rozdel@");
+        sMedName = new HashSet<String>(Arrays.asList(sMedName)).toArray(new String[0]);
 
         LinearLayout lL = (LinearLayout) findViewById(R.id.activity_pills_history);
         lL.setOrientation(LinearLayout.VERTICAL);
@@ -48,8 +61,8 @@ public class PillsHistory extends AppCompatActivity {
             linlay.setOrientation(LinearLayout.VERTICAL);
 
 
-            String [] getString = sMedName[i].split("@rofl@");
-            final String name =  getString[0];
+          //  String [] getString = sMedName[i].split("@rofl@");
+            final String name =  sMedName[i];
 
             linlay.addView(createTextview(name, this));
 
@@ -73,11 +86,11 @@ public class PillsHistory extends AppCompatActivity {
     public TextView createTextview(String text, Context c) {
         TextView MedName = new TextView(c);
         MedName.setText(text);
-        //---------------------------------------------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------------------------------------
         // Place for FE
 
 
-        //---------------------------------------------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------------------------------------
         return MedName;
     }
 
@@ -88,6 +101,29 @@ public class PillsHistory extends AppCompatActivity {
     public boolean fileExistance(String fname) {
         File file = getBaseContext().getFileStreamPath(fname);
         return file.exists();
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    // compares 2 arrays and returns the fusion of them
+    //-------------------------------------------------------------------------------------------------------------------------
+
+    public String[] ArrayFusion(String[] volunteerToBeFused1, String[] volunteerToBeFused2)
+    {
+
+        int counter = 0;
+
+        Set<String> set = new HashSet<String>();
+        List<String> list = Arrays.asList(volunteerToBeFused1);
+        List<String> list2 = Arrays.asList(volunteerToBeFused2);
+
+        set.addAll(list);
+        set.addAll(list2);
+
+        // Call addAll as many times as you like
+
+        String Fusion[] = set.toArray(new String[set.size()]);
+
+        return Fusion;
     }
 
     //-------------------------------------------------------------------------------------------------------------------------
