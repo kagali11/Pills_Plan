@@ -57,7 +57,7 @@ public class PillHistorySpecific extends AppCompatActivity {
         TextView MedName = new TextView(c);
         MedName.setText(text);
         //---------------------------------------------------------------------------------------------------------------
-        // Place for FE
+        // Place for FE //// TODO: 11/20/16 FrontEnd na texTViewu nazvu lieku 
 
 
         //---------------------------------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ public class PillHistorySpecific extends AppCompatActivity {
         TextView MedName = new TextView(c);
         MedName.setText(text);
         //---------------------------------------------------------------------------------------------------------------
-        // Place for FE
+        // Place for FE//// TODO: 11/20/16 FrontEnd na texTViewy datumov 
 
 
         //---------------------------------------------------------------------------------------------------------------
