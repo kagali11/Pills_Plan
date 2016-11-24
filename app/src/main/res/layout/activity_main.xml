@@ -38,7 +38,7 @@
             </LinearLayout>
             <FrameLayout android:id="@+id/container_body" android:layout_height="0dp" android:layout_width="fill_parent" android:layout_weight="1"/>
         </LinearLayout>
-        <fragment android:id="@+id/fragment_navigation_drawer" android:layout_height="match_parent" android:layout_width="@dimen/nav_drawer_width" tools:layout="@layout/fragment_navigation_drawer" app:layout="@layout/fragment_navigation_drawer" android:layout_gravity="start" android:name="com.quakeresq.quakeresq.activity.FragmentDrawer"/>
+        <fragment android:id="@+id/fragment_navigation_drawer" android:layout_height="match_parent" android:layout_width="@dimen/nav_drawer_width" tools:layout="@layout/fragment_navigation_drawer" app:layout="@layout/fragment_navigation_drawer" android:layout_gravity="start" android:name="revolware.pillsplan.activities.Fragments.FragmentDrawer"/>
     </android.support.v4.widget.DrawerLayout>
 
 </android.support.design.widget.CoordinatorLayout>

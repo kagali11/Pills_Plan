@@ -623,7 +623,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         super.onResume();
 
         if (prefs.getBoolean("firstrun", true)) {
-            Intent in = new Intent(MainActivity.this, SplashScreen.class);
+            Intent in = new Intent(MainActivity.this, Tutorial.class);
             startActivity(in);
             prefs.edit().putBoolean("firstrun", false).commit();
         }
@@ -669,6 +669,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         client.disconnect();
     }
 
+
     @Override
     public void onDrawerItemSelected(View view, int position) {
         displayView(position);
@@ -685,15 +686,15 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 break;
             case 1:
                 fragment = new PharmacySearchFragment();
-                title = getString(R.string.title_appGuide);
+                title = getString(R.string.title_tutorial);
                 break;
             case 2:
                 fragment = new HistoryFragment();
-                title = getString(R.string.title_appGuide);
+                title = getString(R.string.title_pharmacySearch);
                 break;
             case 3:
                 fragment = new TutorialFragment();
-                title = getString(R.string.title_appGuide);
+                title = getString(R.string.title_history);
                 break;
             case 4:
                 fragment = new AboutFragment();
