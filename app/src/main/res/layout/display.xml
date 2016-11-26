@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -169,7 +170,6 @@
             android:text="@string/editText5"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/textView10"
             android:textSize="19sp"
             android:background="#FFF"
             android:paddingBottom="10dp"
@@ -194,6 +194,21 @@
             android:layout_weight="1" />
     </LinearLayout>
 
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch1"
+        android:layout_gravity="center"
+        android:background="#FFF"
+        android:text="@string/editText6"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:textSize="19sp"
+        android:textColor="?android:attr/textColorTertiary"
+        android:layout_marginTop="20dp" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -203,7 +218,8 @@
         android:textColor="#ffffff"
         android:backgroundTint="#FF0BC273"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center" />
 
 
 </LinearLayout>
