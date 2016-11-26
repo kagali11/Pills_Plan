@@ -2,11 +2,15 @@ package revolware.pillsplan.activities.PillsInfo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -20,9 +24,12 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import revolware.pillsplan.R;
+
+import static revolware.pillsplan.R.id.tabHost;
 
 public class PillsHistory extends AppCompatActivity {
 
@@ -37,6 +44,23 @@ public class PillsHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pills_history);
+        getSupportActionBar().setTitle("History");
+
+
+        //TabHost ... PivotBar
+        TabHost host = (TabHost)findViewById(tabHost);
+        host.setup();
+        host.getTabWidget().setStripEnabled(false);
+        host.setPadding(0, 0, 0, 0);
+
+
+        //
+        //###########################################
+        //     Nastavenie prveho TABU(TAB1)
+        //###########################################
+        //
+
+        TabHost.TabSpec spec = host.newTabSpec("tab1");
 
 
         String[] getsMedName = readTextFileToString("PilpHistory.txt").split("@FuckThis@");
@@ -51,23 +75,54 @@ public class PillsHistory extends AppCompatActivity {
         String[] sMedName = MedName.split("@rozdel@");
         sMedName = new HashSet<String>(Arrays.asList(sMedName)).toArray(new String[0]);
 
-        LinearLayout lL = (LinearLayout) findViewById(R.id.activity_pills_history);
+
+        LinearLayout lL = (LinearLayout) findViewById(R.id.tab1);
         lL.setOrientation(LinearLayout.VERTICAL);
 
 
-        for (int i = 0; i < sMedName.length; i++)
-        {
+        for (int i = 0; i < sMedName.length; i++) {
+            if(sMedName[i].isEmpty()){
+                //Pre istotu, niekedy sa objavil prazdny liek ?
+                continue;
+            }
 
             LinearLayout linlay = new LinearLayout(this);
             linlay.setOrientation(LinearLayout.VERTICAL);
 
 
-          //  String [] getString = sMedName[i].split("@rofl@");
-            final String name =  sMedName[i];
+            //  String [] getString = sMedName[i].split("@rofl@");
+            final String name = sMedName[i];
 
-            linlay.addView(createTextview(name, this));
 
-           linlay.setOnClickListener(new View.OnClickListener() {
+            //#########################
+            //  Nastavenie TextView
+
+            Typeface face = Typeface.DEFAULT;
+
+            TextView text = (TextView)createTextview(name, this);
+            text.setTextSize(28);
+            text.setTypeface(face);
+            text.setTextColor(Color.WHITE);
+            text.setMinHeight(180);
+            text.setMinWidth(600);
+            text.setPadding(50, 50, 0, 20);
+
+            GradientDrawable shape =  new GradientDrawable();
+            shape.setCornerRadius(16);
+            shape.setColor(randomColor());
+
+            LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+            llp.setMargins(50, 80, 0, 0);
+
+            text.setLayoutParams(llp);
+            text.setBackgroundDrawable(shape);
+
+            //
+            //#########################
+
+            linlay.addView(text);
+
+            linlay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent startAct = new Intent(PillsHistory.this, PillHistorySpecific.class);
@@ -75,9 +130,48 @@ public class PillsHistory extends AppCompatActivity {
                     startActivity(startAct);
                 }
             });
+
+
             lL.addView(linlay);
         }
 
+        spec.setContent(R.id.tab1);
+        spec.setIndicator("MEDICINES");
+        host.addTab(spec);
+
+        //
+        //###########################################
+        //###########################################
+        //
+
+
+
+        //Tab 2
+        spec = host.newTabSpec("tab2");
+        spec.setContent(R.id.tab2);
+        spec.setIndicator("DAYS");
+        host.addTab(spec);
+
+        //Tab 3
+        spec = host.newTabSpec("tab3");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("TIMES");
+        host.addTab(spec);
+
+        for(int i=0;i<host.getTabWidget().getChildCount();i++)
+        {
+            TextView tv = (TextView) host.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
+            tv.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+
+    }
+
+    public int randomColor(){
+        Random rnd = new Random();
+        int color = Color.argb(250, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+
+        return color;
     }
 
     //-------------------------------------------------------------------------------------------------------------------------

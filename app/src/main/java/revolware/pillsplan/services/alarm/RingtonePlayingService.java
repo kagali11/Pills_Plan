@@ -1,16 +1,11 @@
 package revolware.pillsplan.services.alarm;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
-
-import java.security.Provider;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Jakub on 05.04.2016.
@@ -32,17 +27,21 @@ public class RingtonePlayingService extends Service {
 
         //create an instance of mediaplayer
 
+        // Toto stale nefunguje, treba opravit, pada aplikacia...
 
         if(intent.getStringExtra("play").equals("1")){
             //media_song = MediaPlayer.create(this,R.raw.dear_god);
-
-            media_song.start();}
+            if(media_song != null)
+                media_song.start();
+        }
         else if(intent.getStringExtra("play").equals("0")){
-            media_song.setLooping(false);
+            if(media_song != null)
+                media_song.setLooping(false);
 
 
-
-            media_song.stop();}
+            if(media_song != null)
+                media_song.stop();
+        }
         return START_NOT_STICKY;
     }
 
