@@ -1,26 +1,8 @@
 package revolware.pillsplan.activities.Fragments;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.GestureDetector;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 
-import revolware.pillsplan.R;
-import revolware.pillsplan.adapter.NavigationDrawerAdapter;
-import revolware.pillsplan.adapter.NavigationDrawerAdapterIcon;
-import revolware.pillsplan.model.NavDrawerItem;
-
-import java.util.ArrayList;
-import java.util.List;
+//import revolware.pillsplan.adapter.NavigationDrawerAdapter;
 
 public class FragmentDrawer extends Fragment {
 
