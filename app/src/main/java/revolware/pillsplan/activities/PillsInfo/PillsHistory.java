@@ -182,7 +182,7 @@ public class PillsHistory extends AppCompatActivity {
         TextView MedName = new TextView(c);
         MedName.setText(text);
         //---------------------------------------------------------------------------------------------------------------
-        // Place for FE
+        // Place for FE //// TODO: 11/26/16 frontend 
         MedName.setTextSize(40);
         MedName.setTypeface(null, Typeface.BOLD);
         MedName.setTextColor(0xFF0BC273);
