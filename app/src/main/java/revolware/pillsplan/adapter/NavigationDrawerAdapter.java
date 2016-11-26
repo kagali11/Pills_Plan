@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import revolware.pillsplan.R; // toto tu nebolo
-
+/*
 public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> {
     List<NavDrawerItem> data = Collections.emptyList();
     private LayoutInflater inflater;
@@ -58,3 +58,4 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         }
     }
 }
+*/

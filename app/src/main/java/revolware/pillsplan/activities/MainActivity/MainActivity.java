@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,7 +68,9 @@ import revolware.pillsplan.models.AlarmInfo;
 import revolware.pillsplan.services.alarm.Alarm_Receiver;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
+public class MainActivity extends AppCompatActivity
+        //implements FragmentDrawer.FragmentDrawerListener
+        {
     int hour, minute;
     String sMinute;
     TextView tw1;
@@ -76,10 +79,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     String getMedicineHistory;
     String getHistory[];
 
-    private static String TAG = MainActivity.class.getSimpleName();
+    //private static String TAG = MainActivity.class.getSimpleName();
 
-    private Toolbar mToolbar;
-    private FragmentDrawer drawerFragment;
+    //private Toolbar mToolbar;
+    //private FragmentDrawer drawerFragment;
 
     SharedPreferences prefs = null;
     /**
@@ -103,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         TextView textViewTutorText = (TextView) findViewById(R.id.textViewTutorText);  //TUTOR TEXT
         textViewTutorText.setVisibility(View.INVISIBLE);
 
+        //TOTO SOM ZAKOMENTOVAL, PRIPADNE ODKOMENTOVAT
+        /*
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
@@ -115,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         // display the first navigation drawer view on app launch
         displayView(0);
 
+*/
         intent = getIntent();  // APP INTENT
         String message = "";
         String info, info2, info3, info4, info5;
@@ -592,7 +598,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
-
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.revolware.com"));
             startActivity(browserIntent);
             return true;
@@ -668,7 +673,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
-
+/*
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
@@ -676,33 +681,41 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     }
 
     //lave menu linky
+
     private void displayView(int position) {
         Fragment fragment = null;
         String title = getString(R.string.app_name);
         switch (position) {
-            case 0: //som umiestnil mimo obrazovky
+            case 0:
+                //som umiestnil mimo obrazovky
                 fragment = new HomeFragment();
                 title = getString(R.string.title_home);
+                Log.i("tag", "som v home");
                 break;
             case 1:
-                fragment = new PharmacySearchFragment();
+                fragment = new TutorialFragment();
                 title = getString(R.string.title_tutorial);
+                Log.i("tag", "som v tutoriali");
                 break;
             case 2:
                 fragment = new HistoryFragment();
-                title = getString(R.string.title_pharmacySearch);
+                title = getString(R.string.title_history);
+                Log.i("tag", "som v historii");
                 break;
             case 3:
-                fragment = new TutorialFragment();
-                title = getString(R.string.title_history);
+                fragment = new PharmacySearchFragment();
+                title = getString(R.string.title_pharmacySearch);
+                Log.i("tag", "som vo pharmacy search");
                 break;
             case 4:
                 fragment = new AboutFragment();
                 title = getString(R.string.title_about);
+                Log.i("tag", "som v about");
                 break;
             case 5:
                 fragment = new SettingsFragment();
                 title = getString(R.string.title_settings);
+                Log.i("tag", "som v settings");
                 break;
             default:
                 break;
@@ -718,5 +731,5 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             getSupportActionBar().setTitle(title);
         }
     }
-
+*/
 }

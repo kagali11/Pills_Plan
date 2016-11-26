@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import revolware.pillsplan.R; // toto tu nebolo
-
+/*
 public class NavigationDrawerAdapterIcon extends RecyclerView.Adapter<NavigationDrawerAdapterIcon.MyViewHolder> {
     List<NavigationDrawerAdapterIcon> data = Collections.emptyList();
     private LayoutInflater inflater;
@@ -61,3 +61,4 @@ public class NavigationDrawerAdapterIcon extends RecyclerView.Adapter<Navigation
         }
     }
 }
+*/

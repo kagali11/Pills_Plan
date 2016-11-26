@@ -24,6 +24,8 @@ import java.util.List;
 
 public class FragmentDrawer extends Fragment {
 
+    /*
+
     private static String TAG = FragmentDrawer.class.getSimpleName();
 
     private RecyclerView recyclerView;
@@ -69,7 +71,7 @@ public class FragmentDrawer extends Fragment {
         }
         return data;
     }*/
-
+/*
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,4 +197,6 @@ public class FragmentDrawer extends Fragment {
     public interface FragmentDrawerListener {
         public void onDrawerItemSelected(View view, int position);
     }
+    */
+
 }
