@@ -8,13 +8,13 @@
     <string name="textViewTutorHeader">LET\'S START!</string>
     <string name="tView1">Please add alarm</string>
     <string name="textView2">Select Start Time</string>
-    <string name="tView1Hint">Medicine</string>
+    <string name="tView1Hint">Medicine:</string>
     <string name="buttonAdd">Add</string>
-    <string name="editText2">Number of pills in package</string>
-    <string name="editText3">Beginning date</string>
-    <string name="editText4">Frequency(hours)</string>
+    <string name="editText2">Pills in package:</string>
+    <string name="editText3">Beginning date:</string>
+    <string name="editText4">Frequency(hours):</string>
 
-    <string name="editText5">Doctors\'s name</string>
+    <string name="editText5">Doctor:</string>
     <string name="OkButton">OK</string>
     <string name="CancelButton">Cancel all</string>
 
