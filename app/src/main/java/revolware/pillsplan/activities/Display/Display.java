@@ -6,9 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -22,7 +27,8 @@ import revolware.pillsplan.activities.MainActivity.MainActivity;
  * Created by Jakub on 25.02.2016.
  */
 public class Display extends AppCompatActivity  {
-    public EditText editText,editText2,editText3,editText4,editText5;
+    public EditText editText2,editText3,editText4,editText5;
+    public AutoCompleteTextView editText;
     TextView tw1;
     AlarmManager alarm_manager;
     TimePicker alarm_time_picker;
@@ -56,12 +62,58 @@ public class Display extends AppCompatActivity  {
          //my_Intent = new Intent(Display.this,Alarm_Receiver.class);
 
 
-        editText = (EditText) findViewById(R.id.editText);
+        editText = (AutoCompleteTextView) findViewById(R.id.editText);
         editText2 = (EditText) findViewById(R.id.editText2);
         editText3 = (EditText) findViewById(R.id.editText3);
         editText4 = (EditText) findViewById(R.id.editText4);
         editText5 = (EditText) findViewById(R.id.editText5);
         tw1 = (TextView) findViewById(R.id.textView);
+
+
+        final String[] COUNTRIES = new String[] {
+                "Belgium", "France", "Italy", "Germany", "Spain"
+        };
+
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.item_list , COUNTRIES);
+        adapter.setNotifyOnChange(true);
+        editText.setAdapter(adapter);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Urobit search z databazy z webu http://hrabovec.hopto.org:7070/api/database/search?q=
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b) {
+                    // on focus off
+                    String str = editText.getText().toString();
+
+                    ListAdapter listAdapter = editText.getAdapter();
+                    for(int i = 0; i < listAdapter.getCount(); i++) {
+                        String temp = listAdapter.getItem(i).toString();
+                        if(str.compareTo(temp) == 0) {
+                            return;
+                        }
+                    }
+
+                    editText.setText("");
+
+                }
+            }
+        });
 
 
     }
@@ -110,8 +162,6 @@ public class Display extends AppCompatActivity  {
             startActivity(intent);
         finish();
     }
-
-
 }
 
 

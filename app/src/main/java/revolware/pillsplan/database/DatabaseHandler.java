@@ -112,7 +112,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return medicines;
     }
 
-    public List<Medicine> serachMedicineByString(String term){
+    public List<Medicine> searchMedicineByString(String term){
         List<Medicine> medicines = new ArrayList<Medicine>();
 
         String select_query = "SELECT * FROM " + TABLE_DRUGS + " WHERE " + KEY_NAME + " LIKE " + "'%" + term + "%'";
