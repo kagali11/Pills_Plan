@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="revolware.pillsplan.activities.PillsInfo.PillsHistory"
-    android:visibility="visible">
+    android:visibility="visible"
+    android:background="#F0F0F0">
 
     <TabHost
         android:id="@+id/tabHost"

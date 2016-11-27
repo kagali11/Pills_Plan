@@ -7,19 +7,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -49,20 +47,11 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
-import revolware.pillsplan.PharmacySearch;
 import revolware.pillsplan.R;
 import revolware.pillsplan.activities.Display.Display;
-import revolware.pillsplan.activities.Fragments.AboutFragment;
-import revolware.pillsplan.activities.Fragments.FragmentDrawer;
-import revolware.pillsplan.activities.Fragments.HistoryFragment;
-import revolware.pillsplan.activities.Fragments.HomeFragment;
-import revolware.pillsplan.activities.Fragments.PharmacySearchFragment;
-import revolware.pillsplan.activities.Fragments.SettingsFragment;
-import revolware.pillsplan.activities.Fragments.TutorialFragment;
 import revolware.pillsplan.activities.PillsInfo.PillsHistory;
 import revolware.pillsplan.activities.PillsInfo.PillsInfo;
 import revolware.pillsplan.activities.Popup.Popup;
-import revolware.pillsplan.activities.SplashScreen.SplashScreen;
 import revolware.pillsplan.activities.Tutorial.Tutorial;
 import revolware.pillsplan.models.AlarmInfo;
 import revolware.pillsplan.services.alarm.Alarm_Receiver;
@@ -231,13 +220,8 @@ public class MainActivity extends AppCompatActivity
         // Create a linear layout to add new object as vertical
         final LinearLayout lL = (LinearLayout) findViewById(R.id.AlarmView);
         lL.setOrientation(LinearLayout.VERTICAL);
-        TextView heading = new TextView(this);
-        heading.setText("Medicine");
-        heading.setTextSize(40);
-        heading.setTypeface(null, Typeface.BOLD);
-        heading.setTextColor(0xFF0BC273);
-        heading.setPadding(0,0,0,64);
-        lL.addView(heading);
+        lL.setGravity(Gravity.TOP);
+        lL.setPadding(0, 40, 0, 40);
 
 
 
@@ -246,44 +230,82 @@ public class MainActivity extends AppCompatActivity
 
             final LinearLayout holdLayouts = new LinearLayout(this); //holds horizontally 2 vertical layouts
             holdLayouts.setOrientation(LinearLayout.HORIZONTAL);
-            holdLayouts.setBackgroundColor(0xFFEEEEEE);
-            holdLayouts.setPadding(16,16,16,16);
-            holdLayouts.setGravity(Gravity.CENTER_VERTICAL);
+            holdLayouts.setBackgroundColor(0xFFFFFFFF);
+            LinearLayout.LayoutParams linlay = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200);
+            linlay.setMargins(0, 0, 0, 0);
+            holdLayouts.setLayoutParams(linlay);
+            holdLayouts.setPadding(0, 0, 0, 0);
+            holdLayouts.setGravity(Gravity.END);
+
             LinearLayout linLay = new LinearLayout(this); // layout for text fields
-            linLay.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout linLay1 = new LinearLayout(this); //layout for textFields
-            linLay1.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout linLay2 = new LinearLayout(this);  //layout for switch
+            linLay.setOrientation(LinearLayout.HORIZONTAL);
+            linLay.setGravity(Gravity.CENTER_VERTICAL);
+            linLay.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1));
+
+            LinearLayout linLay1 = new LinearLayout(this); //layout for spinners
+            linLay1.setOrientation(LinearLayout.HORIZONTAL);
+            linLay1.setGravity(Gravity.END| Gravity.CENTER_VERTICAL);
+            linLay1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1));
+
+            LinearLayout linLay11 = new LinearLayout(this);
+            linLay11.setOrientation(LinearLayout.HORIZONTAL);
+            linLay11.setGravity(Gravity.CENTER);
+            linLay11.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            linLay11.setPadding(10, 10, 10, 10);
+            GradientDrawable drawable = new GradientDrawable();
+            drawable.setColor(Color.argb(255, 240, 240, 240));
+            drawable.setCornerRadius(38);
+            linLay11.setBackgroundDrawable(drawable);
+
+            LinearLayout linLay2 = new LinearLayout(this); //layout for switch
             linLay2.setOrientation(LinearLayout.VERTICAL);
+            linLay2.setGravity(Gravity.CENTER_VERTICAL|Gravity.START);
+            linLay2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1));
+
             LinearLayout linLay3 = new LinearLayout(this); //layout for buttons
             linLay3.setOrientation(LinearLayout.VERTICAL);
-            Switch mySwitch;
+            linLay3.setGravity(Gravity.CENTER_VERTICAL);
+            linLay3.setLayoutParams(new LinearLayout.LayoutParams(80, LinearLayout.LayoutParams.MATCH_PARENT));
+
+
             Button myButton;
             myButton = new Button(this);
             myButton.setText("\u274C");
             myButton.setTextColor(0xFFDD0000);
             myButton.setTextSize(16);
             myButton.setBackgroundColor(Color.TRANSPARENT);
-            myButton.setGravity(Gravity.RIGHT);
+            myButton.setGravity(Gravity.END|Gravity.CENTER_VERTICAL);
+            LinearLayout.LayoutParams myButtonLP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            myButtonLP.setMargins(0, 0, 10, 0);
+            myButton.setLayoutParams(myButtonLP);
+
+            Switch mySwitch;
             mySwitch = new Switch(this);
+            mySwitch.setGravity(Gravity.CENTER_VERTICAL|Gravity.START);
+            mySwitch.setPadding(0, 0, 40, 0);
             mySwitch.setChecked(false);
+
             //---------------------------------------------------------------------------------------------------------------------
             // !Createing Layout for actual Pills!
             //---------------------------------------------------------------------------------------------------------------------
             // Every time create new object of text view
             final TextView medicineView = new TextView(this);
             medicineView.setText("\t" + map.get(i).getMedicine());
-            medicineView.setTypeface(null, Typeface.BOLD); /*TODO MH: urobit krajsie zobrazenie*/
+            medicineView.setTypeface(null, Typeface.NORMAL);
             medicineView.setTextColor(0xFF000000);
-            medicineView.setTextSize(25);
-            medicineView.setTextColor(0xFF0BC273);
-            medicineView.setPadding(0,0,0,8);
+            medicineView.setMaxWidth(500);
+            medicineView.setWidth(500);
+            medicineView.setEllipsize(TextUtils.TruncateAt.START);
+            medicineView.setTextSize(19);
+            medicineView.setPadding(20,0,0,10);
+
             final String data_1 = map.get(i).getMedicine();
             final String data_2 = map.get(i).getNPills();
             final String data_3 = map.get(i).getDate();
             final String data_4 = map.get(i).getFrequency();
             final String data_5 = map.get(i).getName();
             getMedicineHistory = getMedicineHistory + data_1 + "@rofl@" + data_3 + "@FuckThis@" ;
+
             //------------------
             // Spinners Actions
             //-----------------
@@ -291,7 +313,37 @@ public class MainActivity extends AppCompatActivity
             final Calendar calendar;
             calendar = Calendar.getInstance();
             Spinner spinner = new Spinner(this);
+            spinner.setBackgroundColor(Color.argb(255, 240, 240, 240));
+            spinner.setGravity(Gravity.CENTER_VERTICAL);
+            spinner.setPadding(0, 8, 5, 8);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.argb(255, 64, 64, 64));
+                }
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+
+            TextView tw = new TextView(this);
+            tw.setText(":");
+            tw.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            tw.setGravity(Gravity.CENTER_VERTICAL);
+            tw.setTextColor(Color.argb(255, 64, 64, 64));
+
             Spinner spinner1 = new Spinner(this);
+            spinner1.setBackgroundColor(Color.argb(255, 240, 240, 240));
+            spinner1.setGravity(Gravity.CENTER_VERTICAL);
+            spinner1.setPadding(20, 8, 0, 8);
+            spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.argb(255, 64, 64, 64));
+                }
+
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+
+
             //Limits height of drop down list
             try {
                 Field popup = Spinner.class.getDeclaredField("mPopup");
@@ -313,6 +365,7 @@ public class MainActivity extends AppCompatActivity
             // Apply the adapter to the spinner
             spinner.setAdapter(adapter);
             spinner1.setAdapter(adapter1);
+
             //hour spinner
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -328,6 +381,7 @@ public class MainActivity extends AppCompatActivity
                     hour = 0;
                 }
             });
+
             //Minute spinner
             spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -382,15 +436,24 @@ public class MainActivity extends AppCompatActivity
             });
 
 
-            lL.addView(medicineView);
-            linLay.addView(spinner1);
-            linLay1.addView(spinner);
+            TextView colorBar = new TextView(this);
+            colorBar.setText("");
+            colorBar.setBackgroundColor(randomColor());
+            colorBar.setLayoutParams(new ViewGroup.LayoutParams(25, ViewGroup.LayoutParams.MATCH_PARENT));
 
-            linLay2.addView(myButton);
-            linLay3.addView(mySwitch);
 
-            holdLayouts.addView(linLay1);
+            linLay.addView(colorBar);
+            linLay.addView(medicineView);
+            linLay11.addView(spinner);
+            linLay11.addView(tw);
+            linLay11.addView(spinner1);
+            linLay1.addView(linLay11);
+
+            linLay2.addView(mySwitch);
+            linLay3.addView(myButton);
+
             holdLayouts.addView(linLay);
+            holdLayouts.addView(linLay1);
             holdLayouts.addView(linLay2);
             holdLayouts.addView(linLay3);
 
@@ -477,6 +540,14 @@ public class MainActivity extends AppCompatActivity
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     } //ending oncreate
+
+
+            public int randomColor(){
+                Random rnd = new Random();
+                int color = Color.argb(250, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+
+                return color;
+            }
 
 
     //-------------------------------------------------------------------------------------------------------------------------
