@@ -497,18 +497,6 @@ public class MainActivity extends AppCompatActivity
 
             //TU KONCI TEN KOD
 
-            Button history;
-            history = (Button)findViewById(R.id.history);
-            history.setOnClickListener(new View.OnClickListener(){
-                                           @Override
-                                           public void onClick(View v) {
-                                               writeStringArrayToTextFile(ArrayFusion(getHistory,
-                                                       getMedicineHistory.split("@FuckThis@")),"PilpHistory.txt");
-                                               Intent toy2 = new Intent(MainActivity.this, PillsHistory.class);
-                                               toy2.putExtra("getMedicineNamehistory", getMedicineHistory);
-                                               startActivity(toy2);
-                                           }
-            });
             //-------------------------------------------------------------------------------------------------------------------------
             // !Button X Activity!
             //-------------------------------------------------------------------------------------------------------------------------
@@ -654,11 +642,6 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         //Starts Display Activity and finishes this one
         if (id == R.id.Bdisplay) {
             Intent i = new Intent(MainActivity.this, Display.class);
@@ -672,6 +655,19 @@ public class MainActivity extends AppCompatActivity
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.revolware.com"));
             startActivity(browserIntent);
             return true;
+        }
+
+        if (id == R.id.action_tutorial) {
+            Intent i2 = new Intent(MainActivity.this, Tutorial.class);
+            startActivity(i2);
+            finish();
+        }
+
+        if (id == R.id.action_history) {
+            writeStringArrayToTextFile(ArrayFusion(getHistory, getMedicineHistory.split("@FuckThis@")),"PilpHistory.txt");
+            Intent toy2 = new Intent(MainActivity.this, PillsHistory.class);
+            toy2.putExtra("getMedicineNamehistory", getMedicineHistory);
+            startActivity(toy2);
         }
 
         if (id == R.id.action_feedback) {

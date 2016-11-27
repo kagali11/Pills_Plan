@@ -20,6 +20,21 @@
         android:orderInCategory="100"
         android:title="@string/action_about"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_history"
+        android:orderInCategory="100"
+        android:title="History"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_tutorial"
+        android:orderInCategory="100"
+        android:title="Tutorial"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="6.0 (26.11.2016)"
+        app:showAsAction="never" />
 </menu>
 <!--
  android:onClick="onButtonClick"

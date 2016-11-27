@@ -1,5 +1,6 @@
 package revolware.pillsplan.activities.Tutorial;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import revolware.pillsplan.R;
+import revolware.pillsplan.activities.MainActivity.MainActivity;
 
 public class Tutorial extends AppCompatActivity{
 
@@ -40,6 +42,11 @@ public class Tutorial extends AppCompatActivity{
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
+    public void onBackPressed() {
+        Intent i = new Intent(Tutorial.this, MainActivity.class);
+        startActivity(i);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

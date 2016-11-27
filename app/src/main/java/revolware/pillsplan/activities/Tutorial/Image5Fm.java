@@ -22,7 +22,7 @@ public class Image5Fm extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ImageView iv = new ImageView(getActivity());
-        iv.setImageResource(R.drawable.img4);
+        iv.setImageResource(R.drawable.img5);
         return iv;
     }
 
