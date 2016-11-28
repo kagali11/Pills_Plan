@@ -28,7 +28,7 @@
         android:textSize="15dp"
         android:layout_gravity="center" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="match_parent"
 
@@ -42,19 +42,8 @@
 
 
             android:layout_marginLeft="50dp"
-            android:layout_weight="0.5"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/CancelButton"
-            android:id="@+id/CancelButton"
-            android:background="@color/silver"
-            android:textColor="@color/white"
-            android:layout_marginRight="50dp"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.26"
+            android:background="@color/colorPrimary" />
 
     </LinearLayout>
 </LinearLayout>

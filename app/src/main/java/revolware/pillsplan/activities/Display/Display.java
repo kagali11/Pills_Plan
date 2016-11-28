@@ -75,7 +75,7 @@ public class Display extends AppCompatActivity  {
         };
 
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.item_list , COUNTRIES);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.mr_chooser_list_item, COUNTRIES);
         adapter.setNotifyOnChange(true);
         editText.setAdapter(adapter);
         editText.addTextChangedListener(new TextWatcher() {

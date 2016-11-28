@@ -27,21 +27,19 @@ public class RingtonePlayingService extends Service {
 
         //create an instance of mediaplayer
 
-        // Toto stale nefunguje, treba opravit, pada aplikacia...
 
         if(intent.getStringExtra("play").equals("1")){
             //media_song = MediaPlayer.create(this,R.raw.dear_god);
-            if(media_song != null)
-                media_song.start();
-        }
+
+        //    media_song.start();
+            }
         else if(intent.getStringExtra("play").equals("0")){
-            if(media_song != null)
-                media_song.setLooping(false);
+            //media_song.setLooping(false);
 
 
-            if(media_song != null)
-                media_song.stop();
-        }
+
+            //media_song.stop();
+            }
         return START_NOT_STICKY;
     }
 
