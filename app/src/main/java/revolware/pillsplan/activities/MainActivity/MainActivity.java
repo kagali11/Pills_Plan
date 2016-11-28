@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity
             medicineView.setMaxWidth(500);
             medicineView.setWidth(500);
             medicineView.setEllipsize(TextUtils.TruncateAt.START);
-            medicineView.setTextSize(19);
+            medicineView.setTextSize(22);
             medicineView.setPadding(20,0,0,10);
 
             final String data_1 = map.get(i).getMedicine();
