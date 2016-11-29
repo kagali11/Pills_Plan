@@ -49,9 +49,7 @@ public class AlarmActivity extends Activity {
                 String num = getInformation.getStringExtra("alarmNum");
 
                 Intent service_intent = new Intent(AlarmActivity.this, RingtonePlayingService.class);
-                service_intent.putExtra("play", "0");
-                //stop this ringtone service
-                AlarmActivity.this.startService(service_intent);
+                getApplicationContext().stopService(service_intent);
 
                 service_intent.putExtra("play","0");
                 getApplicationContext().startService(service_intent);

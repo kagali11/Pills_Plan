@@ -2,6 +2,7 @@ package revolware.pillsplan.services.alarm;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -14,7 +15,7 @@ import android.widget.Toast;
  */
 public class RingtonePlayingService extends Service {
 
-    MediaPlayer mp;
+    public MediaPlayer mp;
 
 
     @Nullable
@@ -26,27 +27,26 @@ public class RingtonePlayingService extends Service {
     @Override
     public int onStartCommand( Intent intent, int flags, int startId){
 
-
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        mp = MediaPlayer.create(getApplicationContext(),notification);;
         //create an instance of mediaplayer
 
-        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        mp = MediaPlayer.create(getApplicationContext(),notification);
+        SharedPreferences settings = getSharedPreferences("Alarms", 0);
+        final int num = settings.getInt("AlarmSoundOn", 0);
 
-        if(intent.getStringExtra("play").equals("1")){
             mp.start();
-            mp.setLooping(true);
+           // mp.setLooping(true);
 
-            }
-        else if(intent.getStringExtra("play").equals("0")){
-            mp.setLooping(false);
-            mp.stop();
-            }
+
         return START_NOT_STICKY;
     }
 
     @Override
     public void onDestroy(){
         Toast.makeText(this, "on Destroy called", Toast.LENGTH_LONG).show();
+        mp.stop();
+      //  mp.setLooping(false);
+
     }
 
 }

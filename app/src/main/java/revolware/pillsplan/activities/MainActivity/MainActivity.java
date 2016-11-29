@@ -295,8 +295,8 @@ public class MainActivity extends AppCompatActivity
             medicineView.setText("\t" + map.get(i).getMedicine());
             medicineView.setTypeface(null, Typeface.NORMAL);
             medicineView.setTextColor(0xFF000000);
-            medicineView.setMaxWidth(500);
-            medicineView.setWidth(500);
+            medicineView.setMaxWidth(300);
+            medicineView.setWidth(300);
             medicineView.setEllipsize(TextUtils.TruncateAt.START);
             medicineView.setTextSize(22);
             medicineView.setPadding(20,0,0,10);
@@ -311,7 +311,7 @@ public class MainActivity extends AppCompatActivity
             //------------------
             // Spinners Actions
             //-----------------
-            AlarmManager alarm_manager;
+
             final Calendar calendar;
             calendar = Calendar.getInstance();
             Spinner spinner = new Spinner(this);
@@ -403,35 +403,48 @@ public class MainActivity extends AppCompatActivity
                 }
             });
 
+
+
+            final PendingIntent pending_Intent;
+            my_Intent = new Intent(MainActivity.this, Alarm_Receiver.class);
+
+            // Restore preferences
+            SharedPreferences settings = getSharedPreferences("numOfAlarms", 0);
+            int num = settings.getInt("value", 0);
+
+                my_Intent.putExtra("medName", data_1);
+                my_Intent.putExtra("numPills", data_2);
+                my_Intent.putExtra("freq", data_4);
+                my_Intent.putExtra("docName", data_5);
+                my_Intent.putExtra("alarmNum", num);
+                my_Intent.putExtra("alarmHour", calendar.getInstance().getTime().getHours());
+                my_Intent.putExtra("alarmMinutes", calendar.getInstance().getTime().getMinutes());
+
+            pending_Intent = PendingIntent.getBroadcast(MainActivity.this, num, my_Intent, 0);
+
+            settings = getSharedPreferences("numOfAlarms", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt("value", num + 1);
+            // Commit the edits!
+            editor.commit();
+
+
+
+
+
+            calendar.set(Calendar.SECOND, 0);
+
             mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         AlarmManager alarm_manager;
                         alarm_manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                        my_Intent = new Intent(MainActivity.this, Alarm_Receiver.class);
-                        PendingIntent pending_Intent;
-                        // Restore preferences
-                        SharedPreferences settings = getSharedPreferences("numOfAlarms", 0);
-                        int num = settings.getInt("value", 0);
-                        my_Intent.putExtra("medName", data_1);
-                        my_Intent.putExtra("numPills", data_2);
-                        my_Intent.putExtra("freq", data_4);
-                        my_Intent.putExtra("docName", data_5);
-                        my_Intent.putExtra("alarmNum", num);
-                        my_Intent.putExtra("alarmHour", calendar.getInstance().getTime().getHours());
-                        my_Intent.putExtra("alarmMinutes", calendar.getInstance().getTime().getMinutes());
-                        pending_Intent = PendingIntent.getBroadcast(MainActivity.this, num, my_Intent, 0);
-                        // We need an Editor object to make preference changes.
-                        // All objects are from android.context.Context
-                        settings = getSharedPreferences("numOfAlarms", 0);
+                        SharedPreferences settings = getSharedPreferences("Alarms", 0);
                         SharedPreferences.Editor editor = settings.edit();
-                        editor.putInt("value", num + 1);
+                        editor.putInt("AlarmSoundOn", 1);
                         // Commit the edits!
                         editor.commit();
-                        //set the alarm manager§
-                        calendar.set(Calendar.SECOND, 0);
-
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             alarm_manager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending_Intent);
@@ -446,31 +459,14 @@ public class MainActivity extends AppCompatActivity
                     {
                         AlarmManager alarm_manager;
                         alarm_manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                        my_Intent = new Intent(MainActivity.this, Alarm_Receiver.class);
-                        PendingIntent pending_Intent;
-                        // Restore preferences
-                        SharedPreferences settings = getSharedPreferences("numOfAlarms", 0);
-                        int num = settings.getInt("value", 0);
-                        my_Intent.putExtra("medName", data_1);
-                        my_Intent.putExtra("numPills", data_2);
-                        my_Intent.putExtra("freq", data_4);
-                        my_Intent.putExtra("docName", data_5);
-                        my_Intent.putExtra("alarmNum", num);
-                        my_Intent.putExtra("alarmHour", calendar.getInstance().getTime().getHours());
-                        my_Intent.putExtra("alarmMinutes", calendar.getInstance().getTime().getMinutes());
-                        pending_Intent = PendingIntent.getBroadcast(MainActivity.this, num, my_Intent, 0);
-                        // We need an Editor object to make preference changes.
-                        // All objects are from android.context.Context
-                        settings = getSharedPreferences("numOfAlarms", 0);
+
+                        alarm_manager.cancel(pending_Intent);
+
+                        SharedPreferences settings = getSharedPreferences("Alarms", 0);
                         SharedPreferences.Editor editor = settings.edit();
-                        editor.putInt("value", num - 1);
+                        editor.putInt("AlarmSoundOn", 0);
                         // Commit the edits!
                         editor.commit();
-                        //set the alarm manager§
-                        calendar.set(Calendar.SECOND, 0);
-
-
-                       alarm_manager.cancel(pending_Intent);
 
                     }
 

@@ -18,9 +18,6 @@ public class Alarm_Receiver extends BroadcastReceiver {
         wl.acquire();
 
 */
-
-
-
         //create an Intent to the Ringtone Service
         Intent service_intent = new Intent(context,RingtonePlayingService.class);
         //start this ringtone service
