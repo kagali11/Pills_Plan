@@ -3,7 +3,6 @@ package revolware.pillsplan.services.alarm;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.PowerManager;
 
 import revolware.pillsplan.activities.AlarmActivity.AlarmActivity;
 
@@ -13,10 +12,13 @@ import revolware.pillsplan.activities.AlarmActivity.AlarmActivity;
 public class Alarm_Receiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        WakeLocker.acquire(context);
+/*      PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "");
         wl.acquire();
+
+*/
+
 
 
         //create an Intent to the Ringtone Service
@@ -27,7 +29,7 @@ public class Alarm_Receiver extends BroadcastReceiver {
 
         Intent showAlarmActivity = new Intent(context.getApplicationContext(),AlarmActivity.class);
         showAlarmActivity.putExtra("medName",intent.getStringExtra("medName"));
-        showAlarmActivity.putExtra("numPills", intent.getStringExtra("numPills"));
+        showAlarmActivity.putExtra("numPills",intent.getStringExtra("numPills"));
         showAlarmActivity.putExtra("freq",intent.getStringExtra("freq"));
         showAlarmActivity.putExtra("docName",intent.getStringExtra("docName"));
         showAlarmActivity.putExtra("alarmNum",intent.getStringExtra("alarmNum"));
@@ -36,6 +38,7 @@ public class Alarm_Receiver extends BroadcastReceiver {
 
         showAlarmActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(showAlarmActivity);
+        WakeLocker.release();
 
     }
 }

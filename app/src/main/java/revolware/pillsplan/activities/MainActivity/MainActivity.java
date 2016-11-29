@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity
     Intent my_Intent;
     String getMedicineHistory;
     String getHistory[];
+            private static final String TAG = "MainActivity";
 
     //private static String TAG = MainActivity.class.getSimpleName();
 
@@ -360,7 +362,6 @@ public class MainActivity extends AppCompatActivity
             ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
                     R.array.minutes, android.R.layout.simple_spinner_item);
             // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             // Apply the adapter to the spinner
             spinner.setAdapter(adapter);
@@ -428,10 +429,51 @@ public class MainActivity extends AppCompatActivity
                         editor.putInt("value", num + 1);
                         // Commit the edits!
                         editor.commit();
-                        //set the alarm manager
+                        //set the alarm manager§
                         calendar.set(Calendar.SECOND, 0);
-                        alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), calendar.getInstance().getTime().getHours() * 1000 * 60 * 60 + calendar.getInstance().getTime().getMinutes() * 1000 * 60, pending_Intent);
+
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            alarm_manager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending_Intent);
+                        }
+                        else
+                        {
+                            alarm_manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending_Intent);
+                        }
+
                     }
+                    else
+                    {
+                        AlarmManager alarm_manager;
+                        alarm_manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                        my_Intent = new Intent(MainActivity.this, Alarm_Receiver.class);
+                        PendingIntent pending_Intent;
+                        // Restore preferences
+                        SharedPreferences settings = getSharedPreferences("numOfAlarms", 0);
+                        int num = settings.getInt("value", 0);
+                        my_Intent.putExtra("medName", data_1);
+                        my_Intent.putExtra("numPills", data_2);
+                        my_Intent.putExtra("freq", data_4);
+                        my_Intent.putExtra("docName", data_5);
+                        my_Intent.putExtra("alarmNum", num);
+                        my_Intent.putExtra("alarmHour", calendar.getInstance().getTime().getHours());
+                        my_Intent.putExtra("alarmMinutes", calendar.getInstance().getTime().getMinutes());
+                        pending_Intent = PendingIntent.getBroadcast(MainActivity.this, num, my_Intent, 0);
+                        // We need an Editor object to make preference changes.
+                        // All objects are from android.context.Context
+                        settings = getSharedPreferences("numOfAlarms", 0);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putInt("value", num - 1);
+                        // Commit the edits!
+                        editor.commit();
+                        //set the alarm manager§
+                        calendar.set(Calendar.SECOND, 0);
+
+
+                       alarm_manager.cancel(pending_Intent);
+
+                    }
+
                 }
             });
 
