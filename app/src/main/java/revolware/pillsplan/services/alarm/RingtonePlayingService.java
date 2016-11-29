@@ -14,7 +14,7 @@ import android.widget.Toast;
  */
 public class RingtonePlayingService extends Service {
 
-    MediaPlayer media_song;
+    MediaPlayer mp;
 
 
     @Nullable
@@ -29,20 +29,17 @@ public class RingtonePlayingService extends Service {
 
         //create an instance of mediaplayer
 
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        mp = MediaPlayer.create(getApplicationContext(),notification);
 
         if(intent.getStringExtra("play").equals("1")){
-            //media_song = MediaPlayer.create(this,R.raw.dear_god);
-Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-            MediaPlayer mp = MediaPlayer.create(getApplicationContext(),notification);
             mp.start();
-        //    media_song.start();
+            mp.setLooping(true);
+
             }
         else if(intent.getStringExtra("play").equals("0")){
-            //media_song.setLooping(false);
-
-
-
-            //media_song.stop();
+            mp.setLooping(false);
+            mp.stop();
             }
         return START_NOT_STICKY;
     }

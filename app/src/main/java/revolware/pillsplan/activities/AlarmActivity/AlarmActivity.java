@@ -53,7 +53,8 @@ public class AlarmActivity extends Activity {
                 //stop this ringtone service
                 AlarmActivity.this.startService(service_intent);
 
-
+                service_intent.putExtra("play","0");
+                getApplicationContext().startService(service_intent);
                 startActivity(i);
                 finish();
             }
