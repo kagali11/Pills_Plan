@@ -62,8 +62,7 @@
         <activity android:name=".activities.SplashScreen.SplashScreen" />
         <activity
             android:name=".database.Write_Database"
-            android:label="Your medicine"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="Your medicine" />
         <activity
             android:name=".activities.PillsInfo.PillsHistory"
             android:label="PillsHistory" />

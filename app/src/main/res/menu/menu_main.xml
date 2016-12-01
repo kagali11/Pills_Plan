@@ -33,7 +33,7 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="6.0 (26.11.2016)"
+        android:title="10.0 (1.12.2016)"
         app:showAsAction="never" />
 </menu>
 <!--

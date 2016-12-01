@@ -70,7 +70,7 @@ public class Display extends AppCompatActivity  {
         tw1 = (TextView) findViewById(R.id.textView);
 
         /*TODO: nepozna item_list z layoutu tak som to nateraz zakomentoval - opravit!!*/
-
+/*
         final String[] COUNTRIES = new String[] {
                 "Belgium", "France", "Italy", "Germany", "Spain"
         };
@@ -95,7 +95,7 @@ public class Display extends AppCompatActivity  {
 
             }
         });
-
+*/
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {

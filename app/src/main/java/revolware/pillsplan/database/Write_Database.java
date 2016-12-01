@@ -2,12 +2,26 @@ package revolware.pillsplan.database;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import revolware.pillsplan.R;
 import revolware.pillsplan.activities.PillsInfo.PillsInfo;
@@ -15,55 +29,83 @@ import revolware.pillsplan.models.Medicine;
 
 public class Write_Database extends AppCompatActivity {
 
-    TextView text_name;
+    TextView info, contradictions, loading;
 
-    public Button button;
 
-    public void BackPressed(){
-        button = (Button)findViewById(R.id.button);
-        button.setX(250);
-        button.setY(540);
-        button.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                Intent toy = new Intent(Write_Database.this, PillsInfo.class);
-                startActivity(toy);
-            }
-        });
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write__database);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        BackPressed();
+        info = (TextView) findViewById(R.id.textview_moreinfo_info);
+        contradictions = (TextView) findViewById(R.id.textview_moreinfo_contradictions);
+        loading = (TextView) findViewById(R.id.textview_moreinfo_loading);
 
-        text_name = (TextView) findViewById(R.id.textViewDefault);
+        Intent get_info = getIntent();
 
-        Intent get = getIntent();
+        new getAllMedicine().execute(get_info.getStringExtra("medicine"));
 
-        DatabaseHandler db = new DatabaseHandler(Write_Database.this);
-        SQLiteDatabase database = db.getWritableDatabase();
 
-        if(db.getMedicine(get.getStringExtra("medicine")) == null){
-            TextView t1 = new TextView(this);
-            t1.setText("Your pill is not in database...");
-        }else{
-            Medicine medicine = db.getMedicine(get.getStringExtra("medicine"));
-            text_name.setText("Name: " + medicine.getNAME() + "\n"
-                    + "\nDescription: " + medicine.getDESCRIPTION() + "\n"
-                    + "\nState: " + medicine.getSTATE() + "\n"
-                    + "\nIndication: " + medicine.getINDICATION() + "\n"
-                    + "\nLife: " + medicine.getLIFE() + "\n"
-                    + "\nDistribution: " + medicine.getDISTRIBUTION() + "\n"
-                    + "\nAbsorption: " + medicine.getABSORPTION() + "\n"
-                    + "\nClearence: " + medicine.getCLEARENCE() + "\n" + "\n" + "\n" + "\n" + "\n" );
+    }
+
+    public class getAllMedicine extends AsyncTask<String, JSONArray, JSONArray> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... strings) {
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpGet get = new HttpGet("http://hrabovec.hopto.org:7070/api/database/search?q=" + strings[0]);
+
+            Log.i("inside", strings[0]);
+
+            get.setHeader("Content-type", "application/json");
+            get.setHeader("Authorization", "Bearer " + strings[0]);
+
+            HttpResponse response;
+            JSONArray responseObject = null;
+
+            try {
+                response = httpClient.execute(get);
+                StatusLine statusline = response.getStatusLine();
+                Log.i("Spotify", "" + statusline.getStatusCode());
+                if (statusline.getStatusCode() == HttpStatus.SC_OK) {
+                    String jsonResponseString = EntityUtils.toString(response.getEntity());
+                    Log.i("spotify returned", jsonResponseString);
+                    responseObject = new JSONArray(jsonResponseString);
+                    Log.i("inside", responseObject.toString());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return responseObject;
         }
 
 
+        @Override
+        protected void onPostExecute(JSONArray result) {
+            if (result != null && result.length() != 0) {
+                try {
+                    JSONObject medicine = result.getJSONObject(0);
+                    //TODO set contradictions and info textivies to values from medicine, also set their visibility and hide visibility of Loading
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    loading.setText("Could not find your medicine");
+                }
+            }else{
+                loading.setText("Could not find your medicine");
+            }
+        }
     }
 }
