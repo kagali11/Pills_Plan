@@ -2,14 +2,14 @@ package revolware.pillsplan.activities.PillsInfo;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.google.android.gms.appdatasearch.GetRecentContextCall;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -17,15 +17,12 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
 import revolware.pillsplan.R;
-import revolware.pillsplan.activities.MainActivity.MainActivity;
-import revolware.pillsplan.activities.Tutorial.Tutorial;
 import revolware.pillsplan.database.Write_Database;
 
 /**
@@ -34,21 +31,8 @@ import revolware.pillsplan.database.Write_Database;
 
 public class PillsInfo extends AppCompatActivity {
 
-    public Button back;
     public Button print;
     public String sMedName;
-
-    public void BackPressed(){
-        back = (Button)findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent toy = new Intent(PillsInfo.this, MainActivity.class);
-                startActivity(toy);
-            }
-        });
-    }
 
     public void init2(){
 
@@ -68,7 +52,6 @@ public class PillsInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pills_info);
-        BackPressed();
 
         Intent getInfo = getIntent();
         sMedName = getInfo.getStringExtra("pills_info_data1");
@@ -76,6 +59,11 @@ public class PillsInfo extends AppCompatActivity {
         new getAllMedicine().execute(sMedName);
 
         init2();
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(sMedName);
+
 
         TextView MedName;
         TextView NumOfPills;
@@ -88,7 +76,6 @@ public class PillsInfo extends AppCompatActivity {
         BegDate = (TextView) findViewById(R.id.BegDate);
         Freq = (TextView) findViewById(R.id.Freq);
         DocName = (TextView) findViewById(R.id.DocName);
-
 
         String sNumOfPills;
         String sBegDate;
@@ -105,6 +92,17 @@ public class PillsInfo extends AppCompatActivity {
         BegDate.setText("Beginning date: " + sBegDate);
         Freq.setText("Frequency: " + sFreq);
         DocName.setText(sDocName);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public class getAllMedicine extends AsyncTask<String, JSONObject, JSONObject> {
