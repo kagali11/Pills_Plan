@@ -1,6 +1,7 @@
 package revolware.pillsplan.activities.PillsInfo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -9,6 +10,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
@@ -36,7 +40,7 @@ public class PillsInfo extends AppCompatActivity {
 
     public void init2(){
 
-        print = (Button)findViewById(R.id.print);
+        print = new Button(this);//findViewById(R.id.print);
         print.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -63,6 +67,18 @@ public class PillsInfo extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(sMedName);
+        actionBar.setElevation(0);
+
+        TabHost host = (TabHost)findViewById(R.id.tabHost);
+
+        host.setup();
+        host.getTabWidget().setStripEnabled(false);
+        host.setPadding(0, 0, 0, 0);
+
+        TabHost.TabSpec tb1 = host.newTabSpec("tab1");
+
+        LinearLayout lL = (LinearLayout) findViewById(R.id.tab1);
+        lL.setOrientation(LinearLayout.VERTICAL);
 
 
         TextView MedName;
@@ -71,11 +87,11 @@ public class PillsInfo extends AppCompatActivity {
         TextView Freq;
         TextView DocName;
 
-        MedName = (TextView) findViewById(R.id.MedName);
-        NumOfPills = (TextView) findViewById(R.id.NumOfPills);
-        BegDate = (TextView) findViewById(R.id.BegDate);
-        Freq = (TextView) findViewById(R.id.Freq);
-        DocName = (TextView) findViewById(R.id.DocName);
+        MedName = new TextView(this);
+        NumOfPills = new TextView(this);
+        BegDate = new TextView(this);
+        Freq = new TextView(this);
+        DocName = new TextView(this);
 
         String sNumOfPills;
         String sBegDate;
@@ -92,6 +108,35 @@ public class PillsInfo extends AppCompatActivity {
         BegDate.setText("Beginning date: " + sBegDate);
         Freq.setText("Frequency: " + sFreq);
         DocName.setText(sDocName);
+
+
+        lL.addView(NumOfPills);
+        lL.addView(BegDate);
+        lL.addView(Freq);
+        lL.addView(DocName);
+        lL.addView(print);
+
+        tb1.setIndicator("OVERVIEW");
+        tb1.setContent(R.id.tab1);
+        host.addTab(tb1);
+
+
+
+        TabHost.TabSpec tb2 = host.newTabSpec("tab2");
+
+        tb2.setIndicator("DETAILS");
+        tb2.setContent(R.id.tab2);
+        host.addTab(tb2);
+
+        final TabWidget tw = (TabWidget)host.findViewById(android.R.id.tabs);
+        for (int i = 0; i < tw.getChildCount(); ++i)
+        {
+            final View tabView = tw.getChildTabViewAt(i);
+            final TextView tv = (TextView)tabView.findViewById(android.R.id.title);
+            tv.setTextSize(17);
+            tv.setTextColor(Color.WHITE);
+        }
+
     }
 
     @Override
