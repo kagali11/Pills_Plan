@@ -2,11 +2,16 @@ package revolware.pillsplan.activities.PillsInfo;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +33,8 @@ import java.io.IOException;
 
 import revolware.pillsplan.R;
 import revolware.pillsplan.database.Write_Database;
+
+import static revolware.pillsplan.R.id.tabHost;
 
 /**
  * Created By Dano on 25.6.2016
@@ -66,10 +73,12 @@ public class PillsInfo extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(sMedName);
+        SpannableString abTitle = new SpannableString(sMedName);
+        abTitle.setSpan(new TypefaceSpan("Roboto-Medium.ttf"), 0, abTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        actionBar.setTitle(abTitle);
         actionBar.setElevation(0);
 
-        TabHost host = (TabHost)findViewById(R.id.tabHost);
+        TabHost host = (TabHost)findViewById(tabHost);
 
         host.setup();
         host.getTabWidget().setStripEnabled(false);
@@ -80,15 +89,22 @@ public class PillsInfo extends AppCompatActivity {
         LinearLayout lL = (LinearLayout) findViewById(R.id.tab1);
         lL.setOrientation(LinearLayout.VERTICAL);
 
+        LinearLayout numPillsL = new LinearLayout(this);
+        numPillsL.setOrientation(LinearLayout.HORIZONTAL);
+        numPillsL.setGravity(Gravity.CENTER_HORIZONTAL);
+        numPillsL.setBackgroundColor(Color.rgb(233,233,233));
+
 
         TextView MedName;
         TextView NumOfPills;
+        TextView NumOfPillsS;
         TextView BegDate;
         TextView Freq;
         TextView DocName;
 
         MedName = new TextView(this);
         NumOfPills = new TextView(this);
+        NumOfPillsS = new TextView(this);
         BegDate = new TextView(this);
         Freq = new TextView(this);
         DocName = new TextView(this);
@@ -104,13 +120,25 @@ public class PillsInfo extends AppCompatActivity {
         sDocName =  getInfo.getStringExtra("pills_info_data5");
 
         MedName.setText(sMedName);
-        NumOfPills.setText("Remaining pills: " + sNumOfPills);
+        NumOfPills.setText(sNumOfPills);
+        NumOfPillsS.setText("pills remaining in package");
         BegDate.setText("Beginning date: " + sBegDate);
         Freq.setText("Frequency: " + sFreq);
         DocName.setText(sDocName);
 
+        NumOfPills.setBackgroundColor(Color.rgb(233,233,233));
+        NumOfPills.setTextSize(44);
+        NumOfPills.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf") );
+        NumOfPills.setPadding(0,10,20,20);
+        NumOfPillsS.setBackgroundColor(Color.rgb(233,233,233));
+        NumOfPillsS.setPadding(20,10,20,20);
+        NumOfPillsS.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf") );;
+        NumOfPillsS.setTextSize(19);
 
-        lL.addView(NumOfPills);
+        numPillsL.addView(NumOfPills);
+        numPillsL.addView(NumOfPillsS);
+
+        lL.addView(numPillsL);
         lL.addView(BegDate);
         lL.addView(Freq);
         lL.addView(DocName);
