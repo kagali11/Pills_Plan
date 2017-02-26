@@ -1,14 +1,12 @@
 package revolware.pillsplan.database;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
@@ -24,8 +22,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import revolware.pillsplan.R;
-import revolware.pillsplan.activities.PillsInfo.PillsInfo;
-import revolware.pillsplan.models.Medicine;
 
 public class Write_Database extends AppCompatActivity {
 
@@ -38,6 +34,8 @@ public class Write_Database extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write__database);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         info = (TextView) findViewById(R.id.textview_moreinfo_info);
         contradictions = (TextView) findViewById(R.id.textview_moreinfo_contradictions);
@@ -48,6 +46,17 @@ public class Write_Database extends AppCompatActivity {
         new getAllMedicine().execute(get_info.getStringExtra("medicine"));
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public class getAllMedicine extends AsyncTask<String, JSONArray, JSONArray> {

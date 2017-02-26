@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.StateListDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -64,7 +62,7 @@ import revolware.pillsplan.services.alarm.Alarm_Receiver;
 public class MainActivity extends AppCompatActivity
         //implements FragmentDrawer.FragmentDrawerListener
         {
-    int hour, minute;
+    int hour, minute, color;
     String sMinute;
     TextView tw1;
     Intent intent;
@@ -376,13 +374,13 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     //intent.putExtra("timeHour",parent.getItemIdAtPosition(position));
-                    calendar.set(calendar.HOUR_OF_DAY, (int) parent.getItemIdAtPosition(position));
+                    calendar.set(Calendar.HOUR_OF_DAY, (int) parent.getItemIdAtPosition(position));
                     hour = (int) parent.getItemIdAtPosition(position);
                 }
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                     //intent.putExtra("timeHour","0");
-                    calendar.set(calendar.HOUR_OF_DAY, 0);
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
                     hour = 0;
                 }
             });
@@ -392,7 +390,7 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     //intent.putExtra("timeMinute", parent.getItemIdAtPosition(position));
-                    calendar.set(calendar.MINUTE, (int) parent.getItemIdAtPosition(position));
+                    calendar.set(Calendar.MINUTE, (int) parent.getItemIdAtPosition(position));
                     minute = (int) parent.getItemIdAtPosition(position);
                     sMinute = String.valueOf(minute);
                     if (minute < 10) {
@@ -402,11 +400,14 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                     //intent.putExtra("timeMinute", "0");
-                    calendar.set(calendar.MINUTE, 0);
+                    calendar.set(Calendar.MINUTE, 0);
                     minute = 0;
                 }
             });
 
+
+            color = randomColor();
+            final String data_6 = String.valueOf(color);
 
 
             final PendingIntent pending_Intent;
@@ -421,8 +422,9 @@ public class MainActivity extends AppCompatActivity
                 my_Intent.putExtra("freq", data_4);
                 my_Intent.putExtra("docName", data_5);
                 my_Intent.putExtra("alarmNum", num);
-                my_Intent.putExtra("alarmHour", calendar.getInstance().getTime().getHours());
-                my_Intent.putExtra("alarmMinutes", calendar.getInstance().getTime().getMinutes());
+                my_Intent.putExtra("alarmHour", Calendar.getInstance().getTime().getHours());
+                my_Intent.putExtra("alarmMinutes", Calendar.getInstance().getTime().getMinutes());
+                my_Intent.putExtra("color", color);
 
             pending_Intent = PendingIntent.getBroadcast(MainActivity.this, num, my_Intent, 0);
 
@@ -480,7 +482,7 @@ public class MainActivity extends AppCompatActivity
 
             TextView colorBar = new TextView(this);
             colorBar.setText("");
-            colorBar.setBackgroundColor(randomColor());
+            colorBar.setBackgroundColor(color);
             colorBar.setLayoutParams(new ViewGroup.LayoutParams(25, ViewGroup.LayoutParams.MATCH_PARENT));
 
 
@@ -528,6 +530,7 @@ public class MainActivity extends AppCompatActivity
                         toy.putExtra("pills_info_data3", data_3);
                         toy.putExtra("pills_info_data4", data_4);
                         toy.putExtra("pills_info_data5", data_5);
+                        toy.putExtra("pills_info_data6", data_6);
                         startActivity(toy);
                     }
 
