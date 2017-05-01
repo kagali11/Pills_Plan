@@ -55,7 +55,7 @@ import revolware.pillsplan.activities.PillsInfo.PillsHistory;
 import revolware.pillsplan.activities.PillsInfo.PillsInfo;
 import revolware.pillsplan.activities.Popup.Popup;
 import revolware.pillsplan.activities.Tutorial.Tutorial;
-import revolware.pillsplan.activities.loginActivity.LoginActivity;
+import revolware.pillsplan.activities.LoginActivity.LoginActivity;
 import revolware.pillsplan.models.AlarmInfo;
 import revolware.pillsplan.services.alarm.Alarm_Receiver;
 

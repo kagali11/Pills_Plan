@@ -14,4 +14,9 @@
     <color name="login_green">#0bc173</color>
     <color name="login_gray">#8396af</color>
     <color name="login_textcolor">#388b66</color>
+    <color name="hint_gray">#8396af</color>
+    <color name="blue_male">#367ab8</color>
+    <color name="pink_female">#f35a94</color>
+    <color name="darkgrayText">#7e7e7f</color>
+    <color name="pickedColor">#e3dfdf</color>
 </resources>

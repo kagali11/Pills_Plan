@@ -88,7 +88,12 @@
             android:name=".activities.PillsInfo.PillHistorySpecific"
             android:label="@string/title_activity_pill_history_specific"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.loginActivity.LoginActivity"></activity>
+        <activity
+            android:name=".activities.LoginActivity.LoginActivity"
+            android:label="Login" />
+        <activity
+            android:name=".activities.RegisterActivity.RegisterActivity"
+            android:label="Register" />
     </application>
 
 </manifest>
