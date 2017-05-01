@@ -55,6 +55,7 @@ import revolware.pillsplan.activities.PillsInfo.PillsHistory;
 import revolware.pillsplan.activities.PillsInfo.PillsInfo;
 import revolware.pillsplan.activities.Popup.Popup;
 import revolware.pillsplan.activities.Tutorial.Tutorial;
+import revolware.pillsplan.activities.loginActivity.LoginActivity;
 import revolware.pillsplan.models.AlarmInfo;
 import revolware.pillsplan.services.alarm.Alarm_Receiver;
 
@@ -699,6 +700,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_about) {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.revolware.com"));
             startActivity(browserIntent);
+            return true;
+        }
+
+        if (id == R.id.action_login) {
+            Intent i3 = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(i3);
             return true;
         }
 

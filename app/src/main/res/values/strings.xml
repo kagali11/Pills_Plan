@@ -2,6 +2,7 @@
     <string name="app_name">PillsPlan</string>
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
+    <string name="action_login">Login</string>
     <string name="action_feedback">Feedback</string>
     <string name="action_add">Add</string>
     <string name="textViewTutorText">Click on the plus button to add your pills.</string>

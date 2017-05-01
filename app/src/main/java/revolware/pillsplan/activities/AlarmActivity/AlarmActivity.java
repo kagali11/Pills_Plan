@@ -2,6 +2,7 @@ package revolware.pillsplan.activities.AlarmActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +19,7 @@ import revolware.pillsplan.services.alarm.RingtonePlayingService;
 public class AlarmActivity extends Activity {
 
     TextView TimeT;
+    TextView InfoText;
     TextView MedName;
     TextView PillLeft;
     TextView Freq;
@@ -39,6 +41,7 @@ public class AlarmActivity extends Activity {
 
 
         TimeT = (TextView) findViewById(R.id.timetext);
+        InfoText = (TextView) findViewById(R.id.msgtext);
         MedName = (TextView) findViewById(R.id.pilltext);
         PillLeft = (TextView) findViewById(R.id.lefttext);
         Freq = (TextView) findViewById(R.id.freqtext);
@@ -48,10 +51,16 @@ public class AlarmActivity extends Activity {
 
         final Intent getInformation = getIntent();
         Calendar c = Calendar.getInstance();
+        TimeT.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Thin.ttf") );
         TimeT.setText(c.get(Calendar.HOUR)+":"+c.get(Calendar.MINUTE));
+        InfoText.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Regular.ttf") );
+        MedName.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf") );
         MedName.setText(getInformation.getStringExtra("medName"));
+        PillLeft.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf") );
         PillLeft.setText("Pills left: " + getInformation.getStringExtra("numPills"));
+        Freq.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf") );
         Freq.setText("Frequency: " + getInformation.getStringExtra("freq") + "/h");
+        DrName.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf") );
         DrName.setText("Dr\'s name: " + getInformation.getStringExtra("docName"));
 
 
